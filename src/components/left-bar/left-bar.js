@@ -1,19 +1,32 @@
 import React from 'react';
-import 'antd/dist/antd.css';
-import { Checkbox } from 'antd';
 import classes from './left-bar.module.scss';
 
-const { Group } = Checkbox;
-
-const plainOptions = ['Без пересадок', 'Одна пересадка', 'Две пересадки', 'Три пересадки'];
+const options = [
+  {key: 'all', value: 'Все'},
+  {key: 'without', value: 'Без пересадок'},
+  {key: 'one', value: 'Одна пересадка'},
+  {key: 'two', value: 'Две пересадки'},
+  {key: 'three', value: 'Три пересадки'},
+];
 
 export default function LeftBar() {
+
+const list = options.map (({key, value}) => {
+  return (
+    <li key={key}>
+      <label>
+        <input type='checkbox' value={value}/>{value}
+      </label>
+    </li>
+  )
+})
+
   return (
     <div className={classes.wrapper}>
-      <Checkbox indeterminate={false} onChange={() => {}} checked={false}>
-        Все
-      </Checkbox>
-      <Group className={classes.group} options={plainOptions} value={plainOptions[0]} onChange={() => {}} />
+      <span>Количество пересадок</span>
+      <ul className={classes.list}>
+        {list}
+      </ul>
     </div>
   );
 }
