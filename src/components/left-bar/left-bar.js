@@ -1,4 +1,9 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from '../../actions';
 import classes from './left-bar.module.scss';
 
 const options = [
@@ -9,11 +14,16 @@ const options = [
   {key: 'three', value: 'Три пересадки'},
 ];
 
-export default function LeftBar() {
+function LeftBar(tglAll = () => {}, tgl = () => {}) {
+
+const toggle = (key) => {
+  // eslint-disable-next-line no-unused-expressions
+  (key === 'all') ? tglAll() : tgl(key)
+}
 
 const list = options.map (({key, value}) => {
   return (
-    <li key={key}>
+    <li key={key} onClick={() => toggle(key)}>
       <label>
         <input type='checkbox' value={value}/>{value}
       </label>
@@ -30,3 +40,15 @@ const list = options.map (({key, value}) => {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({...state})
+
+const mapDispatchToProps = (dispatch) => {
+  const { tgl, tglAll } = bindActionCreators(actions, dispatch)
+  return {
+    tgl,
+    tglAll
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftBar)

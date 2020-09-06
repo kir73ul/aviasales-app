@@ -1,4 +1,3 @@
 
-export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX';
-export const TOGGLE_ALL = 'TOGGLE_ALL';
-export const TOGGLE_COMMON_CHECKBOX = 'TOGGLE_COMMON_CHECKBOX';
+export const tgl = (key) => ({type: 'TOGGLE_CHECKBOX', key})
+export const tglAll = () => ({type: 'TOGGLE_ALL'})

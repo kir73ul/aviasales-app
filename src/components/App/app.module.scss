@@ -1,7 +1,12 @@
+body {
+  background: #f3f7fa;
+}
+
 .app {
   margin: auto;
-  background: #f3f7fa;
+  
   padding: 50px 0;
+  width: 80%;
   font-family: 'Open Sans', sans-serif;
 
   @media (max-width: 476px) {
