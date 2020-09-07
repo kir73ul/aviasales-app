@@ -2,30 +2,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators,  } from 'redux';
 import * as actions from '../../actions';
 import classes from './left-bar.module.scss';
 
-const options = [
-  {key: 'all', value: 'Все'},
-  {key: 'without', value: 'Без пересадок'},
-  {key: 'one', value: 'Одна пересадка'},
-  {key: 'two', value: 'Две пересадки'},
-  {key: 'three', value: 'Три пересадки'},
-];
 
-function LeftBar(tglAll = () => {}, tgl = () => {}) {
+function LeftBar({state, tglAll, tgl }) {
 
 const toggle = (key) => {
-  // eslint-disable-next-line no-unused-expressions
-  (key === 'all') ? tglAll() : tgl(key)
+  tgl(key);
+  if (key === 'all') tglAll()
 }
 
-const list = options.map (({key, value}) => {
+const list = state.map (({key, value, selected}) => {
   return (
     <li key={key} onClick={() => toggle(key)}>
       <label>
-        <input type='checkbox' value={value}/>{value}
+        <input type='checkbox' value={value} checked={selected}/>{value}
       </label>
     </li>
   )
@@ -41,7 +34,7 @@ const list = options.map (({key, value}) => {
   );
 }
 
-const mapStateToProps = (state) => ({...state})
+const mapStateToProps = (state) => ({state})
 
 const mapDispatchToProps = (dispatch) => {
   const { tgl, tglAll } = bindActionCreators(actions, dispatch)
