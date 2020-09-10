@@ -24,7 +24,7 @@ export default function App() {
   return (
     <div className={classes.app}>
       <AppHeader />
-      <div className={classes['main-wrapper']} >
+      <div className={classes['main-wrapper']}>
         <LeftBar />
         <div className={classes['sub-wrapper']}>
           <TicketsMenu />

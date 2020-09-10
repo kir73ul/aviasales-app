@@ -22,20 +22,16 @@ function TicketsMenu({ priority, tglPriority }) {
     );
   });
 
-  return (
-    <div className={classes.menu}>
-      {btns}
-    </div>
-  );
+  return <div className={classes.menu}>{btns}</div>;
 }
 
-const mapStateToProps = (state) => ({priority: state.priority})
+const mapStateToProps = (state) => ({ priority: state.priority });
 
 const mapDispatchToProps = (dispatch) => {
-  const { tglPriority } = bindActionCreators(actions, dispatch)
+  const { tglPriority } = bindActionCreators(actions, dispatch);
   return {
-    tglPriority
-  }
-}
+    tglPriority,
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(TicketsMenu)
+export default connect(mapStateToProps, mapDispatchToProps)(TicketsMenu);
