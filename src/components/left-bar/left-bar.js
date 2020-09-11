@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import classes from './left-bar.module.scss';
 
-function LeftBar({ filter, tglAllCheckboxes, tglCheckbox }) {
+function LeftBar({ switcher, tglAllCheckboxes, tglCheckbox }) {
   const checkboxes = [
     { key: 'all', value: 'Все' },
     { key: 'without', value: 'Без пересадок' },
@@ -27,7 +27,7 @@ function LeftBar({ filter, tglAllCheckboxes, tglCheckbox }) {
     return (
       <li key={key}>
         <label>
-          <input type="checkbox" value={value} checked={filter[key]} onClick={(evt) => toggle(evt, key)} />
+          <input type="checkbox" value={value} checked={switcher[key]} onClick={(evt) => toggle(evt, key)} />
           {value}
         </label>
       </li>
@@ -42,7 +42,7 @@ function LeftBar({ filter, tglAllCheckboxes, tglCheckbox }) {
   );
 }
 
-const mapStateToProps = ({ checkboxSwitcher }) => ({ filter: checkboxSwitcher });
+const mapStateToProps = ({ checkboxSwitcher }) => ({ switcher: checkboxSwitcher });
 
 const mapDispatchToProps = (dispatch) => {
   const { tglCheckbox, tglAllCheckboxes } = bindActionCreators(actions, dispatch);

@@ -10,21 +10,20 @@ const initialState = {
 
 const checks = ['without', 'one', 'two', 'three'];
 
-const setKey = (obj, key, value) => {
-  const newObj = { ...obj, [key]: value };
-  const keyCounter = checks.reduce((acc, item) => (newObj[item] ? acc + 1 : acc), 0);
-
-  keyCounter === 4 ? (newObj.all = true) : (newObj.all = false);
-  return newObj;
+const setKey = (state, key, value) => {
+  const newState = { ...state, [key]: value };
+  const keyCounter = checks.reduce((acc, item) => (newState[item] ? acc + 1 : acc), 0);
+  keyCounter === 4 ? (newState.all = true) : (newState.all = false);
+  return newState;
 };
 
-const setAllKeys = (obj, value) => {
-  const { priority, ...newObj } = obj;
-  newObj.all = value;
+const setAllKeys = (state, value) => {
+  const { priority, ...newState } = state;
+  newState.all = value;
   checks.forEach((key) => {
-    newObj[key] = value;
+    newState[key] = value;
   });
-  return newObj;
+  return newState;
 };
 
 export default function checkboxSwitcher(state = initialState, action) {

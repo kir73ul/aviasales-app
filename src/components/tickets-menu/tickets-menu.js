@@ -25,7 +25,7 @@ function TicketsMenu({ priority, tglPriority }) {
   return <div className={classes.menu}>{btns}</div>;
 }
 
-const mapStateToProps = ({ priorityFilter }) => ({ priority: priorityFilter.priority });
+const mapStateToProps = ({ priorityFilter }) => ({ priority: priorityFilter });
 
 const mapDispatchToProps = (dispatch) => {
   const { tglPriority } = bindActionCreators(actions, dispatch);

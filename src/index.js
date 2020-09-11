@@ -7,14 +7,14 @@ import priorityFilter from './reducers/priorityFilter';
 import 'normalize.css';
 import App from './components/App';
 
-const logger = store => next => action => {
-  console.log('dispatching', action)
-  const result = next(action)
-  console.log('next state', store.getState())
-  return result
-}
+const logger = (store) => (next) => (action) => {
+  console.log('dispatching', action);
+  const result = next(action);
+  console.log('next state', store.getState());
+  return result;
+};
 
-const reducer = combineReducers({ checkboxSwitcher, priorityFilter })
+const reducer = combineReducers({ checkboxSwitcher, priorityFilter });
 
 const store = createStore(reducer, applyMiddleware(logger));
 
