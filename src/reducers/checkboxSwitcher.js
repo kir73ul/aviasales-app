@@ -6,7 +6,6 @@ const initialState = {
   one: false,
   two: false,
   three: false,
-  priority: 'cheapest',
 };
 
 const checks = ['without', 'one', 'two', 'three'];
@@ -25,12 +24,10 @@ const setAllKeys = (obj, value) => {
   checks.forEach((key) => {
     newObj[key] = value;
   });
-  return { ...newObj, priority };
+  return newObj;
 };
 
-const setPriority = (obj, value) => ({ ...obj, priority: value });
-
-export default function reducer(state = initialState, action) {
+export default function checkboxSwitcher(state = initialState, action) {
   const { type, key, value } = action;
 
   switch (type) {
@@ -39,9 +36,6 @@ export default function reducer(state = initialState, action) {
 
     case 'TOGGLE_ALL_CHECKBOXES':
       return setAllKeys(state, value);
-
-    case 'TOGGLE_PRIORITY':
-      return setPriority(state, value);
 
     default:
       return state;

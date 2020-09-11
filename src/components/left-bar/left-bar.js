@@ -42,7 +42,7 @@ function LeftBar({ filter, tglAllCheckboxes, tglCheckbox }) {
   );
 }
 
-const mapStateToProps = (state) => ({ filter: state });
+const mapStateToProps = ({ checkboxSwitcher }) => ({ filter: checkboxSwitcher });
 
 const mapDispatchToProps = (dispatch) => {
   const { tglCheckbox, tglAllCheckboxes } = bindActionCreators(actions, dispatch);

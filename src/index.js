@@ -1,12 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducer';
+import checkboxSwitcher from './reducers/checkboxSwitcher';
+import priorityFilter from './reducers/priorityFilter';
 import 'normalize.css';
 import App from './components/App';
 
-const store = createStore(reducer);
+const logger = store => next => action => {
+  console.log('dispatching', action)
+  const result = next(action)
+  console.log('next state', store.getState())
+  return result
+}
+
+const reducer = combineReducers({ checkboxSwitcher, priorityFilter })
+
+const store = createStore(reducer, applyMiddleware(logger));
 
 ReactDOM.render(
   <Provider store={store}>
