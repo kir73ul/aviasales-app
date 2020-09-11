@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
 import checkboxSwitcher from './reducers/checkboxSwitcher';
 import priorityFilter from './reducers/priorityFilter';
@@ -16,7 +17,7 @@ const logger = (store) => (next) => (action) => {
 
 const reducer = combineReducers({ checkboxSwitcher, priorityFilter });
 
-const store = createStore(reducer, applyMiddleware(logger));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(logger)));
 
 ReactDOM.render(
   <Provider store={store}>
