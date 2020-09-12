@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import format from 'date-fns/format';
 import { itemsFetchData } from '../../actions';
 import classes from './tickets-list.module.scss';
 
@@ -45,7 +46,7 @@ class TicketsList extends Component {
           </span>
           <span className={classes.subtitle}>в пути</span>
           <span className={classes.subtitle}>{stops.length} пересадок</span>
-          <span className={classes.parametr}>{date}</span>
+          <span className={classes.date}>{format(new Date(date), 'PPP p')}</span>
           <span className={classes.parametr}>{duration}</span>
           <span className={classes.parametr}>{stopsToSpan(stops)}</span>
           <span className={classes.subtitle}>
@@ -53,7 +54,7 @@ class TicketsList extends Component {
           </span>
           <span className={classes.subtitle}>в пути</span>
           <span className={classes.subtitle}>{stopsBack.length} пересадок</span>
-          <span className={classes.parametr}>{dateBack}</span>
+          <span className={classes.date}>{format(new Date(dateBack), 'PPP p')}</span>
           <span className={classes.parametr}>{durationBack}</span>
           <span className={classes.parametr}>{stopsToSpan(stopsBack)}</span>
         </div>
