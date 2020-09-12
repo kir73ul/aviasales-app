@@ -1,49 +1,82 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { itemsFetchData } from '../../actions';
 import classes from './tickets-list.module.scss';
-import S7 from './imgs/S7.png';
 
-export default function TicketsList({ data }) {
-  const tickets = data.map((item) => {
-    const {
-      price,
-      airline,
-      forwWay,
-      backWay,
-      forwTime,
-      forwDuration,
-      backTime,
-      backDuration,
-      forwTransfers,
-      backTransfers,
-    } = item;
+class TicketsList extends Component {
+  componentDidMount() {
+    const { fetchData } = this.props;
+    fetchData();
+  }
 
-    return (
-      <div className={classes['card-ticket']}>
-        <span className={classes.price}>{price}</span>
-        <img className={classes.airline} src={S7} alt={airline} />
-        <span className={classes.subtitle}>{forwWay}</span>
-        <span className={classes.subtitle}>в пути</span>
-        <span className={classes.subtitle}>{forwTransfers[0]} пересадок</span>
-        <span className={classes.parametr}>{forwTime}</span>
-        <span className={classes.parametr}>{forwDuration}</span>
-        <span className={classes.parametr}>{forwTransfers[1]}</span>
-        <span className={classes.subtitle}>{backWay}</span>
-        <span className={classes.subtitle}>в пути</span>
-        <span className={classes.subtitle}>{backTransfers[0]} пересадок</span>
-        <span className={classes.parametr}>{backTime}</span>
-        <span className={classes.parametr}>{backDuration}</span>
-        <span className={classes.parametr}>{backTransfers[1]}</span>
-      </div>
-    );
-  });
+  render() {
+    const stopsToSpan = (arr) => arr.map((stop) => <span>{stop}, </span>);
 
-  return (
-    <div className={classes.wrapper}>
-      {tickets}
-      {tickets}
-      {tickets}
-      {tickets}
-    </div>
-  );
+    const { items, hasErrored, isLoading } = this.props;
+
+    if (hasErrored) {
+      return <p>Sorry! There was an error loading the items</p>;
+    }
+
+    if (isLoading) {
+      return <p>Loading…</p>;
+    }
+
+    const elems = items.slice(0, 9).map((item) => {
+      const { price, carrier, segments } = item;
+
+      const { origin, destination, date, stops, duration } = segments[0];
+      const {
+        origin: originBack,
+        destination: destinationBack,
+        date: dateBack,
+        stops: stopsBack,
+        duration: durationBack,
+      } = segments[1];
+
+      return (
+        <div className={classes['card-ticket']}>
+          <span className={classes.price}>{price} RUB</span>
+          <img className={classes.airline} src={carrier} alt={carrier} />
+          <span className={classes.subtitle}>
+            {origin} - {destination}
+          </span>
+          <span className={classes.subtitle}>в пути</span>
+          <span className={classes.subtitle}>{stops.length} пересадок</span>
+          <span className={classes.parametr}>{date}</span>
+          <span className={classes.parametr}>{duration}</span>
+          <span className={classes.parametr}>{stopsToSpan(stops)}</span>
+          <span className={classes.subtitle}>
+            {originBack} - {destinationBack}
+          </span>
+          <span className={classes.subtitle}>в пути</span>
+          <span className={classes.subtitle}>{stopsBack.length} пересадок</span>
+          <span className={classes.parametr}>{dateBack}</span>
+          <span className={classes.parametr}>{durationBack}</span>
+          <span className={classes.parametr}>{stopsToSpan(stopsBack)}</span>
+        </div>
+      );
+    });
+
+    return <div className={classes.wrapper}>{elems}</div>;
+  }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.items,
+    hasErrored: state.itemsHasErrored,
+    isLoading: state.itemsIsLoading,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const fetchData = bindActionCreators(itemsFetchData, dispatch);
+  return {
+    fetchData,
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TicketsList);
