@@ -13,7 +13,6 @@ class TicketsList extends Component {
   }
 
   render() {
-    const stopsToSpan = (arr) => arr.map((stop) => <span>{stop}, </span>);
 
     const { items, hasErrored, isLoading } = this.props;
 
@@ -48,7 +47,7 @@ class TicketsList extends Component {
           <span className={classes.subtitle}>{stops.length} пересадок</span>
           <span className={classes.date}>{format(new Date(date), 'PPP p')}</span>
           <span className={classes.parametr}>{duration}</span>
-          <span className={classes.parametr}>{stopsToSpan(stops)}</span>
+          <span className={classes.parametr}>{stops.join(', ')}</span>
           <span className={classes.subtitle}>
             {originBack} - {destinationBack}
           </span>
@@ -56,7 +55,7 @@ class TicketsList extends Component {
           <span className={classes.subtitle}>{stopsBack.length} пересадок</span>
           <span className={classes.date}>{format(new Date(dateBack), 'PPP p')}</span>
           <span className={classes.parametr}>{durationBack}</span>
-          <span className={classes.parametr}>{stopsToSpan(stopsBack)}</span>
+          <span className={classes.parametr}>{stopsBack.join(', ')}</span>
         </div>
       );
     });
@@ -65,13 +64,7 @@ class TicketsList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    items: state.items,
-    hasErrored: state.itemsHasErrored,
-    isLoading: state.itemsIsLoading,
-  };
-};
+const mapStateToProps = ({items, hasErrored, isLoading}) => ({items, hasErrored, isLoading});
 
 const mapDispatchToProps = (dispatch) => {
   const fetchData = bindActionCreators(itemsFetchData, dispatch);

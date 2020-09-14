@@ -1,4 +1,4 @@
-export function itemsHasErrored(state = false, action) {
+export function hasErrored(state = false, action) {
   switch (action.type) {
     case 'ITEMS_HAS_ERRORED':
       return action.hasErrored;
@@ -8,7 +8,7 @@ export function itemsHasErrored(state = false, action) {
   }
 }
 
-export function itemsIsLoading(state = false, action) {
+export function isLoading(state = false, action) {
   switch (action.type) {
     case 'ITEMS_IS_LOADING':
       return action.isLoading;
