@@ -5,9 +5,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
-import classes from './left-bar.module.scss';
+import classes from './transfers-filters.module.scss';
 
-function LeftBar({ switcher, tglAllCheckboxes, tglCheckbox }) {
+function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   const checkboxes = [
     { key: 'all', value: 'Все' },
     { key: 'without', value: 'Без пересадок' },
@@ -52,4 +52,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LeftBar);
+export default connect(mapStateToProps, mapDispatchToProps)(TransfersFilters);

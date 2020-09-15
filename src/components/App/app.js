@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './app.module.scss';
 import AppHeader from '../app-header';
-import LeftBar from '../left-bar';
+import TransfersFilters from '../transfers-filters';
 import TicketsMenu from '../tickets-menu';
 import TicketsList from '../tickets-list';
 
@@ -10,7 +10,7 @@ export default function App() {
     <div className={classes.app}>
       <AppHeader />
       <div className={classes['main-wrapper']}>
-        <LeftBar />
+        <TransfersFilters />
         <div className={classes['sub-wrapper']}>
           <TicketsMenu />
           <TicketsList />
