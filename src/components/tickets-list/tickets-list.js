@@ -2,13 +2,15 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import format from 'date-fns/format';
+import { formatDate, formatDuration } from '../../helpers/formatDate';
+import transfersHandler from '../../helpers/transfers-handler';
 import IdBase from '../../helpers/idBase';
 import { itemsFetchData } from '../../actions';
 import classes from './tickets-list.module.scss';
 
 function TicketsList({ items, hasErrored, isLoading, fetchData }) {
   const idBase = new IdBase();
+  const MSEC_IN_MIN = 60000;
 
   useEffect(() => {
     fetchData();
@@ -36,8 +38,17 @@ function TicketsList({ items, hasErrored, isLoading, fetchData }) {
       duration: durationBack,
     } = segments[1];
 
-    const departTime = format(new Date(date), 'HH:mm');
-    const departTimeBack = format(new Date(dateBack), 'HH:mm');
+    const departTime = formatDate(date);
+    const departTimeBack = formatDate(dateBack);
+    const arrive = Date.parse(date) + duration * MSEC_IN_MIN;
+    const arriveBack = Date.parse(dateBack) + duration * MSEC_IN_MIN;
+    const arrivalTime = formatDate(arrive);
+    const arrivalTimeBack = formatDate(arriveBack);
+    const ftdDuration = formatDuration(duration);
+    const ftdDurationBack = formatDuration(durationBack);
+    const transfers = transfersHandler(stops.length);
+    const transfersBack = transfersHandler(stopsBack.length);
+
     const carrierLogo = `https://pics.avs.io/99/36/${carrier}.png`;
 
     return (
@@ -48,17 +59,21 @@ function TicketsList({ items, hasErrored, isLoading, fetchData }) {
           {origin} - {destination}
         </span>
         <span className={classes.subtitle}>в пути</span>
-        <span className={classes.subtitle}>{stops.length} пересадок</span>
-        <span className={classes.date}>{departTime}</span>
-        <span className={classes.parametr}>{duration}</span>
+        <span className={classes.subtitle}>{transfers}</span>
+        <span className={classes.date}>
+          {departTime} - {arrivalTime}
+        </span>
+        <span className={classes.parametr}>{ftdDuration}</span>
         <span className={classes.parametr}>{stops.join(', ')}</span>
         <span className={classes.subtitle}>
           {originBack} - {destinationBack}
         </span>
         <span className={classes.subtitle}>в пути</span>
-        <span className={classes.subtitle}>{stopsBack.length} пересадок</span>
-        <span className={classes.date}>{departTimeBack}</span>
-        <span className={classes.parametr}>{durationBack}</span>
+        <span className={classes.subtitle}>{transfersBack}</span>
+        <span className={classes.date}>
+          {departTimeBack} - {arrivalTimeBack}
+        </span>
+        <span className={classes.parametr}>{ftdDurationBack}</span>
         <span className={classes.parametr}>{stopsBack.join(', ')}</span>
       </li>
     );
