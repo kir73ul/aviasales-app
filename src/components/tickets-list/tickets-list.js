@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { formatDate, formatDuration } from '../../helpers/formatDate';
@@ -9,13 +9,21 @@ import { itemsFetchData } from '../../actions';
 import classes from './tickets-list.module.scss';
 import Ticket from '../ticket';
 
-function TicketsList({ items, hasErrored, isLoading, fetchData }) {
-  const idBase = new IdBase();
+const idBase = new IdBase();
+
+function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter, priorityFilter }) {
+  
   const MSEC_IN_MIN = 60000;
+
+  const [itemsState, setItemsState] = useState(items)
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setItemsState (items.filter( ({segments}) => segments.every( ({stops}) => transfersFilter[stops.length]) ))
+  }, [ transfersFilter ])
 
   if (hasErrored) {
     return <p>Sorry! There was an error loading the items</p>;
@@ -25,11 +33,12 @@ function TicketsList({ items, hasErrored, isLoading, fetchData }) {
     return <div className={classes.loader}>Loading…</div>;
   }
 
-  const elems = items.slice(0, 9).map((item) => {
-    const id = idBase.create();
+
+  const elems = itemsState.map((item) => {
+    const key = idBase.create();
 
     const { price, carrier, segments } = item;
-
+    
     const { origin, destination, date, stops, duration } = segments[0];
     const {
       origin: originBack,
@@ -53,7 +62,7 @@ function TicketsList({ items, hasErrored, isLoading, fetchData }) {
     const carrierLogo = `https://pics.avs.io/99/36/${carrier}.png`;
 
     const ticketProps = {
-      id,
+      key,
       price,
       carrierLogo,
       carrier,
@@ -79,7 +88,7 @@ function TicketsList({ items, hasErrored, isLoading, fetchData }) {
   return <ul className={classes.wrapper}>{elems}</ul>;
 }
 
-const mapStateToProps = ({ items, hasErrored, isLoading }) => ({ items, hasErrored, isLoading });
+const mapStateToProps = ({ items, hasErrored, isLoading, transfersFilter, priorityFilter }) => ({ items, hasErrored, isLoading, transfersFilter, priorityFilter });
 
 const mapDispatchToProps = (dispatch) => {
   const fetchData = bindActionCreators(itemsFetchData, dispatch);

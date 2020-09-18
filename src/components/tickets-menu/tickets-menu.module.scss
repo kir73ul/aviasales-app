@@ -10,18 +10,18 @@
   @media (max-width: 476px) {
     top: 180px;
   }
-}
-
-.menu button {
-  cursor: pointer;
-  flex: 1 0 0;
-  margin: 0;
-  border: none;
-  outline: none;
-  font-size: 12px;
-  text-align: center;
-  text-transform: uppercase;
-  padding: 12px;
+  
+  button {
+    cursor: pointer;
+    flex: 1 0 0;
+    margin: 0;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 12px;
+  }
 }
 
 .item {

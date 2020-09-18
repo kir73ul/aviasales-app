@@ -10,10 +10,10 @@ import classes from './transfers-filters.module.scss';
 function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   const checkboxes = [
     { key: 'all', value: 'Все' },
-    { key: 'without', value: 'Без пересадок' },
-    { key: 'one', value: 'Одна пересадка' },
-    { key: 'two', value: 'Две пересадки' },
-    { key: 'three', value: 'Три пересадки' },
+    { key: '0', value: 'Без пересадок' },
+    { key: '1', value: 'Одна пересадка' },
+    { key: '2', value: 'Две пересадки' },
+    { key: '3', value: 'Три пересадки' },
   ];
 
   const toggle = (evt, key) => {
@@ -42,7 +42,7 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   );
 }
 
-const mapStateToProps = ({ checkboxSwitcher }) => ({ switcher: checkboxSwitcher });
+const mapStateToProps = ({ transfersFilter }) => ({ switcher: transfersFilter });
 
 const mapDispatchToProps = (dispatch) => {
   const { tglCheckbox, tglAllCheckboxes } = bindActionCreators(actions, dispatch);

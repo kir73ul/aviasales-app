@@ -1,14 +1,14 @@
 /* eslint-disable no-unused-expressions */
 
 const initialState = {
-  all: false,
-  without: false,
-  one: false,
-  two: false,
-  three: false,
+  all: true,
+  '0': true,
+  '1': true,
+  '2': true,
+  '3': true,
 };
 
-const checks = ['without', 'one', 'two', 'three'];
+const checks = ['0', '1', '2', '3'];
 
 const setKey = (state, key, value) => {
   const newState = { ...state, [key]: value };
@@ -26,7 +26,7 @@ const setAllKeys = (state, value) => {
   return newState;
 };
 
-export default function checkboxSwitcher(state = initialState, action) {
+export default function transfersFilter(state = initialState, action) {
   const { type, key, value } = action;
 
   switch (type) {
