@@ -2,10 +2,10 @@
 
 const initialState = {
   all: true,
-  '0': true,
-  '1': true,
-  '2': true,
-  '3': true,
+  0: true,
+  1: true,
+  2: true,
+  3: true,
 };
 
 const checks = ['0', '1', '2', '3'];
