@@ -17,13 +17,13 @@ export function itemsFetchData() {
         if (!response.ok) {
           throw Error(response.statusText);
         }
-
-        dispatch(itemsIsLoading(false));
-
         return response;
       })
       .then((response) => response.json())
-      .then(({ tickets }) => dispatch(itemsFetchDataSuccess(tickets)))
+      .then((res) => {
+        dispatch(itemsIsLoading(false));
+        dispatch(itemsFetchDataSuccess(res.tickets));
+      })
       .catch(() => dispatch(itemsHasErrored(true)));
   };
 }

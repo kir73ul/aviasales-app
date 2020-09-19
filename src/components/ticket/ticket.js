@@ -4,7 +4,6 @@ import classes from './tickets.module.scss';
 
 export default function Ticket(props) {
   const {
-    id,
     price,
     carrierLogo,
     carrier,
@@ -24,7 +23,7 @@ export default function Ticket(props) {
     stopsBack,
   } = props;
   return (
-    <li key={id} className={classes['card-ticket']}>
+    <li className={classes['card-ticket']}>
       <span className={classes.price}>{price} RUB</span>
       <img className={classes.airline} src={carrierLogo} alt={carrier} />
       <span className={classes.subtitle}>

@@ -2,19 +2,16 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { formatDate, formatDuration } from '../../helpers/formatDate';
-import transfersHandler from '../../helpers/transfers-handler';
-import IdBase from '../../helpers/idBase';
+import { Progress } from 'antd';
+import ticketCreator from '../../helpers/ticketCreator';
 import { sortTickets, filterTickets } from '../../helpers/sorters';
+import idBase from '../../helpers/idBase';
 import { itemsFetchData } from '../../actions';
+import 'antd/dist/antd.css';
 import classes from './tickets-list.module.scss';
 import Ticket from '../ticket';
 
-const idBase = new IdBase();
-
 function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter, priorityFilter }) {
-  const MSEC_IN_MIN = 60000;
-
   const [filteredItems, setFilteredItems] = useState(items);
 
   useEffect(() => {
@@ -23,72 +20,37 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
 
   useEffect(() => {
     setFilteredItems(sortTickets(items, priorityFilter));
-  }, [priorityFilter, items]);
-
-  useEffect(() => {
     setFilteredItems(filterTickets(items, transfersFilter));
-  }, [transfersFilter, items]);
+  }, [priorityFilter, transfersFilter, items]);
 
   if (hasErrored) {
-    return <p>Sorry! There was an error loading the items</p>;
+    return <p>Sorry! There was an error loading the tickets</p>;
   }
 
-  if (isLoading) {
-    return <div className={classes.loader}>Loading…</div>;
-  }
+  const noElems = <p>Not found tickets</p>;
 
   const elems = filteredItems.map((item) => {
-    const key = idBase.create();
-
-    const { price, carrier, segments } = item;
-
-    const { origin, destination, date, stops, duration } = segments[0];
-    const {
-      origin: originBack,
-      destination: destinationBack,
-      date: dateBack,
-      stops: stopsBack,
-      duration: durationBack,
-    } = segments[1];
-
-    const departTime = formatDate(date);
-    const departTimeBack = formatDate(dateBack);
-    const arrive = Date.parse(date) + duration * MSEC_IN_MIN;
-    const arriveBack = Date.parse(dateBack) + duration * MSEC_IN_MIN;
-    const arrivalTime = formatDate(arrive);
-    const arrivalTimeBack = formatDate(arriveBack);
-    const ftdDuration = formatDuration(duration);
-    const ftdDurationBack = formatDuration(durationBack);
-    const transfers = transfersHandler(stops.length);
-    const transfersBack = transfersHandler(stopsBack.length);
-
-    const carrierLogo = `https://pics.avs.io/99/36/${carrier}.png`;
-
-    const ticketProps = {
-      key,
-      price,
-      carrierLogo,
-      carrier,
-      origin,
-      destination,
-      transfers,
-      departTime,
-      arrivalTime,
-      ftdDuration,
-      stops,
-      originBack,
-      destinationBack,
-      transfersBack,
-      departTimeBack,
-      arrivalTimeBack,
-      ftdDurationBack,
-      stopsBack,
-    };
-
-    return <Ticket {...ticketProps} />;
+    const props = ticketCreator(item);
+    const id = idBase.create();
+    return <Ticket key={id} {...props} />;
   });
 
-  return <ul className={classes.wrapper}>{elems}</ul>;
+  return (
+    <div>
+      {isLoading ? (
+        <Progress
+          strokeColor={{
+            '0%': '#108ee9',
+            '100%': '#87d068',
+          }}
+          percent={100}
+          showInfo={false}
+          status="active"
+        />
+      ) : null}
+      <ul className={classes.wrapper}>{elems.length ? elems : noElems}</ul>
+    </div>
+  );
 }
 
 const mapStateToProps = ({ items, hasErrored, isLoading, transfersFilter, priorityFilter }) => ({

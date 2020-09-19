@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-expressions */
-export default class IdBase {
+class IdBase {
   volume = 1000000;
 
   idCollection = new Set();
@@ -14,3 +14,6 @@ export default class IdBase {
     this.idCollection.delete(id);
   };
 }
+
+const idBase = new IdBase();
+export default idBase;
