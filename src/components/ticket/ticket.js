@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from './tickets.module.scss';
 
 export default function Ticket(props) {
@@ -22,6 +22,7 @@ export default function Ticket(props) {
     ftdDurationBack,
     stopsBack,
   } = props;
+
   return (
     <li className={classes['card-ticket']}>
       <span className={classes.price}>{price} RUB</span>
@@ -49,3 +50,23 @@ export default function Ticket(props) {
     </li>
   );
 }
+
+Ticket.propTypes = {
+  price: PropTypes.number.isRequired,
+  carrierLogo: PropTypes.string.isRequired,
+  carrier: PropTypes.string.isRequired,
+  origin: PropTypes.string.isRequired,
+  destination: PropTypes.string.isRequired,
+  transfers: PropTypes.string.isRequired,
+  departTime: PropTypes.string.isRequired,
+  arrivalTime: PropTypes.string.isRequired,
+  ftdDuration: PropTypes.string.isRequired,
+  stops: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  originBack: PropTypes.string.isRequired,
+  destinationBack: PropTypes.string.isRequired,
+  transfersBack: PropTypes.string.isRequired,
+  departTimeBack: PropTypes.string.isRequired,
+  arrivalTimeBack: PropTypes.string.isRequired,
+  ftdDurationBack: PropTypes.string.isRequired,
+  stopsBack: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};

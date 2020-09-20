@@ -3,7 +3,7 @@ import transfersHandler from './transfers-handler';
 
 const MSEC_IN_MIN = 60000;
 
-function createTicketProps(item) {
+function ticketCreator(item) {
   const { price, carrier, segments } = item;
 
   const { origin, destination, date, stops, duration } = segments[0];
@@ -51,5 +51,4 @@ function createTicketProps(item) {
   return ticketProps;
 }
 
-const ticketCreator = createTicketProps;
 export default ticketCreator;

@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import * as actions from '../../actions';
 import classes from './transfers-filters.module.scss';
 
@@ -27,7 +25,7 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
     return (
       <li key={key}>
         <label>
-          <input type="checkbox" value={value} checked={switcher[key]} onClick={(evt) => toggle(evt, key)} />
+          <input type="checkbox" value={value} checked={switcher[key]} onChange={(evt) => toggle(evt, key)} />
           {value}
         </label>
       </li>
@@ -53,3 +51,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TransfersFilters);
+
+TransfersFilters.propTypes = {
+  switcher: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
+  tglAllCheckboxes: PropTypes.func.isRequired,
+  tglCheckbox: PropTypes.func.isRequired,
+};

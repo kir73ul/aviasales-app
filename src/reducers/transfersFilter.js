@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-expressions */
-
 const initialState = {
   all: true,
   0: true,

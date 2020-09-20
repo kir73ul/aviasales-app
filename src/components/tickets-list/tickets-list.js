@@ -1,7 +1,8 @@
-/* eslint-disable react/prop-types */
+/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import PropTypes from 'prop-types';
 import { Progress } from 'antd';
 import ticketCreator from '../../helpers/ticketCreator';
 import { sortTickets, filterTickets } from '../../helpers/sorters';
@@ -21,13 +22,24 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
   useEffect(() => {
     setFilteredItems(sortTickets(items, priorityFilter));
     setFilteredItems(filterTickets(items, transfersFilter));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [priorityFilter, transfersFilter, items]);
 
-  if (hasErrored) {
-    return <p>Sorry! There was an error loading the tickets</p>;
-  }
+  const renderLoading = (
+    <Progress
+      strokeColor={{
+        '0%': '#108ee9',
+        '100%': '#87d068',
+      }}
+      percent={100}
+      showInfo={false}
+      status="active"
+    />
+  );
 
-  const noElems = <p>Not found tickets</p>;
+  const errorMessage = <span className={classes.error}>Sorry! There was an error loading the tickets</span>;
+
+  const noElems = <span className={classes.error}>Not found tickets</span>;
 
   const elems = filteredItems.map((item) => {
     const props = ticketCreator(item);
@@ -37,18 +49,10 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
 
   return (
     <div>
-      {isLoading ? (
-        <Progress
-          strokeColor={{
-            '0%': '#108ee9',
-            '100%': '#87d068',
-          }}
-          percent={100}
-          showInfo={false}
-          status="active"
-        />
-      ) : null}
-      <ul className={classes.wrapper}>{elems.length ? elems : noElems}</ul>
+      {hasErrored && errorMessage}
+      {isLoading && !hasErrored && renderLoading}
+      {!isLoading && !hasErrored && !elems.length && noElems}
+      <ul className={classes.wrapper}>{elems}</ul>
     </div>
   );
 }
@@ -69,3 +73,17 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketsList);
+
+TicketsList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  hasErrored: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  fetchData: PropTypes.func.isRequired,
+  transfersFilter: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
+  priorityFilter: PropTypes.string.isRequired,
+};
+
+TicketsList.defaultProps = {
+  hasErrored: true,
+  isLoading: false,
+};
