@@ -18,7 +18,7 @@ function ticketCreator(item) {
   const departTime = formatDate(date);
   const departTimeBack = formatDate(dateBack);
   const arrive = Date.parse(date) + duration * MSEC_IN_MIN;
-  const arriveBack = Date.parse(dateBack) + duration * MSEC_IN_MIN;
+  const arriveBack = Date.parse(dateBack) + durationBack * MSEC_IN_MIN;
   const arrivalTime = formatDate(arrive);
   const arrivalTimeBack = formatDate(arriveBack);
   const ftdDuration = formatDuration(duration);
