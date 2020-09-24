@@ -48,11 +48,11 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
   });
 
   return (
-    <div>
+    <div className={classes.wrapper}>
       {hasErrored && errorMessage}
       {isLoading && !hasErrored && renderLoading}
       {!isLoading && !hasErrored && !elems.length && noElems}
-      <ul className={classes.wrapper}>{elems}</ul>
+      <ul className={classes.container}>{elems}</ul>
     </div>
   );
 }
