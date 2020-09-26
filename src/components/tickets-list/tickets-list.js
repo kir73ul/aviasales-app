@@ -11,8 +11,11 @@ import { itemsFetchData } from '../../actions';
 import 'antd/dist/antd.css';
 import classes from './tickets-list.module.scss';
 import Ticket from '../ticket';
+import mockedServer from '../../helpers/mocked-server';
 
-function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter, priorityFilter }) {
+function TicketsList({ ticketsReducer, switcher, priority, fetchData }) {
+  const { hasErrored, isLoading } = ticketsReducer;
+  const items = mockedServer;
   const [filteredItems, setFilteredItems] = useState(items);
 
   useEffect(() => {
@@ -20,10 +23,10 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
   }, [fetchData]);
 
   useEffect(() => {
-    setFilteredItems(sortTickets(items, priorityFilter));
-    setFilteredItems(filterTickets(items, transfersFilter));
+    setFilteredItems(sortTickets(items, priority));
+    setFilteredItems(filterTickets(items, switcher));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, [priorityFilter, transfersFilter, items]);
+  }, [priority, switcher, items]);
 
   const renderLoading = (
     <Progress
@@ -37,7 +40,7 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
     />
   );
 
-  const errorMessage = <span className={classes.error}>Sorry! There was an error loading the tickets</span>;
+  //  const errorMessage = <span className={classes.error}>Sorry! There was an error loading the tickets</span>;
 
   const noElems = <span className={classes.error}>Not found tickets</span>;
 
@@ -46,10 +49,9 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
     const id = idBase.create();
     return <Ticket key={id} {...props} />;
   });
-
+  //  {hasErrored && errorMessage}
   return (
     <div className={classes.wrapper}>
-      {hasErrored && errorMessage}
       {isLoading && !hasErrored && renderLoading}
       {!isLoading && !hasErrored && !elems.length && noElems}
       <ul className={classes.container}>{elems}</ul>
@@ -57,12 +59,10 @@ function TicketsList({ items, hasErrored, isLoading, fetchData, transfersFilter,
   );
 }
 
-const mapStateToProps = ({ items, hasErrored, isLoading, transfersFilter, priorityFilter }) => ({
-  items,
-  hasErrored,
-  isLoading,
-  transfersFilter,
-  priorityFilter,
+const mapStateToProps = ({ ticketsReducer, transfersReducer, priorityReducer }) => ({
+  ticketsReducer,
+  switcher: transfersReducer,
+  priority: priorityReducer,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -75,15 +75,12 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(mapStateToProps, mapDispatchToProps)(TicketsList);
 
 TicketsList.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
-  hasErrored: PropTypes.bool,
-  isLoading: PropTypes.bool,
+  ticketsReducer: PropTypes.shape({
+    hasErrored: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
+    items: PropTypes.arrayOf(PropTypes.object.isRequired),
+  }).isRequired,
   fetchData: PropTypes.func.isRequired,
-  transfersFilter: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
-  priorityFilter: PropTypes.string.isRequired,
-};
-
-TicketsList.defaultProps = {
-  hasErrored: true,
-  isLoading: false,
+  switcher: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
+  priority: PropTypes.string.isRequired,
 };

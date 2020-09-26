@@ -40,7 +40,7 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   );
 }
 
-const mapStateToProps = ({ transfersFilter }) => ({ switcher: transfersFilter });
+const mapStateToProps = ({ transfersReducer }) => ({ switcher: transfersReducer });
 
 const mapDispatchToProps = (dispatch) => {
   const { tglCheckbox, tglAllCheckboxes } = bindActionCreators(actions, dispatch);

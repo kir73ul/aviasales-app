@@ -2,9 +2,9 @@ export const tglCheckbox = (key, value) => ({ type: 'TOGGLE_CHECKBOX', key, valu
 export const tglAllCheckboxes = (value) => ({ type: 'TOGGLE_ALL_CHECKBOXES', value });
 export const tglPriority = (value) => ({ type: 'TOGGLE_PRIORITY', value });
 
-export const itemsHasErrored = (bool) => ({ type: 'ITEMS_HAS_ERRORED', hasErrored: bool });
-export const itemsIsLoading = (bool) => ({ type: 'ITEMS_IS_LOADING', isLoading: bool });
-export const itemsFetchDataSuccess = (items) => ({ type: 'ITEMS_FETCH_DATA_SUCCESS', items });
+export const itemsHasErrored = (value) => ({ type: 'ITEMS_HAS_ERRORED', value });
+export const itemsIsLoading = (value) => ({ type: 'ITEMS_IS_LOADING', value });
+export const itemsFetchDataSuccess = (value) => ({ type: 'ITEMS_FETCH_DATA_SUCCESS', value });
 
 export function itemsFetchData() {
   return (dispatch) => {
