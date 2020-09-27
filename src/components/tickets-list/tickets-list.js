@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { Progress } from 'antd';
-import ticketCreator from '../../helpers/ticketCreator';
-import { sortTickets, filterTickets } from '../../helpers/sorters';
-import idBase from '../../helpers/idBase';
+import ticketCreator from './helpers/ticketCreator';
+import { sortTickets, filterTickets } from './helpers/sorters';
+import idBase from './helpers/idBase';
 import { itemsFetchData } from '../../actions';
 import 'antd/dist/antd.css';
 import classes from './tickets-list.module.scss';
 import Ticket from '../ticket';
-import mockedServer from '../../helpers/mocked-server';
+import mockedServer from './helpers/mocked-server';
 
 function TicketsList({ ticketsReducer, switcher, priority, fetchData }) {
-  const { hasErrored, isLoading } = ticketsReducer;
-  const items = mockedServer;
+  let { items, hasErrored, isLoading } = ticketsReducer;
+  if (hasErrored) items = mockedServer;
   const [filteredItems, setFilteredItems] = useState(items);
 
   useEffect(() => {

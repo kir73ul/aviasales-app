@@ -1,5 +1,5 @@
 export const sortTickets = (tickets, priority) => {
-  const totalDuration = ({ segments }) => segments.reduce((acc, current) => acc + current.duration, 0);
+  const totalDuration = ({ segments }) => segments.reduce((acc, { duration }) => acc + duration, 0);
 
   switch (priority) {
     case 'cheapest':

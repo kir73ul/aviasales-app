@@ -21,7 +21,6 @@ export function itemsFetchData() {
       })
       .then((response) => response.json())
       .then((res) => {
-        dispatch(itemsIsLoading(false));
         dispatch(itemsFetchDataSuccess(res.tickets));
       })
       .catch(() => dispatch(itemsHasErrored(true)));

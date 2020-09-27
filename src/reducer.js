@@ -64,13 +64,13 @@ function ticketsReducer(state = initialTicketsState, action) {
   const { type, value } = action;
   switch (type) {
     case 'ITEMS_HAS_ERRORED':
-      return { ...state, hasErrored: value };
+      return { ...state, hasErrored: value, isLoading: false };
 
     case 'ITEMS_IS_LOADING':
-      return { ...state, isLoading: value };
+      return { ...state, isLoading: value, hasErrored: false };
 
     case 'ITEMS_FETCH_DATA_SUCCESS':
-      return { ...state, items: value };
+      return { ...state, items: value, isLoading: false, hasErrored: false };
 
     default:
       return state;
