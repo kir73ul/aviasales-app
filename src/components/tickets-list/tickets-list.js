@@ -14,7 +14,8 @@ import Ticket from '../ticket';
 import mockedServer from './helpers/mocked-server';
 
 function TicketsList({ ticketsReducer, switcher, priority, fetchData }) {
-  let { items, hasErrored, isLoading } = ticketsReducer;
+  let { items } = ticketsReducer;
+  const { hasErrored, isLoading } = ticketsReducer;
   if (hasErrored) items = mockedServer;
   const [filteredItems, setFilteredItems] = useState(items);
 

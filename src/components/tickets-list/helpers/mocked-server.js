@@ -5,16 +5,16 @@ const ticket = {
     {
       origin: 'MOW',
       destination: 'BKG',
-      date: new Date() - Math.floor(Math.random() * 10000000),
+      date: new Date().toString(),
       stops: ['ASA', 'NWD'],
-      duration: 1234,
+      duration: 1734,
     },
     {
       origin: 'BKG',
       destination: 'MOW',
-      date: new Date() - Math.floor(Math.random() * 10000000),
+      date: new Date(Math.floor(Math.random() * 10000000)).toString(),
       stops: ['ASA'],
-      duration: 889,
+      duration: 900,
     },
   ],
 };
