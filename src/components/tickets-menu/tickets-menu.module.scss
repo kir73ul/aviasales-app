@@ -6,14 +6,16 @@
   background: #ffffff;
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
+  min-width: 420px;
 
   @media (max-width: 476px) {
     top: 172px;
+    min-width: unset;
   }
 
   button {
     cursor: pointer;
-    flex: 1 0 0;
+    flex: 1 0 50%;
     margin: 0;
     border: none;
     outline: none;
