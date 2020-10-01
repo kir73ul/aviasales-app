@@ -24,17 +24,17 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   const list = checkboxes.map(({ key, value }) => {
     return (
       <li key={key}>
-        <label>
-          <input type="checkbox" value={value} checked={switcher[key]} onChange={(evt) => toggle(evt, key)} />
-          {value}
-        </label>
+        <div className={classes['custom-checkbox']}>
+          <input type="checkbox" id={value} checked={switcher[key]} onChange={(evt) => toggle(evt, key)} />
+          <label htmlFor={value}>{value}</label>
+        </div>
       </li>
     );
   });
 
   return (
     <div className={classes.wrapper}>
-      <span>Количество пересадок</span>
+      <span className={classes.title}>Количество пересадок</span>
       <ul className={classes.list}>{list}</ul>
     </div>
   );
