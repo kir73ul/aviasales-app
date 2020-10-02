@@ -1,8 +1,8 @@
 import React from 'react';
-import classes from './app-header.module.scss';
-import plane from './Plane.png';
+import classes from './app-logo.module.scss';
+import plane from './Logo.png';
 
-export default function AppHeader() {
+export default function AppLogo() {
   return (
     <div className={classes.wrapper}>
       <a href="/">
