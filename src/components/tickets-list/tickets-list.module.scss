@@ -9,11 +9,9 @@
   padding: 0;
 }
 
-.loader {
-  border: 1px solid;
-}
-
 .error {
-  margin: 24px auto;
+  box-sizing: border-box;
+  border: 1px solid rgb(255, 66, 66);
+  margin-top: 24px;
   padding: 8px;
 }
