@@ -1,5 +1,6 @@
 import React from 'react';
 import { Progress } from 'antd';
+import 'antd/dist/antd.css';
 
 export default function Loader({ isLoading }) {
   const progress = (

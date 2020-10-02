@@ -1,17 +1,15 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import ticketCreator from './helpers/ticketCreator';
+
 import { sortTickets, filterTickets } from './helpers/sorters';
-import idBase from './helpers/idBase';
 import { itemsFetchData } from '../../actions';
-import 'antd/dist/antd.css';
 import classes from './tickets-list.module.scss';
+import List from './list';
 import ErrorMessage from './error-message';
 import Loader from './loader';
-import Ticket from '../ticket';
+import NoElems from './no-elems';
 
 function TicketsList({ ticketsReducer, switcher, priority, fetchData }) {
   const { items, hasErrored, isLoading } = ticketsReducer;
@@ -28,21 +26,12 @@ function TicketsList({ ticketsReducer, switcher, priority, fetchData }) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [priority, switcher, items]);
 
-  const noElems = <span className={classes.error}>Not found tickets</span>;
-
-  const elems = filteredItems.map((item) => {
-    const props = ticketCreator(item);
-    const id = idBase.create();
-    return <Ticket key={id} {...props} />;
-  });
-  //   <TicketList />
   return (
     <div className={classes.wrapper}>
       <ErrorMessage hasErrored={hasErrored} />
-      <Loader isLoading={isLoading && !hasErrored} />
-
-      {!isLoading && !hasErrored && !elems.length && noElems}
-      <ul className={classes.container}>{elems}</ul>
+      <Loader isLoading={isLoading} />
+      <List items={filteredItems} />
+      <NoElems isTrue={!isLoading && !hasErrored && !filteredItems.length} />
     </div>
   );
 }

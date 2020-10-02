@@ -1,6 +1,6 @@
 import React from 'react';
-import classes from './tickets-list.module.scss';
+import { error } from './tickets-list.module.scss';
 
 export default function ErrorMessage({ hasErrored }) {
-  return hasErrored ? <span className={classes.error}>Sorry! There was an error loading the tickets</span> : null;
+  return hasErrored ? <span className={error}>Sorry! There was an error loading the tickets</span> : null;
 }
