@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
 import classes from './tickets-menu.module.scss';
 
-function TicketsMenu({ priority, tglPriority }) {
+export default function TicketsMenu({ priority, tglPriority }) {
   const items = [
     { key: 'cheapest', value: 'Самый дешевый' },
     { key: 'fastest', value: 'Самый быстрый' },
@@ -22,17 +19,6 @@ function TicketsMenu({ priority, tglPriority }) {
 
   return <div className={classes.menu}>{btns}</div>;
 }
-
-const mapStateToProps = ({ priorityReducer }) => ({ priority: priorityReducer });
-
-const mapDispatchToProps = (dispatch) => {
-  const { tglPriority } = bindActionCreators(actions, dispatch);
-  return {
-    tglPriority,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TicketsMenu);
 
 TicketsMenu.propTypes = {
   priority: PropTypes.string.isRequired,

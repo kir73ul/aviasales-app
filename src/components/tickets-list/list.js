@@ -1,4 +1,6 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
+import PropTypes from 'prop-types';
 import ticketCreator from './helpers/ticketCreator';
 import idBase from './helpers/idBase';
 import Ticket from '../ticket';
@@ -13,3 +15,7 @@ export default function List({ items }) {
 
   return <ul className={container}>{elems}</ul>;
 }
+
+List.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+};

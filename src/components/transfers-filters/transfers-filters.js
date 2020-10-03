@@ -1,11 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
-import * as actions from '../../actions';
 import classes from './transfers-filters.module.scss';
 
-function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
+export default function TransfersFilters({ stopsFilter, tglAllCheckboxes, tglCheckbox }) {
   const checkboxes = [
     { key: 'all', value: 'Все' },
     { key: '0', value: 'Без пересадок' },
@@ -25,7 +22,7 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
     return (
       <li key={key}>
         <div className={classes['custom-checkbox']}>
-          <input type="checkbox" id={value} checked={switcher[key]} onChange={(evt) => toggle(evt, key)} />
+          <input type="checkbox" id={value} checked={stopsFilter[key]} onChange={(evt) => toggle(evt, key)} />
           <label htmlFor={value}>{value}</label>
         </div>
       </li>
@@ -40,20 +37,8 @@ function TransfersFilters({ switcher, tglAllCheckboxes, tglCheckbox }) {
   );
 }
 
-const mapStateToProps = ({ transfersReducer }) => ({ switcher: transfersReducer });
-
-const mapDispatchToProps = (dispatch) => {
-  const { tglCheckbox, tglAllCheckboxes } = bindActionCreators(actions, dispatch);
-  return {
-    tglCheckbox,
-    tglAllCheckboxes,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransfersFilters);
-
 TransfersFilters.propTypes = {
-  switcher: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
+  stopsFilter: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
   tglAllCheckboxes: PropTypes.func.isRequired,
   tglCheckbox: PropTypes.func.isRequired,
 };

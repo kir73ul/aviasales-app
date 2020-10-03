@@ -28,7 +28,7 @@ function ticketCreator(item) {
 
   const carrierLogo = `https://pics.avs.io/99/36/${carrier}.png`;
 
-  const ticketProps = {
+  return {
     price,
     carrierLogo,
     carrier,
@@ -47,8 +47,6 @@ function ticketCreator(item) {
     ftdDurationBack,
     stopsBack,
   };
-
-  return ticketProps;
 }
 
 export default ticketCreator;
