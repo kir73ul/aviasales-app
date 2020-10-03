@@ -56,7 +56,7 @@ function transfersReducer(state = initialFiltersState, action) {
 
 const initialTicketsState = {
   hasErrored: false,
-  isLoading: false,
+  isLoading: true,
   items: [],
 };
 
