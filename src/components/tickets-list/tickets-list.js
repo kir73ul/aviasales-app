@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { sortTickets, filterTickets } from './helpers/sorters';
-import classes from './tickets-list.module.scss';
 
 import List from './list';
 import ErrorMessage from './error-message';
@@ -24,7 +23,7 @@ export default function TicketsList({ items, hasErrored, isLoading, stopsFilter,
   }, [filteredItems.length, hasErrored, isLoading]);
 
   return (
-    <div className={classes.wrapper}>
+    <div>
       <ErrorMessage hasErrored={hasErrored} />
       <Loader isLoading={isLoading} />
       <List items={filteredItems} />

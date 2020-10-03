@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
 import classes from './transfers-filters.module.scss';
@@ -18,11 +20,21 @@ export default function TransfersFilters({ stopsFilter, tglAllCheckboxes, tglChe
     else tglCheckbox(key, checked);
   };
 
+  const handleClick = (evt, value) => {
+    evt.preventDefault();
+    document.getElementById(value).click();
+  };
+
   const list = checkboxes.map(({ key, value }) => {
     return (
       <li key={key}>
-        <div className={classes['custom-checkbox']}>
-          <input type="checkbox" id={value} checked={stopsFilter[key]} onChange={(evt) => toggle(evt, key)} />
+        <div className={classes['custom-checkbox']} onClick={(evt) => handleClick(evt, value)}>
+          <input
+            type="checkbox"
+            id={value}
+            checked={stopsFilter[key]}
+            onChange={(evt) => toggle(evt, key)}
+          />
           <label htmlFor={value}>{value}</label>
         </div>
       </li>

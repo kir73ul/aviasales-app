@@ -31,7 +31,11 @@ function App({
       <AppLogo />
 
       <div className={classes['main-wrapper']}>
-        <TransfersFilters stopsFilter={stopsFilter} tglCheckbox={tglCheckbox} tglAllCheckboxes={tglAllCheckboxes} />
+        <TransfersFilters
+          stopsFilter={stopsFilter}
+          tglCheckbox={tglCheckbox}
+          tglAllCheckboxes={tglAllCheckboxes}
+        />
         <div className={classes['sub-wrapper']}>
           <TicketsMenu priority={priority} tglPriority={tglPriority} />
           <TicketsList
@@ -40,7 +44,6 @@ function App({
             isLoading={isLoading}
             stopsFilter={stopsFilter}
             priority={priority}
-            fetchData={fetchData}
           />
         </div>
       </div>
@@ -60,10 +63,12 @@ const mapStateToProps = ({ ticketsReducer, transfersReducer, priorityReducer }) 
 };
 
 const mapDispatchToProps = (dispatch) => {
-  const { tglCheckbox, tglAllCheckboxes, tglPriority, itemsFetchData: fetchData } = bindActionCreators(
-    actions,
-    dispatch
-  );
+  const {
+    tglCheckbox,
+    tglAllCheckboxes,
+    tglPriority,
+    itemsFetchData: fetchData,
+  } = bindActionCreators(actions, dispatch);
 
   return {
     tglCheckbox,

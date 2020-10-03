@@ -1,12 +1,7 @@
 .app {
   background: #f3f7fa;
   min-height: 100vh;
-  padding: 50px 0;
   font-family: 'Open Sans', sans-serif;
-
-  @media (max-width: 476px) {
-    padding: 12px 0;
-  }
 }
 
 .cover {
@@ -15,16 +10,11 @@
   position: fixed;
   top: 0;
   width: 100vw;
-  height: 64px;
+  height: 60px;
 
   @media (max-width: 476px) {
-    height: 224px;
+    height: 238px;
   }
-}
-
-.logo-wrapper {
-  z-index: 10;
-  position: relative;
 }
 
 .main-wrapper {

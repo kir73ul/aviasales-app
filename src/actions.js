@@ -12,7 +12,9 @@ export function itemsFetchData() {
 
     fetch(`https://aviasales-test-api.java-mentor.com/search`)
       .then((response) => response.json())
-      .then(({ searchId }) => fetch(`https://aviasales-test-api.java-mentor.com/tickets?searchId=${searchId}`))
+      .then(({ searchId }) =>
+        fetch(`https://aviasales-test-api.java-mentor.com/tickets?searchId=${searchId}`)
+      )
       .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
