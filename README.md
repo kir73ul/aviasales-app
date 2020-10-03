@@ -1,4 +1,4 @@
-Deploy available at: https://aviasales-app-tawny.vercel.app/
+Deploy available at: https://aviasales-app-1.vercel.app/
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
