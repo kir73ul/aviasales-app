@@ -20,23 +20,18 @@ export default function TransfersFilters({ stopsFilter, tglAllCheckboxes, tglChe
     else tglCheckbox(key, checked);
   };
 
-  const handleClick = (evt, value) => {
-    evt.preventDefault();
-    document.getElementById(value).click();
-  };
-
   const list = checkboxes.map(({ key, value }) => {
     return (
       <li key={key}>
-        <div className={classes['custom-checkbox']} onClick={(evt) => handleClick(evt, value)}>
-          <input
-            type="checkbox"
-            id={value}
-            checked={stopsFilter[key]}
-            onChange={(evt) => toggle(evt, key)}
-          />
-          <label htmlFor={value}>{value}</label>
-        </div>
+        <input
+          type="checkbox"
+          id={value}
+          checked={stopsFilter[key]}
+          onChange={(evt) => toggle(evt, key)}
+        />
+        <label htmlFor={value} className={classes['custom-checkbox']}>
+          {value}
+        </label>
       </li>
     );
   });
