@@ -23,12 +23,12 @@ export default function TicketsList({ items, hasErrored, isLoading, stopsFilter,
   }, [filteredItems.length, hasErrored, isLoading]);
 
   return (
-    <div>
+    <>
       <ErrorMessage hasErrored={hasErrored} />
       <Loader isLoading={isLoading} />
       <List items={filteredItems} />
       <NoElems isTrue={emptyList} />
-    </div>
+    </>
   );
 }
 

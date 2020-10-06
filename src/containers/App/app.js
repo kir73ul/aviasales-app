@@ -4,8 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actions from '../../actions';
 import classes from './app.module.scss';
+import logo from './Logo.png';
 
-import AppLogo from '../../components/app-logo';
 import TransfersFilters from '../../components/transfers-filters';
 import TicketsMenu from '../../components/tickets-menu';
 import TicketsList from '../../components/tickets-list';
@@ -28,7 +28,11 @@ function App({
   return (
     <div className={classes.app}>
       <div className={classes.cover} />
-      <AppLogo />
+      <div className={classes['logo-wrapper']}>
+        <a href="/">
+          <img src={logo} alt="logo" />
+        </a>
+      </div>
 
       <div className={classes['main-wrapper']}>
         <TransfersFilters
