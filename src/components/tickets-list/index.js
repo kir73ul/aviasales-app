@@ -1,3 +1,3 @@
-import TicketsList from './tickets-list';
+import TicketsList from "./tickets-list";
 
 export default TicketsList;

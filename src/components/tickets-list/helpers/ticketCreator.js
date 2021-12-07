@@ -1,5 +1,5 @@
-import { formatDate, formatDuration } from './formatDate';
-import transfersHandler from './transfers-handler';
+import { formatDate, formatDuration } from "./formatDate";
+import transfersHandler from "./transfers-handler";
 
 const MSEC_IN_MIN = 60000;
 

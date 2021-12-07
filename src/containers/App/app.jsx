@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../../actions';
-import classes from './app.module.scss';
-import logo from './Logo.png';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as actions from "../../actions";
+import classes from "./app.module.scss";
+import logo from "./Logo.png";
 
-import TransfersFilters from '../../components/transfers-filters';
-import TicketsMenu from '../../components/tickets-menu';
-import TicketsList from '../../components/tickets-list';
+import TransfersFilters from "../../components/transfers-filters";
+import TicketsMenu from "../../components/tickets-menu";
+import TicketsList from "../../components/tickets-list";
 
 function App({
   items,
@@ -28,19 +28,19 @@ function App({
   return (
     <div className={classes.app}>
       <div className={classes.cover} />
-      <div className={classes['logo-wrapper']}>
+      <div className={classes["logo-wrapper"]}>
         <a href="/">
           <img src={logo} alt="logo" />
         </a>
       </div>
 
-      <div className={classes['main-wrapper']}>
+      <div className={classes["main-wrapper"]}>
         <TransfersFilters
           stopsFilter={stopsFilter}
           tglCheckbox={tglCheckbox}
           tglAllCheckboxes={tglAllCheckboxes}
         />
-        <div className={classes['sub-wrapper']}>
+        <div className={classes["sub-wrapper"]}>
           <TicketsMenu priority={priority} tglPriority={tglPriority} />
           <TicketsList
             items={items}
@@ -55,7 +55,11 @@ function App({
   );
 }
 
-const mapStateToProps = ({ ticketsReducer, transfersReducer, priorityReducer }) => {
+const mapStateToProps = ({
+  ticketsReducer,
+  transfersReducer,
+  priorityReducer,
+}) => {
   const { items, hasErrored, isLoading } = ticketsReducer;
   return {
     items,
@@ -65,7 +69,7 @@ const mapStateToProps = ({ ticketsReducer, transfersReducer, priorityReducer }) 
     priority: priorityReducer,
   };
 };
-
+//changing
 const mapDispatchToProps = (dispatch) => {
   const {
     tglCheckbox,
