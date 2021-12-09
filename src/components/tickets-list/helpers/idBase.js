@@ -6,7 +6,9 @@ class IdBase {
 
   create = () => {
     let newId = Math.floor(Math.random() * this.volume);
-    !this.idCollection.has(newId) ? this.idCollection.add(newId) : (newId = this.create());
+    !this.idCollection.has(newId)
+      ? this.idCollection.add(newId)
+      : (newId = this.create());
     return newId;
   };
 

@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import classes from "./tickets-menu.module.scss";
 
 export default function TicketsMenu({ priority, tglPriority }) {
+  const;
+
   const items = [
     { key: "cheapest", value: "Самый дешевый" },
     { key: "fastest", value: "Самый быстрый" },

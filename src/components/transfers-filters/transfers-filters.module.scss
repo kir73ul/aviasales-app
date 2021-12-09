@@ -59,7 +59,7 @@
   }
 
   &::before {
-    content: ' ';
+    content: " ";
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -73,5 +73,5 @@
 
 input:checked + label::before {
   border-color: #0b76ef;
-  background: url('./check.png') no-repeat center;
+  background: url("./check.png") no-repeat center;
 }

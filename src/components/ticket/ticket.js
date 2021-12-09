@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classes from './tickets.module.scss';
+import React from "react";
+import PropTypes from "prop-types";
+import classes from "./tickets.module.scss";
 
 export default function Ticket(props) {
   const {
@@ -24,7 +24,7 @@ export default function Ticket(props) {
   } = props;
 
   return (
-    <li className={classes['card-ticket']}>
+    <li className={classes["card-ticket"]}>
       <span className={classes.price}>{price} RUB</span>
       <img className={classes.airline} src={carrierLogo} alt={carrier} />
       <span className={classes.subtitle}>
@@ -36,7 +36,7 @@ export default function Ticket(props) {
         {departTime} - {arrivalTime}
       </span>
       <span className={classes.parametr}>{ftdDuration}</span>
-      <span className={classes.parametr}>{stops.join(', ')}</span>
+      <span className={classes.parametr}>{stops.join(", ")}</span>
       <span className={classes.subtitle}>
         {originBack} - {destinationBack}
       </span>
@@ -46,7 +46,7 @@ export default function Ticket(props) {
         {departTimeBack} - {arrivalTimeBack}
       </span>
       <span className={classes.parametr}>{ftdDurationBack}</span>
-      <span className={classes.parametr}>{stopsBack.join(', ')}</span>
+      <span className={classes.parametr}>{stopsBack.join(", ")}</span>
     </li>
   );
 }
