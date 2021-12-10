@@ -1,9 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { Progress } from "antd";
 import "antd/dist/antd.css";
+import { AppStateType } from "../../combineStore";
+import { useSelector } from "react-redux";
 
-export default function Loader({ isLoading }) {
+export default function Loader() {
+  const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
   const progress = (
     <Progress
       strokeColor={{
@@ -18,7 +20,3 @@ export default function Loader({ isLoading }) {
 
   return isLoading ? progress : null;
 }
-
-Loader.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-};

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 import { combineReducers } from "redux";
 import {
   PriorityReducerType,
@@ -13,9 +12,10 @@ import {
 import { ITEMS_IS_LOADING } from "./Constants/Constants";
 import { TOGGLE_CHECKBOX } from "./Constants/Constants";
 import { TOGGLE_PRIORITY } from "./Constants/Constants";
-import { InitialFiltersStateType } from "./Types/Types";
+import { InitialFiltersStateType, SortOfTickets, NumbersOfTransfers } from "./Types/Types";
+import { initialTicketsStateType } from './Types/Types';
 
-function priorityReducer(state = "cheapest", action: PriorityReducerType) {
+function priorityReducer(state = SortOfTickets.cheapest, action: PriorityReducerType) {
   const { type, value } = action;
 
   switch (type) {
@@ -28,14 +28,14 @@ function priorityReducer(state = "cheapest", action: PriorityReducerType) {
 }
 
 const initialFiltersState: InitialFiltersStateType = {
-  all: true,
-  "0": true,
-  "1": true,
-  "2": true,
-  "3": true,
+  [NumbersOfTransfers.all]: true,
+  [NumbersOfTransfers.zero]: true,
+  [NumbersOfTransfers.one]: true,
+  [NumbersOfTransfers.two]: true,
+  [NumbersOfTransfers.three]: true
 };
 
-const checks = ["0", "1", "2", "3"];
+const checks = ['0', '1', '2', '3'];
 
 const setKey = (
   state: InitialFiltersStateType,
@@ -79,7 +79,7 @@ function transfersReducer(
   }
 }
 
-const initialTicketsState = {
+const initialTicketsState: initialTicketsStateType = {
   hasErrored: false,
   isLoading: true,
   items: [],

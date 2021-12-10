@@ -2,12 +2,13 @@ import React from "react";
 import classes from "./tickets-menu.module.scss";
 import { AppStateType } from "../../combineStore";
 import { useDispatch, useSelector } from "react-redux";
-import { tglPriority } from "../../actions";
-import { SortOfTickets, TranslateType } from "../../Types/Types";
+import { togglePriority } from "../../actions";
+import { SortOfTickets } from "../../Types/Types";
+import { translateSortOfTickets } from './../../Constants/Constants';
 
 const items = [
-  { key: SortOfTickets.cheapest, value: TranslateType.cheapest },
-  { key: SortOfTickets.fastest, value: TranslateType.fastest },
+  { key: SortOfTickets.cheapest, value: translateSortOfTickets.cheapest },
+  { key: SortOfTickets.fastest, value: translateSortOfTickets.fastest },
 ];
 
 export default function TicketsMenu() {
@@ -21,7 +22,7 @@ export default function TicketsMenu() {
         type="button"
         key={key}
         className={btnStyle}
-        onClick={() => dispatch(tglPriority(key))
+        onClick={() => dispatch(togglePriority(key))
         }
       >
         {value}

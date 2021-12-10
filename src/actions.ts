@@ -1,5 +1,5 @@
 import { AppDispatch } from "./combineStore";
-import { SortOfTickets } from "./Types/Types";
+import { SortOfTickets, TicketsType } from "./Types/Types";
 import {
   ITEMS_HAS_ERRORED,
   TOGGLE_ALL_CHECKBOXES,
@@ -33,9 +33,9 @@ export const tglAllCheckboxes = (value: boolean): TglAllCheckboxesType => ({
 export type PriorityReducerType = tglPriorityType;
 export interface tglPriorityType {
   type: typeof TOGGLE_PRIORITY;
-  value: string;
+  value: SortOfTickets;
 }
-export const tglPriority = (value: SortOfTickets): tglPriorityType => ({
+export const togglePriority = (value: SortOfTickets): tglPriorityType => ({
   type: TOGGLE_PRIORITY,
   value,
 });
@@ -64,10 +64,10 @@ export const itemsIsLoading = (value: boolean): ItemsIsLoadingType => ({
 
 interface ItemsFetchDataSuccessType {
   type: typeof ITEMS_FETCH_DATA_SUCCESS;
-  value: any;
+  value: TicketsType[];
 }
 export const itemsFetchDataSuccess = (
-  value: any
+  value: TicketsType[]
 ): ItemsFetchDataSuccessType => ({ type: ITEMS_FETCH_DATA_SUCCESS, value });
 
 export function itemsFetchData() {
