@@ -9,3 +9,6 @@ export const translateSortOfTickets = {
     cheapest: "Самый дешевый",
     fastest: "Самый быстрый",
 }
+
+export const urlForSearchID = 'https://front-test.beta.aviasales.ru/search'
+export const urlForTickets = 'https://front-test.beta.aviasales.ru/tickets?searchId='

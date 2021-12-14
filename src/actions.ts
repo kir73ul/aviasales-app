@@ -7,6 +7,8 @@ import {
   TOGGLE_PRIORITY,
   ITEMS_IS_LOADING,
   ITEMS_FETCH_DATA_SUCCESS,
+  urlForSearchID,
+  urlForTickets
 } from "./Constants/Constants";
 
 export type TransfersReducerType = TglCheckboxType | TglAllCheckboxesType;
@@ -74,12 +76,10 @@ export function itemsFetchData() {
   return (dispatch: AppDispatch) => {
     dispatch(itemsIsLoading(true));
 
-    fetch(`https://aviasales-test-api.java-mentor.com/search`)
+    fetch(urlForSearchID)
       .then((response) => response.json())
       .then(({ searchId }) =>
-        fetch(
-          `https://aviasales-test-api.java-mentor.com/tickets?searchId=${searchId}`
-        )
+        fetch(urlForTickets + searchId)
       )
       .then((response) => {
         if (!response.ok) {

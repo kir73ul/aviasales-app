@@ -5,7 +5,11 @@ import Ticket from "../ticket";
 import styles from "./tickets-list.module.scss";
 import { TicketsType } from "../../Types/Types";
 
-export default function List({ items }: TicketsType[]) {
+interface ListType {
+  items: TicketsType[];
+}
+
+export default function List({ items }: ListType) {
   const elems = items.map((item: TicketsType) => {
     const props = ticketCreator(item);
     const id = idBase.create();

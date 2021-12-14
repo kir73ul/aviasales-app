@@ -1,13 +1,13 @@
+export enum SortOfTickets {
+  cheapest = "cheapest",
+  fastest = "fastest",
+}
 export enum NumbersOfTransfers {
   all = 'all',
   zero = '0',
   one = '1',
   two = '2',
   three = '3'
-}
-export enum SortOfTickets {
-  cheapest = "cheapest",
-  fastest = "fastest",
 }
 type TransfersKey = keyof typeof NumbersOfTransfers
 
