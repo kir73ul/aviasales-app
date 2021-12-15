@@ -1,3 +1,5 @@
+import { NumbersOfTransfers } from "../Types/Types";
+
 export const TOGGLE_CHECKBOX = "TOGGLE_CHECKBOX";
 export const TOGGLE_ALL_CHECKBOXES = "TOGGLE_ALL_CHECKBOXES";
 export const TOGGLE_PRIORITY = "TOGGLE_PRIORITY";
@@ -9,6 +11,12 @@ export const translateSortOfTickets = {
     cheapest: "Самый дешевый",
     fastest: "Самый быстрый",
 }
-
+export const translateNumberOfStops = {
+    [NumbersOfTransfers.all]: "Все",
+    [NumbersOfTransfers.zero]: "Без пересадок",
+    [NumbersOfTransfers.one]: "Одна пересадка",
+    [NumbersOfTransfers.two]: "Две пересадки",
+    [NumbersOfTransfers.three]: "Три пересадки"
+}
 export const urlForSearchID = 'https://front-test.beta.aviasales.ru/search'
 export const urlForTickets = 'https://front-test.beta.aviasales.ru/tickets?searchId='

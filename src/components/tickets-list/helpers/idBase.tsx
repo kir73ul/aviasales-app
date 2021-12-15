@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-expressions */
 class IdBase {
   volume = 1000000;
 
@@ -12,7 +11,7 @@ class IdBase {
     return newId;
   };
 
-  delete = (id) => {
+  delete = (id :number ) => {
     this.idCollection.delete(id);
   };
 }

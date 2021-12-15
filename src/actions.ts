@@ -17,7 +17,7 @@ interface TglCheckboxType {
   key: string;
   value: boolean;
 }
-export const tglCheckbox = (key: string, value: boolean): TglCheckboxType => ({
+export const toggleCheckbox = (key: string, value: boolean): TglCheckboxType => ({
   type: TOGGLE_CHECKBOX,
   key,
   value,
@@ -27,7 +27,7 @@ interface TglAllCheckboxesType {
   type: typeof TOGGLE_ALL_CHECKBOXES;
   value: boolean;
 }
-export const tglAllCheckboxes = (value: boolean): TglAllCheckboxesType => ({
+export const toggleAllCheckboxes = (value: boolean): TglAllCheckboxesType => ({
   type: TOGGLE_ALL_CHECKBOXES,
   value,
 });

@@ -1,6 +1,5 @@
-import React from "react";
+import { TicketCreatorReturnType } from "../../Types/Types";
 import classes from "./tickets.module.scss";
-import { TicketCreatorReturnType } from './../tickets-list/helpers/ticketCreator';
 
 export default function Ticket(props: TicketCreatorReturnType) {
   const {

@@ -1,4 +1,6 @@
-const ticket = {
+import { TicketsType } from "../../../Types/Types";
+
+const ticket : TicketsType = {
   price: 15500,
   carrier: "S7",
   segments: [
@@ -18,7 +20,7 @@ const ticket = {
     },
   ],
 };
-const mockedServer = [];
+const mockedServer : TicketsType[] = [];
 mockedServer.length = 20;
 mockedServer.fill(ticket, 0, 19);
 

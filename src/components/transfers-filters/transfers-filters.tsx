@@ -1,34 +1,29 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
-/* import PropTypes from "prop-types";
- */ import classes from "./transfers-filters.module.scss";
+import { useDispatch, useSelector } from "react-redux";
+import { AppStateType } from "../../combineStore";
+import classes from "./transfers-filters.module.scss";
+import { toggleAllCheckboxes, toggleCheckbox } from './../../actions';
+import { NumbersOfTransfers } from "../../Types/Types";
+import { translateNumberOfStops } from './../../Constants/Constants';
 
-interface TransfersFiltersType {
-  stopsFilter: any;
-  tglAllCheckboxes: (param: boolean) => void;
-  tglCheckbox: (key: string, param: boolean) => void;
-}
-export default function TransfersFilters({
-  stopsFilter,
-  tglAllCheckboxes,
-  tglCheckbox,
-}: TransfersFiltersType) {
-  const checkboxes = [
-    { key: "all", value: "Все" },
-    { key: "0", value: "Без пересадок" },
-    { key: "1", value: "Одна пересадка" },
-    { key: "2", value: "Две пересадки" },
-    { key: "3", value: "Три пересадки" },
-  ];
+export default function TransfersFilters() {
+  const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
+  const dispatch = useDispatch()
 
   const toggle = (evt: React.ChangeEvent<HTMLFormElement>, key: string) => {
     const { checked } = evt.target;
     console.log(evt);
 
-    if (key === "all") tglAllCheckboxes(checked);
-    else tglCheckbox(key, checked);
+    if (key === NumbersOfTransfers.all) dispatch(toggleAllCheckboxes(checked));
+    else dispatch(toggleCheckbox(key, checked));
   };
+  const checkboxes = [
+    { key: NumbersOfTransfers.all, value: translateNumberOfStops.all },
+    { key:NumbersOfTransfers.zero, value: translateNumberOfStops[0] },
+    { key: NumbersOfTransfers.one, value: translateNumberOfStops[1] },
+    { key: NumbersOfTransfers.two, value: translateNumberOfStops[2] },
+    { key: NumbersOfTransfers.three, value: translateNumberOfStops[3] },
+];
 
   const list = checkboxes.map(({ key, value }) => {
     return (
@@ -54,9 +49,3 @@ export default function TransfersFilters({
   );
 }
 
-/* TransfersFilters.propTypes = {
-  stopsFilter: PropTypes.objectOf(PropTypes.bool.isRequired).isRequired,
-  tglAllCheckboxes: PropTypes.func.isRequired,
-  tglCheckbox: PropTypes.func.isRequired,
-};
- */

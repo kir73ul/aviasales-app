@@ -89,8 +89,7 @@ function ticketsReducer(
   state = initialTicketsState,
   action: TicketsReducerType
 ) {
-/*   const { type, value } = action;
- */  switch (action.type) {
+  switch (action.type) {
     case ITEMS_HAS_ERRORED:
       return {
         ...state,
