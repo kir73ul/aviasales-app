@@ -2,9 +2,9 @@ import  { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classes from "./app.module.scss";
 import logo from "./Logo.png";
-import TransfersFilters from "../../components/transfers-filters";
-import TicketsMenu from "../../components/tickets-menu";
-import TicketsList from "../../components/tickets-list";
+import {TransfersFilters} from "../../components/transfers-filters";
+import {TicketsMenu} from "../../components/tickets-menu";
+import {TicketsList} from "../../components/tickets-list";
 import { itemsFetchData } from './../../actions';
 
 export  function App() {

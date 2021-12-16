@@ -7,37 +7,36 @@ import {
   TOGGLE_PRIORITY,
   ITEMS_IS_LOADING,
   ITEMS_FETCH_DATA_SUCCESS,
-  urlForSearchID,
-  urlForTickets
+  url
 } from "./Constants/Constants";
 
-export type TransfersReducerType = TglCheckboxType | TglAllCheckboxesType;
-interface TglCheckboxType {
+export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType;
+interface ToggleCheckboxType {
   type: typeof TOGGLE_CHECKBOX;
   key: string;
   value: boolean;
 }
-export const toggleCheckbox = (key: string, value: boolean): TglCheckboxType => ({
+export const toggleCheckbox = (key: string, value: boolean) => ({
   type: TOGGLE_CHECKBOX,
   key,
   value,
 });
 
-interface TglAllCheckboxesType {
+interface ToggleAllCheckboxesType {
   type: typeof TOGGLE_ALL_CHECKBOXES;
   value: boolean;
 }
-export const toggleAllCheckboxes = (value: boolean): TglAllCheckboxesType => ({
+export const toggleAllCheckboxes = (value: boolean) => ({
   type: TOGGLE_ALL_CHECKBOXES,
   value,
 });
 
-export type PriorityReducerType = tglPriorityType;
-export interface tglPriorityType {
+export type PriorityReducerType = togglePriorityType;
+export interface togglePriorityType {
   type: typeof TOGGLE_PRIORITY;
   value: SortOfTickets;
 }
-export const togglePriority = (value: SortOfTickets): tglPriorityType => ({
+export const togglePriority = (value: SortOfTickets) => ({
   type: TOGGLE_PRIORITY,
   value,
 });
@@ -50,8 +49,8 @@ interface ItemsHasErroredType {
   type: typeof ITEMS_HAS_ERRORED;
   value: boolean;
 }
-export const itemsHasErrored = (value: boolean): ItemsHasErroredType => ({
-  type: ITEMS_HAS_ERRORED,
+export const itemsHasErrored = (value: boolean) : ItemsHasErroredType => ({
+  type:  ITEMS_HAS_ERRORED,
   value,
 });
 
@@ -59,8 +58,8 @@ interface ItemsIsLoadingType {
   type: typeof ITEMS_IS_LOADING;
   value: boolean;
 }
-export const itemsIsLoading = (value: boolean): ItemsIsLoadingType => ({
-  type: ITEMS_IS_LOADING,
+export const itemsIsLoading = (value: boolean) : ItemsIsLoadingType => ({
+  type:  ITEMS_IS_LOADING,
   value,
 });
 
@@ -76,10 +75,10 @@ export function itemsFetchData() {
   return (dispatch: AppDispatch) => {
     dispatch(itemsIsLoading(true));
 
-    fetch(urlForSearchID)
+    fetch(url.searchID)
       .then((response) => response.json())
       .then(({ searchId }) =>
-        fetch(urlForTickets + searchId)
+        fetch(`${url.tickets} + ${searchId}`)
       )
       .then((response) => {
         if (!response.ok) {

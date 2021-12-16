@@ -1,3 +1,1 @@
-import TransfersFilters from "./transfers-filters";
-
-export default TransfersFilters;
+export {TransfersFilters} from "./transfers-filters";

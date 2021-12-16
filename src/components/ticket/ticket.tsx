@@ -1,7 +1,7 @@
-import { TicketCreatorReturnType } from "../../Types/Types";
 import classes from "./tickets.module.scss";
+import { ticketCreator } from './../tickets-list/helpers/ticketCreator';
 
-export default function Ticket(props: TicketCreatorReturnType) {
+export const Ticket = (props: ReturnType<typeof ticketCreator>) => {
   const {
     price,
     carrierLogo,

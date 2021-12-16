@@ -1,21 +1,10 @@
 import { combineReducers } from "redux";
-import {
-  PriorityReducerType,
-  TicketsReducerType,
-  TransfersReducerType,
-} from "./actions";
-import {
-  ITEMS_FETCH_DATA_SUCCESS,
-  ITEMS_HAS_ERRORED,
-  TOGGLE_ALL_CHECKBOXES,
-} from "./Constants/Constants";
-import { ITEMS_IS_LOADING } from "./Constants/Constants";
-import { TOGGLE_CHECKBOX } from "./Constants/Constants";
-import { TOGGLE_PRIORITY } from "./Constants/Constants";
-import { InitialFiltersStateType, SortOfTickets, NumbersOfTransfers } from "./Types/Types";
-import { initialTicketsStateType } from './Types/Types';
+import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./actions";
+import {ITEMS_FETCH_DATA_SUCCESS, ITEMS_HAS_ERRORED, TOGGLE_ALL_CHECKBOXES, ITEMS_IS_LOADING,
+  TOGGLE_CHECKBOX, TOGGLE_PRIORITY } from "./Constants/Constants";
+import { InitialFiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
 
-function priorityReducer(state = SortOfTickets.cheapest, action: PriorityReducerType) {
+const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
   const { type, value } = action;
 
   switch (type) {

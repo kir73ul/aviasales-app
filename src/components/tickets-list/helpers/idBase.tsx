@@ -5,9 +5,9 @@ class IdBase {
 
   create = () => {
     let newId = Math.floor(Math.random() * this.volume);
-    !this.idCollection.has(newId)
-      ? this.idCollection.add(newId)
-      : (newId = this.create());
+    if(!this.idCollection.has(newId)) {
+      this.idCollection.add(newId)
+    } else newId = this.create()
     return newId;
   };
 
@@ -16,5 +16,4 @@ class IdBase {
   };
 }
 
-const idBase = new IdBase();
-export default idBase;
+export const idBase = new IdBase();

@@ -1,6 +1,6 @@
 import { TicketsType } from "../../../Types/Types";
 
-const ticket : TicketsType = {
+export const ticket : TicketsType = {
   price: 15500,
   carrier: "S7",
   segments: [
@@ -24,4 +24,3 @@ const mockedServer : TicketsType[] = [];
 mockedServer.length = 20;
 mockedServer.fill(ticket, 0, 19);
 
-export default mockedServer;

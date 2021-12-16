@@ -6,13 +6,12 @@ import { toggleAllCheckboxes, toggleCheckbox } from './../../actions';
 import { NumbersOfTransfers } from "../../Types/Types";
 import { translateNumberOfStops } from './../../Constants/Constants';
 
-export default function TransfersFilters() {
+export const TransfersFilters = () => {
   const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
   const dispatch = useDispatch()
 
   const toggle = (evt: React.ChangeEvent<HTMLFormElement>, key: string) => {
     const { checked } = evt.target;
-    console.log(evt);
 
     if (key === NumbersOfTransfers.all) dispatch(toggleAllCheckboxes(checked));
     else dispatch(toggleCheckbox(key, checked));

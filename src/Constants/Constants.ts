@@ -18,5 +18,8 @@ export const translateNumberOfStops = {
     [NumbersOfTransfers.two]: "Две пересадки",
     [NumbersOfTransfers.three]: "Три пересадки"
 }
-export const urlForSearchID = 'https://front-test.beta.aviasales.ru/search'
-export const urlForTickets = 'https://front-test.beta.aviasales.ru/tickets?searchId='
+export const url = {
+    searchID : 'https://front-test.beta.aviasales.ru/search',
+    tickets:'https://front-test.beta.aviasales.ru/tickets?searchId=', 
+    carrierLogo: 'https://pics.avs.io/99/36/'
+}
