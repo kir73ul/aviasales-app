@@ -1,5 +1,5 @@
 import { SortOfTickets, TicketsType } from "../../../Types/Types";
-import { InitialFiltersStateType } from './../../../Types/Types';
+import { FiltersStateType } from './../../../Types/Types';
 
 export const sortTickets = (tickets: TicketsType[], priority: SortOfTickets) => {
   const totalDuration = ( segments : TicketsType["segments"]) =>
@@ -19,7 +19,7 @@ export const sortTickets = (tickets: TicketsType[], priority: SortOfTickets) => 
   }
 };
 
-export const filterTickets = (tickets: TicketsType[], filterValue: InitialFiltersStateType) =>
+export const filterTickets = (tickets: TicketsType[], filterValue: FiltersStateType) =>
   tickets.filter(({ segments }) =>
-    segments.every(({ stops }) => filterValue[stops.length])
+    segments.every(({ stops }) =>  filterValue[stops.length  as unknown as keyof FiltersStateType])
   );

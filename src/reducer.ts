@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./actions";
 import {ITEMS_FETCH_DATA_SUCCESS, ITEMS_HAS_ERRORED, TOGGLE_ALL_CHECKBOXES, ITEMS_IS_LOADING,
   TOGGLE_CHECKBOX, TOGGLE_PRIORITY } from "./Constants/Constants";
-import { InitialFiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
+import { FiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
   const { type, value } = action;
@@ -16,7 +16,7 @@ const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducer
   }
 }
 
-const initialFiltersState: InitialFiltersStateType = {
+const initialFiltersState: FiltersStateType = {
   [NumbersOfTransfers.all]: true,
   [NumbersOfTransfers.zero]: true,
   [NumbersOfTransfers.one]: true,
@@ -27,7 +27,7 @@ const initialFiltersState: InitialFiltersStateType = {
 const checks = [NumbersOfTransfers.zero, NumbersOfTransfers.one, NumbersOfTransfers.two, NumbersOfTransfers.three]
 
 const setKey = (
-  state: InitialFiltersStateType,
+  state: FiltersStateType,
   key:  NumbersOfTransfers,
   value: boolean
 ) => {
@@ -40,7 +40,7 @@ const setKey = (
   return newState;
 };
 
-const setAllKeys = (state: InitialFiltersStateType, value: boolean) => {
+const setAllKeys = (state: FiltersStateType, value: boolean) => {
   const {...newState } = state;
   newState.all = value;
   checks.forEach((key) => {

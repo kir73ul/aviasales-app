@@ -11,8 +11,8 @@ export enum NumbersOfTransfers {
 }
 export type TransfersKey = keyof typeof NumbersOfTransfers
 
-export type InitialFiltersStateType = {
-  [key : string/* in NumbersOfTransfers */]: boolean;
+export type FiltersStateType = {
+  [key /* : string */in NumbersOfTransfers]: boolean;
 }
 export interface SegmentType {
   origin: string
