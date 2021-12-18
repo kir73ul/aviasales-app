@@ -28,7 +28,7 @@
     "deploy": "gh-pages -d build",
     "format": "prettier ./src --write",
     "lint": "eslint ./src",
-    "lint:fix": "eslint ./src --fix"
+    "lint:fix": "eslint ./src --fix --color"
   },
   "eslintConfig": {
     "extends": [
@@ -69,7 +69,7 @@
     }
   },
   "lint-staged": {
-    "*": [
+    "tsx, ts, js": [
       "npm run lint:fix",
       "npm run format"
     ]
