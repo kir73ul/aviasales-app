@@ -7,6 +7,7 @@ import {
   TOGGLE_PRIORITY,
   ITEMS_IS_LOADING,
   ITEMS_FETCH_DATA_SUCCESS,
+  GET_PORTION_OF_TICKETS,
   url
 } from "./Constants/Constants";
 
@@ -47,8 +48,8 @@ export const togglePriority = (value: SortOfTickets) => ({
 export type TicketsReducerType =
   | ItemsHasErroredType
   | ItemsIsLoadingType
-  | ItemsFetchDataSuccessType;
-
+  | ItemsFetchDataSuccessType
+  | GetPortionOfTicketsType;
   
   interface ItemsHasErroredType {
   type: typeof ITEMS_HAS_ERRORED;
@@ -77,6 +78,15 @@ export const itemsFetchDataSuccess = (
   value: TicketsType[]
 ) => ({ type: inferLiteralFromString(ITEMS_FETCH_DATA_SUCCESS), value });
 
+interface GetPortionOfTicketsType {
+  type: typeof GET_PORTION_OF_TICKETS;
+  value: TicketsType[];
+}
+
+export const getPortionOfTickets = (
+  value: TicketsType[]
+) => ({type: inferLiteralFromString(GET_PORTION_OF_TICKETS), value  })
+
 export function itemsFetchData() {
   return (dispatch: AppDispatch) => {
     dispatch(itemsIsLoading(true));
@@ -95,6 +105,7 @@ export function itemsFetchData() {
       .then((response) => response.json())
       .then((res) => {
         dispatch(itemsFetchDataSuccess(res.tickets));
+        dispatch(getPortionOfTickets(res.tickets.slice(0, 10)))
       })
       .catch(() => dispatch(itemsHasErrored(true)));
   };

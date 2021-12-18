@@ -34,7 +34,8 @@ export interface TicketsType {
 	segments: [SegmentType, SegmentType]
 }
 export interface initialTicketsStateType {
-	hasErrored: boolean
-	isLoading: boolean
-	items: TicketsType[]
+  hasErrored: boolean;
+  isLoading: boolean;
+  items: TicketsType[];
+  portionOfItems: TicketsType[];
 }

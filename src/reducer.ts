@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./actions";
 import {ITEMS_FETCH_DATA_SUCCESS, ITEMS_HAS_ERRORED, TOGGLE_ALL_CHECKBOXES, ITEMS_IS_LOADING,
-  TOGGLE_CHECKBOX, TOGGLE_PRIORITY } from "./Constants/Constants";
-import { FiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
+  TOGGLE_CHECKBOX, TOGGLE_PRIORITY, GET_PORTION_OF_TICKETS} from "./Constants/Constants";
+import { FiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType, TicketsType} from "./Types/Types";
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
   const { type, value } = action;
@@ -66,12 +66,19 @@ const initialTicketsState: initialTicketsStateType = {
   hasErrored: false,
   isLoading: true,
   items: [],
+  portionOfItems: []
 };
 
-function ticketsReducer(
+export const loadGradual = (items: TicketsType[], portionOfItems: TicketsType[], isScrollOnBottom: boolean ) => {
+  const lastItems = isScrollOnBottom ? portionOfItems.length - 1 : 0
+  const indexOfLastItems = items.indexOf(portionOfItems[lastItems])
+  return (indexOfLastItems !== 0 || indexOfLastItems !== items.length -1) ? items.slice(indexOfLastItems - 10, indexOfLastItems + 10) : portionOfItems
+}
+
+const ticketsReducer = (
   state = initialTicketsState,
   action: TicketsReducerType
-) {
+) => {
   switch (action.type) {
     case ITEMS_HAS_ERRORED:
       return {
@@ -94,6 +101,12 @@ function ticketsReducer(
         isLoading: false,
         hasErrored: false,
       };
+
+      case GET_PORTION_OF_TICKETS:
+        return {
+          ...state, 
+          portionOfItems: action.value
+        };
 
     default:
       return state;
