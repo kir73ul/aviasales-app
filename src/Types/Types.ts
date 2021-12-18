@@ -29,5 +29,6 @@ export interface TicketsType {
 export interface initialTicketsStateType {
   hasErrored: boolean;
   isLoading: boolean;
-  items: TicketsType[],
+  items: TicketsType[];
+  portionOfItems: TicketsType[];
 }
