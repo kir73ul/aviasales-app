@@ -10,7 +10,7 @@ export const TransfersFilters = () => {
   const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
   const dispatch = useDispatch()
 
-  const toggle = (evt: React.ChangeEvent<HTMLFormElement>, key: string) => {
+  const toggle = (evt: React.ChangeEvent<HTMLInputElement>, key: NumbersOfTransfers) => {
     const { checked } = evt.target;
 
     if (key === NumbersOfTransfers.all) dispatch(toggleAllCheckboxes(checked));
@@ -31,7 +31,7 @@ export const TransfersFilters = () => {
           type="checkbox"
           id={value}
           checked={stopsFilter[key]}
-          onChange={(evt: any) => toggle(evt, key)}
+          onChange={(evt: React.ChangeEvent<HTMLInputElement>) => toggle(evt, key)}
         />
         <label htmlFor={value} className={classes["custom-checkbox"]}>
           {value}

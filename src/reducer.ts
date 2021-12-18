@@ -24,11 +24,11 @@ const initialFiltersState: InitialFiltersStateType = {
   [NumbersOfTransfers.three]: true
 };
 
-const checks = ['0', '1', '2', '3'];
+const checks = [NumbersOfTransfers.zero, NumbersOfTransfers.one, NumbersOfTransfers.two, NumbersOfTransfers.three]
 
 const setKey = (
   state: InitialFiltersStateType,
-  key: string,
+  key:  NumbersOfTransfers,
   value: boolean
 ) => {
   const newState = { ...state, [key]: value };
@@ -41,7 +41,7 @@ const setKey = (
 };
 
 const setAllKeys = (state: InitialFiltersStateType, value: boolean) => {
-  const { priority, ...newState } = state;
+  const {...newState } = state;
   newState.all = value;
   checks.forEach((key) => {
     newState[key] = value;
@@ -49,19 +49,13 @@ const setAllKeys = (state: InitialFiltersStateType, value: boolean) => {
   return newState;
 };
 
-function transfersReducer(
-  state = initialFiltersState,
-  action: TransfersReducerType
-) {
-  //@ts-ignore
-  const { type, key, value } = action;
-
-  switch (type) {
+const transfersReducer = (state = initialFiltersState,  action: TransfersReducerType) => {
+  switch (action.type) {
     case TOGGLE_CHECKBOX:
-      return setKey(state, key, value);
+      return setKey(state, action.key, action.value);
 
     case TOGGLE_ALL_CHECKBOXES:
-      return setAllKeys(state, value);
+      return setAllKeys(state, action.value);
 
     default:
       return state;

@@ -21,5 +21,5 @@ export const translateNumberOfStops = {
 export const url = {
     searchID : 'https://front-test.beta.aviasales.ru/search',
     tickets:'https://front-test.beta.aviasales.ru/tickets?searchId=', 
-    carrierLogo: 'https://pics.avs.io/99/36/'
+    carrierLogo: 'https://pics.avs.io/99/36/carrier.png'
 }

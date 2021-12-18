@@ -27,7 +27,7 @@ export const ticketCreator = (item: TicketsType) => {
   const ftdDurationBack = formatDuration(durationBack);
   const transfers = transfersHandler(stops.length);
   const transfersBack = transfersHandler(stopsBack.length);
-  const carrierLogo = `${url.carrierLogo}${carrier}.png`;
+  const carrierLogo = url.carrierLogo.replace('carrier',  carrier)
 
   return {
     price,

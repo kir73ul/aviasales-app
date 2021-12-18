@@ -11,7 +11,7 @@ export  function App() {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(itemsFetchData())
-  }, [])
+  }, [dispatch])
 
   return (
     <div className={classes.app}>

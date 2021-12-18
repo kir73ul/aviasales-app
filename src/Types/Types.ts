@@ -9,10 +9,10 @@ export enum NumbersOfTransfers {
   two = '2',
   three = '3'
 }
-type TransfersKey = keyof typeof NumbersOfTransfers
+export type TransfersKey = keyof typeof NumbersOfTransfers
 
 export type InitialFiltersStateType = {
-  [key: string/* in TransfersKey */]: boolean;
+  [key : string/* in NumbersOfTransfers */]: boolean;
 }
 export interface SegmentType {
   origin: string
@@ -24,7 +24,7 @@ export interface SegmentType {
 export interface TicketsType {
   price: number
   carrier: string
-  segments: SegmentType[]
+  segments: [SegmentType, SegmentType]
 }
 export interface initialTicketsStateType {
   hasErrored: boolean;
