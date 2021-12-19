@@ -1,116 +1,118 @@
-import { combineReducers } from "redux";
-import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./actions";
-import {ITEMS_FETCH_DATA_SUCCESS, ITEMS_HAS_ERRORED, TOGGLE_ALL_CHECKBOXES, ITEMS_IS_LOADING,
-  TOGGLE_CHECKBOX, TOGGLE_PRIORITY, GET_PORTION_OF_TICKETS} from "./Constants/Constants";
-import { FiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
+import { combineReducers } from 'redux'
+import { PriorityReducerType, TicketsReducerType, TransfersReducerType } from './actions'
+import { actionTypes } from './Types/Action types'
+import {
+	FiltersStateType,
+	SortOfTickets,
+	NumbersOfTransfers,
+	initialTicketsStateType,
+} from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
-  const { type, value } = action;
+	const { type, value } = action
 
-  switch (type) {
-    case TOGGLE_PRIORITY:
-      return value;
+	switch (type) {
+		case actionTypes.TOGGLE_PRIORITY:
+			return value
 
-    default:
-      return state;
-  }
+		default:
+			return state
+	}
 }
 
 const initialFiltersState: FiltersStateType = {
-  [NumbersOfTransfers.all]: true,
-  [NumbersOfTransfers.zero]: true,
-  [NumbersOfTransfers.one]: true,
-  [NumbersOfTransfers.two]: true,
-  [NumbersOfTransfers.three]: true
-};
+	[NumbersOfTransfers.all]: true,
+	[NumbersOfTransfers.zero]: true,
+	[NumbersOfTransfers.one]: true,
+	[NumbersOfTransfers.two]: true,
+	[NumbersOfTransfers.three]: true,
+}
 
-const checks = [NumbersOfTransfers.zero, NumbersOfTransfers.one, NumbersOfTransfers.two, NumbersOfTransfers.three]
+const checks = [
+	NumbersOfTransfers.zero,
+	NumbersOfTransfers.one,
+	NumbersOfTransfers.two,
+	NumbersOfTransfers.three,
+]
 
-const setKey = (
-  state: FiltersStateType,
-  key:  NumbersOfTransfers,
-  value: boolean
-) => {
-  const newState = { ...state, [key]: value };
-  const keyCounter = checks.reduce(
-    (acc, item) => (newState[item] ? acc + 1 : acc),
-    0
-  );
-  keyCounter === 4 ? (newState.all = true) : (newState.all = false);
-  return newState;
-};
+const setKey = (state: FiltersStateType, key: NumbersOfTransfers, value: boolean) => {
+	const newState = { ...state, [key]: value }
+	const keyCounter = checks.reduce((acc, item) => (newState[item] ? acc + 1 : acc), 0)
+	keyCounter === 4 ? (newState.all = true) : (newState.all = false)
+	return newState
+}
 
 const setAllKeys = (state: FiltersStateType, value: boolean) => {
-  const {...newState } = state;
-  newState.all = value;
-  checks.forEach((key) => {
-    newState[key] = value;
-  });
-  return newState;
-};
+	const { ...newState } = state
+	newState.all = value
+	checks.forEach((key) => {
+		newState[key] = value
+	})
+	return newState
+}
 
-const transfersReducer = (state = initialFiltersState,  action: TransfersReducerType) => {
-  switch (action.type) {
-    case TOGGLE_CHECKBOX:
-      return setKey(state, action.key, action.value);
+const transfersReducer = (state = initialFiltersState, action: TransfersReducerType) => {
+	switch (action.type) {
+		case actionTypes.TOGGLE_CHECKBOX:
+			return setKey(state, action.key, action.value)
 
-    case TOGGLE_ALL_CHECKBOXES:
-      return setAllKeys(state, action.value);
+		case actionTypes.TOGGLE_ALL_CHECKBOXES:
+			return setAllKeys(state, action.value)
 
-    default:
-      return state;
-  }
+		default:
+			return state
+	}
 }
 
 const initialTicketsState: initialTicketsStateType = {
-  hasErrored: false,
-  isLoading: true,
-  items: [],
-  portionOfItems: []
-};
+	hasErrored: false,
+	isLoading: true,
+	items: [],
+	portionOfItems: [],
+}
 
-const ticketsReducer = (
-  state = initialTicketsState,
-  action: TicketsReducerType
-) => {
-  switch (action.type) {
-    case ITEMS_HAS_ERRORED:
-      return {
-        ...state,
-        hasErrored: action.value,
-        isLoading: false,
-      };
+const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType) => {
+	switch (action.type) {
+		case actionTypes.ITEMS_HAS_ERRORED:
+			return {
+				...state,
+				hasErrored: action.value,
+				isLoading: false,
+			}
 
-    case ITEMS_IS_LOADING:
-      return {
-        ...state,
-        isLoading: action.value,
-        hasErrored: false,
-      };
+		case actionTypes.ITEMS_IS_LOADING:
+			return {
+				...state,
+				isLoading: action.value,
+				hasErrored: false,
+			}
 
-    case ITEMS_FETCH_DATA_SUCCESS:
-      return {
-        ...state,
-        items: action.value,
-        isLoading: false,
-        hasErrored: false,
-      };
+		case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
+			return {
+				...state,
+				items: action.value,
+				isLoading: false,
+				hasErrored: false,
+			}
 
-      case GET_PORTION_OF_TICKETS:
-        return {
-          ...state, 
-          portionOfItems: [...(state.portionOfItems.slice(state.portionOfItems.length - 10)), ...action.value]
-        };
+		case actionTypes.GET_PORTION_OF_TICKETS:
+			return {
+				...state,
+				portionOfItems: [
+					...state.portionOfItems.slice(state.portionOfItems.length - 10),
+					...action.value,
+				],
+			}
 
-    default:
-      return state;
-  }
+		default:
+			return state
+	}
 }
 
 const rootReducer = combineReducers({
-  priorityReducer,
-  transfersReducer,
-  ticketsReducer,
-});
+	priorityReducer,
+	transfersReducer,
+	ticketsReducer,
+})
 
-export default rootReducer;
+export default rootReducer

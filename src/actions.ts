@@ -1,112 +1,104 @@
-import { AppDispatch } from "./combineStore";
-import { NumbersOfTransfers, SortOfTickets, TicketsType } from "./Types/Types";
-import {
-  ITEMS_HAS_ERRORED,
-  TOGGLE_ALL_CHECKBOXES,
-  TOGGLE_CHECKBOX,
-  TOGGLE_PRIORITY,
-  ITEMS_IS_LOADING,
-  ITEMS_FETCH_DATA_SUCCESS,
-  GET_PORTION_OF_TICKETS,
-  url
-} from "./Constants/Constants";
+import { AppDispatch } from './combineStore'
+import { NumbersOfTransfers, SortOfTickets, TicketsType } from './Types/Types'
+import { actionTypes } from './Types/Action types'
+import { url } from './Constants/Constants'
 
-const inferLiteralFromString = <T extends string>(arg: T): T => arg
-
-export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType;
-
-interface ToggleCheckboxType {
-  type: typeof TOGGLE_CHECKBOX;
-  key: NumbersOfTransfers;
-  value: boolean;
-}
 export const toggleCheckbox = (key: NumbersOfTransfers, value: boolean) => ({
-  type: inferLiteralFromString(TOGGLE_CHECKBOX),
-  key,
-  value,
-});
-
-interface ToggleAllCheckboxesType {
-  type: typeof TOGGLE_ALL_CHECKBOXES;
-  value: boolean;
+	type: actionTypes.TOGGLE_CHECKBOX,
+	key,
+	value,
+})
+interface ToggleCheckboxType {
+	type: typeof actionTypes.TOGGLE_CHECKBOX
+	key: NumbersOfTransfers
+	value: boolean
 }
 export const toggleAllCheckboxes = (value: boolean) => ({
-  type: inferLiteralFromString(TOGGLE_ALL_CHECKBOXES),
-  value,
-});
+	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
+	value,
+})
 
-export type PriorityReducerType = togglePriorityType;
-export interface togglePriorityType {
-  type: typeof TOGGLE_PRIORITY;
-  value: SortOfTickets;
+interface ToggleAllCheckboxesType {
+	type: typeof actionTypes.TOGGLE_ALL_CHECKBOXES
+	value: boolean
 }
+
+export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType
+
 export const togglePriority = (value: SortOfTickets) => ({
-  type: TOGGLE_PRIORITY,
-  value,
-});
+	type: actionTypes.TOGGLE_PRIORITY,
+	value,
+})
 
-export type TicketsReducerType =
-  | ItemsHasErroredType
-  | ItemsIsLoadingType
-  | ItemsFetchDataSuccessType
-  | GetPortionOfTicketsType;
-  
-  interface ItemsHasErroredType {
-  type: typeof ITEMS_HAS_ERRORED;
-  value: boolean;
+export interface togglePriorityType {
+	type: typeof actionTypes.TOGGLE_PRIORITY
+	value: SortOfTickets
 }
+export type PriorityReducerType = togglePriorityType
 
-export const itemsHasErrored = (value: boolean)  => ({
-  type:  inferLiteralFromString(ITEMS_HAS_ERRORED),
-  value,
-});
+interface ItemsHasErroredType {
+	type: typeof actionTypes.ITEMS_HAS_ERRORED
+	value: boolean
+}
 
 interface ItemsIsLoadingType {
-  type: typeof ITEMS_IS_LOADING;
-  value: boolean;
+	type: typeof actionTypes.ITEMS_IS_LOADING
+	value: boolean
 }
-export const itemsIsLoading = (value: boolean)  => ({
-  type:  inferLiteralFromString(ITEMS_IS_LOADING),
-  value,
-});
-
 interface ItemsFetchDataSuccessType {
-  type: typeof ITEMS_FETCH_DATA_SUCCESS;
-  value: TicketsType[];
+	type: typeof actionTypes.ITEMS_FETCH_DATA_SUCCESS
+	value: TicketsType[]
 }
-export const itemsFetchDataSuccess = (
-  value: TicketsType[]
-) => ({ type: inferLiteralFromString(ITEMS_FETCH_DATA_SUCCESS), value });
+
+export type TicketsReducerType =
+	| ItemsHasErroredType
+	| ItemsIsLoadingType
+	| ItemsFetchDataSuccessType
+	| GetPortionOfTicketsType
+
+export const itemsHasErrored = (value: boolean) => ({
+	type: actionTypes.ITEMS_HAS_ERRORED,
+	value,
+})
+
+export const itemsIsLoading = (value: boolean) => ({
+	type: actionTypes.ITEMS_IS_LOADING,
+	value,
+})
+
+export const itemsFetchDataSuccess = (value: TicketsType[]) => ({
+	type: actionTypes.ITEMS_FETCH_DATA_SUCCESS,
+	value,
+})
 
 interface GetPortionOfTicketsType {
-  type: typeof GET_PORTION_OF_TICKETS;
-  value: TicketsType[];
+	type: typeof actionTypes.GET_PORTION_OF_TICKETS
+	value: TicketsType[]
 }
 
-export const getPortionOfTickets = (
-  value: TicketsType[]
-) => ({type: inferLiteralFromString(GET_PORTION_OF_TICKETS), value  })
+export const getPortionOfTickets = (value: TicketsType[]) => ({
+	type: actionTypes.GET_PORTION_OF_TICKETS,
+	value,
+})
 
 export function itemsFetchData() {
-  return (dispatch: AppDispatch) => {
-    dispatch(itemsIsLoading(true));
+	return (dispatch: AppDispatch) => {
+		dispatch(itemsIsLoading(true))
 
-    fetch(url.searchID)
-      .then((response) => response.json())
-      .then(({ searchId }) =>
-        fetch(`${url.tickets}${searchId}`)
-      )
-      .then((response) => {
-        if (!response.ok) {
-          throw Error(response.statusText);
-        }        
-        return response;
-      })
-      .then((response) => response.json())
-      .then((res) => {
-        dispatch(itemsFetchDataSuccess(res.tickets));
-        dispatch(getPortionOfTickets(res.tickets.slice(0, 10)))
-      })
-      .catch(() => dispatch(itemsHasErrored(true)));
-  };
+		fetch(url.searchID)
+			.then((response) => response.json())
+			.then(({ searchId }) => fetch(`${url.tickets}${searchId}`))
+			.then((response) => {
+				if (!response.ok) {
+					throw Error(response.statusText)
+				}
+				return response
+			})
+			.then((response) => response.json())
+			.then((res) => {
+				dispatch(itemsFetchDataSuccess(res.tickets))
+				dispatch(getPortionOfTickets(res.tickets.slice(0, 10)))
+			})
+			.catch(() => dispatch(itemsHasErrored(true)))
+	}
 }
