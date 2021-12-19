@@ -1,14 +1,13 @@
 import { combineReducers } from "redux";
-import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./actions";
-import {ITEMS_FETCH_DATA_SUCCESS, ITEMS_HAS_ERRORED, TOGGLE_ALL_CHECKBOXES, ITEMS_IS_LOADING,
-  TOGGLE_CHECKBOX, TOGGLE_PRIORITY } from "./Constants/Constants";
+import { PriorityReducerType, TicketsReducerType,  TransfersReducerType} from "./Types/Action types";
+import {actionTypes} from "./Types/Action types";
 import { FiltersStateType, SortOfTickets, NumbersOfTransfers,  initialTicketsStateType} from "./Types/Types";
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
   const { type, value } = action;
 
   switch (type) {
-    case TOGGLE_PRIORITY:
+    case actionTypes.TOGGLE_PRIORITY:
       return value;
 
     default:
@@ -51,10 +50,10 @@ const setAllKeys = (state: FiltersStateType, value: boolean) => {
 
 const transfersReducer = (state = initialFiltersState,  action: TransfersReducerType) => {
   switch (action.type) {
-    case TOGGLE_CHECKBOX:
+    case actionTypes.TOGGLE_CHECKBOX:
       return setKey(state, action.key, action.value);
 
-    case TOGGLE_ALL_CHECKBOXES:
+    case actionTypes.TOGGLE_ALL_CHECKBOXES:
       return setAllKeys(state, action.value);
 
     default:
@@ -73,21 +72,21 @@ function ticketsReducer(
   action: TicketsReducerType
 ) {
   switch (action.type) {
-    case ITEMS_HAS_ERRORED:
+    case actionTypes.ITEMS_HAS_ERRORED:
       return {
         ...state,
         hasErrored: action.value,
         isLoading: false,
       };
 
-    case ITEMS_IS_LOADING:
+    case actionTypes.ITEMS_IS_LOADING:
       return {
         ...state,
         isLoading: action.value,
         hasErrored: false,
       };
 
-    case ITEMS_FETCH_DATA_SUCCESS:
+    case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
       return {
         ...state,
         items: action.value,
