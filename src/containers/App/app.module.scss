@@ -1,7 +1,7 @@
 .app {
   background: #f3f7fa;
   min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .cover {
@@ -41,6 +41,10 @@
   @media (max-width: 476px) {
     flex-flow: column;
   }
+}
+.filters-wrap {
+  position: sticky;
+  margin-bottom: 20px;
 }
 
 .sub-wrapper {
