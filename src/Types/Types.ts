@@ -14,6 +14,7 @@ export enum ParametersOfFilter {
 	biggerPrice = 'biggerPrice',
 	date = 'date',
 	airCompany = 'airCompany',
+	pickDate = 'pickDate',
 }
 export type TransfersKey = keyof typeof NumbersOfTransfers
 

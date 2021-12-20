@@ -1,6 +1,8 @@
 import { ParametersOfFilter, TicketsType } from '../../../Types/Types'
 import { dateFormatter } from './dateFormatter'
 
+const day = 86400000
+
 export const filterMethods = {
 	[ParametersOfFilter.lowerPrice]: (tickets: TicketsType[]) => {
 		return tickets.sort((prev, next) => prev.price - next.price)
@@ -16,12 +18,12 @@ export const filterMethods = {
 	[ParametersOfFilter.airCompany]: (tickets: TicketsType[], carrier?: string) => {
 		return tickets.filter((ticket) => ticket.carrier === carrier)
 	},
-}
-
-export const SortByIncreasePrice = (tickets: TicketsType[]) => {
-	return tickets.sort((prev, next) => prev.price - next.price)
-}
-
-export const SortByDecreasePrice = (tickets: TicketsType[]) => {
-	return tickets.sort((prev, next) => next.price - prev.price)
+	[ParametersOfFilter.pickDate]: (tickets: TicketsType[], date?: string) => {
+		return tickets.filter((ticket) =>
+			date
+				? Math.floor(dateFormatter(ticket.segments[0].date) / day) ===
+				  Math.floor(dateFormatter(date) / day)
+				: ticket
+		)
+	},
 }

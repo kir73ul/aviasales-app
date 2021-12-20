@@ -2,17 +2,18 @@ import { Select } from 'antd'
 import styles from './TicketFilter.module.scss'
 import { filterMethods } from './helpers/filterByPrice'
 import { ParametersOfFilter } from '../../Types/Types'
-import { useSelector } from 'react-redux'
-import { App } from './../../containers/App/app'
+import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
+import { itemsFetchDataSuccess } from '../../actions'
 
 const { Option } = Select
 
 export const TicketsFilter = () => {
-	const portionOfTickets = useSelector((state: AppStateType) => state.ticketsReducer.items)
+	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.items)
+	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter) => {
-		const filteredTickets = filterMethods[value](portionOfTickets)
-		console.log(filteredTickets)
+		const filteredTickets = filterMethods[value](allTickets)
+		dispatch(itemsFetchDataSuccess(filteredTickets))
 	}
 	return (
 		<div className={styles.wrap}>

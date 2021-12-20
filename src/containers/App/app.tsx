@@ -7,31 +7,34 @@ import { TicketsMenu } from '../../components/tickets-menu'
 import { TicketsList } from '../../components/tickets-list'
 import { itemsFetchData } from './../../actions'
 import { TicketsFilter } from './../../components/tickets-filter/TicketFilter'
+import { DateFilter } from './../../components/tickets-filter/DatePicker'
 
-export function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(itemsFetchData())
-  }, [dispatch])
+export const App = () => {
+	const dispatch = useDispatch()
 
-  return (
-    <div className={classes.app}>
-      <div className={classes.cover} />
-      <div className={classes['logo-wrapper']}>
-        <a href='/'>
-          <img src={logo} alt='logo' />
-        </a>
-      </div>
-      <div className={classes['main-wrapper']}>
-        <div className={classes['filters-wrap']}>
-          <TransfersFilters />
-          <TicketsFilter />
-        </div>
-        <div className={classes['sub-wrapper']}>
-          <TicketsMenu />
-          <TicketsList />
-        </div>
-      </div>
-    </div>
-  )
+	useEffect(() => {
+		dispatch(itemsFetchData())
+	}, [])
+
+	return (
+		<div className={classes.app}>
+			<div className={classes.cover} />
+			<div className={classes['logo-wrapper']}>
+				<a href='/'>
+					<img src={logo} alt='logo' />
+				</a>
+			</div>
+			<div className={classes['main-wrapper']}>
+				<div className={classes['filters-wrap']}>
+					<TransfersFilters />
+					<TicketsFilter />
+					<DateFilter />
+				</div>
+				<div className={classes['sub-wrapper']}>
+					<TicketsMenu />
+					<TicketsList />
+				</div>
+			</div>
+		</div>
+	)
 }
