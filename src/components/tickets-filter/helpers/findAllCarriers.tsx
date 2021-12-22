@@ -1,5 +1,6 @@
 import { ParametersOfFilter, TicketsType } from '../../../Types/Types'
 import { url } from '../../../Constants/Constants'
+import styles from './../TicketFilter.module.scss'
 
 interface treePropsType {
 	id?: string
@@ -7,6 +8,7 @@ interface treePropsType {
 	value: string
 	title: string
 	switcherIcon?: any
+	disabled?: boolean
 }
 
 export const findAllCarriers = (tickets: TicketsType[]) => {
@@ -21,7 +23,7 @@ export const genTreeProps = (allTickets: TicketsType[]) => {
 		{ value: ParametersOfFilter.lowerPrice, title: 'Увеличению цены' },
 		{ value: ParametersOfFilter.biggerPrice, title: 'Уменьшению цены' },
 		{ value: ParametersOfFilter.date, title: 'Дате вылета' },
-		{ children: [], value: ParametersOfFilter.airCompany, title: 'Авиакомпании' },
+		{ children: [], value: ParametersOfFilter.airCompany, disabled: true, title: 'Авиакомпании' },
 	]
 	carriers.forEach((value) => {
 		const iconUrl = url.carrierLogo.replace('carrier', value)
@@ -29,7 +31,7 @@ export const genTreeProps = (allTickets: TicketsType[]) => {
 			id: value,
 			value: value,
 			title: value,
-			switcherIcon: <img src={iconUrl} alt=''></img>,
+			switcherIcon: <img className={styles.iconImg} src={iconUrl} alt=''></img>,
 		})
 	})
 	return treeProps
