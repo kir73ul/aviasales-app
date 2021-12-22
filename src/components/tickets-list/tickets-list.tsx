@@ -74,18 +74,30 @@ export const TicketsList = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [priority, stopsFilter]);
 
-  useEffect(() => {
-    if(!isLoading && !hasErrored && !filteredItems.length) {
-      setEmptyList(true)
-    } else setEmptyList(false)   
-  }, [filteredItems.length, hasErrored, isLoading]);
+	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' })
+	}, [priority, stopsFilter, items])
 
-  return (
-    <>
-      <ErrorMessage />
-      <Loader />
-      <List items={filteredItems} />
-      <NoElems isTrue={emptyList} />
-    </>
-  );
+	useEffect(() => {
+		setFilteredItems(sortTickets(items, priority))
+	}, [priority, items])
+
+	useEffect(() => {
+		setFilteredItems(filterTickets(items, stopsFilter))
+	}, [stopsFilter])
+
+	useEffect(() => {
+		if (!isLoading && !hasErrored && !filteredItems.length) {
+			setEmptyList(true)
+		} else setEmptyList(false)
+	}, [filteredItems.length, hasErrored, isLoading])
+
+	return (
+		<>
+			<ErrorMessage />
+			<Loader />
+			<List items={filteredItems} />
+			<NoElems isTrue={emptyList} />
+		</>
+	)
 }
