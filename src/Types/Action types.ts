@@ -1,5 +1,3 @@
-import { NumbersOfTransfers, SortOfTickets, TicketsType } from './Types'
-
 const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX' as const
 const TOGGLE_ALL_CHECKBOXES = 'TOGGLE_ALL_CHECKBOXES' as const
 const TOGGLE_PRIORITY = 'TOGGLE_PRIORITY' as const
@@ -17,4 +15,3 @@ export const actionTypes = {
 	ITEMS_FETCH_DATA_SUCCESS,
 	GET_PORTION_OF_TICKETS,
 }
-
