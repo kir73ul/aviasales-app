@@ -1,6 +1,6 @@
 import { Space, DatePicker } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { itemsFetchDataSuccess } from '../../actions'
+import { getPortionOfTickets, itemsFetchDataSuccess } from '../../actions'
 import { AppStateType } from '../../combineStore'
 import { ParametersOfFilter } from '../../Types/Types'
 import { filterMethods } from './helpers/filterByPrice'
@@ -14,7 +14,7 @@ export const DateFilter = () => {
 		const ticketOnPickDate = filterMethods[ParametersOfFilter.pickDate](items, date)
 		console.log(date, ticketOnPickDate)
 
-		return dispatch(itemsFetchDataSuccess(ticketOnPickDate))
+		return dispatch(getPortionOfTickets(ticketOnPickDate))
 	}
 	return (
 		<Space className={styles.wrapDatePick}>
@@ -22,7 +22,7 @@ export const DateFilter = () => {
 				onChange={(_, date) => {
 					onChange(date)
 				}}
-				onPanelChange={() => dispatch(itemsFetchData())}
+				/* 				onPanelChange={() => dispatch(itemsFetchData())} */
 				placeholder='Выбрать дату вылета'
 				style={{
 					width: '206.4px',

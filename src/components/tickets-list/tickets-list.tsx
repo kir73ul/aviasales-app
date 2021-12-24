@@ -11,64 +11,68 @@ import { TicketsType } from '../../Types/Types'
 
 export const TicketsList = () => {
 	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
-	/*   const portionOfItems = useSelector((state: AppStateType) => state.ticketsReducer.portionOfItems)
-	 */ const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
+	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.portionOfItems)
+	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
 	const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
 	const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
 	const priority = useSelector((state: AppStateType) => state.priorityReducer)
 	const [emptyList, setEmptyList] = useState(false)
-	const [filteredItems, setFilteredItems] = useState(/* portionOfItems */ items.slice(0, 10))
-	const [lastIndexOfItems, setIndexOfShownTickets] = useState(10)
-	const dispatch = useDispatch()
+	const [portionOfItems, setPortionOfItems] = useState(filteredTickets.slice(0, 10))
+	const [lastIndexOfItems, setIndexOfShownTickets] = useState(0)
 
 	const loadGradual = (
-		items: TicketsType[],
 		portionOfItems: TicketsType[],
+		filteredTickets: TicketsType[],
 		isScrollOnBottom: boolean
 	) => {
-		if (portionOfItems.length <= 10 && lastIndexOfItems === 10) {
-			console.log('<10')
+		console.log('lastIndexOfItems', lastIndexOfItems)
+		console.log('filteredTickets', filteredTickets.length)
 
+		if (portionOfItems.length <= 10 && lastIndexOfItems === 0) {
+			console.log('1')
+			console.log('window.scrollY', window.scrollY)
+
+			window.scrollTo(0, window.scrollY / 2)
 			setIndexOfShownTickets(lastIndexOfItems + 10)
-			return [...filteredItems, ...items.slice(lastIndexOfItems, lastIndexOfItems + 10)]
+			return filteredTickets.slice(0, lastIndexOfItems + 10)
 		}
-		if (items.length - lastIndexOfItems <= 10) {
-			setIndexOfShownTickets(lastIndexOfItems + (items.length - lastIndexOfItems))
-			return items.slice(lastIndexOfItems)
-		}
-		if (
-			(isScrollOnBottom && items.length === lastIndexOfItems) ||
-			(!isScrollOnBottom && lastIndexOfItems === 10)
-		) {
-			return portionOfItems
-		}
-		if (!isScrollOnBottom) {
-			console.log([
-				...filteredItems.slice(10),
-				...items.slice(lastIndexOfItems - 10, lastIndexOfItems),
-			])
+		if (filteredTickets.length - lastIndexOfItems <= 10) {
+			console.log('2')
 
-			setIndexOfShownTickets(lastIndexOfItems - 10)
-			return [...filteredItems.slice(10), ...items.slice(lastIndexOfItems - 10, lastIndexOfItems)]
+			setIndexOfShownTickets(lastIndexOfItems + (filteredTickets.length - lastIndexOfItems))
+			return filteredTickets.slice(lastIndexOfItems - 20, lastIndexOfItems)
 		}
-		console.log(filteredItems)
-		setIndexOfShownTickets(lastIndexOfItems + 10)
-		return [...filteredItems.slice(0, 10), ...items.slice(lastIndexOfItems, lastIndexOfItems + 10)]
+		if (isScrollOnBottom && filteredTickets.length - lastIndexOfItems >= 10) {
+			console.log('3')
+
+			window.scrollTo(0, window.scrollY / 2)
+			setIndexOfShownTickets(lastIndexOfItems + 10)
+			return filteredTickets.slice(lastIndexOfItems - 20, lastIndexOfItems)
+		}
+		if (!isScrollOnBottom && lastIndexOfItems !== 0) {
+			console.log('4')
+
+			window.scrollTo(0, window.scrollY / 2)
+			setIndexOfShownTickets(lastIndexOfItems - 10)
+			return filteredTickets.slice(lastIndexOfItems, lastIndexOfItems + 10)
+		}
+		console.log('5')
+
+		return portionOfItems
 	}
 
 	const scrollHandler = (event: any) => {
-		if (event.target.documentElement.scrollTop < 200) {
-			const ticketsPortion = loadGradual(items, filteredItems, false)
-			setFilteredItems(ticketsPortion)
+		if (event.target.documentElement.scrollTop > 200) {
+			const ticketsPortion = loadGradual(portionOfItems, filteredTickets, false)
+			setPortionOfItems(ticketsPortion)
 		}
 		if (
 			event.target.documentElement.scrollHeight -
 				(event.target.documentElement.scrollTop + window.innerHeight) <
-			1
+			100
 		) {
-			const ticketsPortion = loadGradual(items, filteredItems, true)
-			setFilteredItems(ticketsPortion)
-			/* dispatch(getPortionOfTickets(ticketsPortion)) */
+			const ticketsPortion = loadGradual(portionOfItems, filteredTickets, true)
+			setPortionOfItems(ticketsPortion)
 		}
 	}
 	useEffect(() => {
@@ -79,33 +83,34 @@ export const TicketsList = () => {
 	})
 
 	useEffect(() => {
-		setFilteredItems(sortTickets(filteredItems, priority))
-		setFilteredItems(filterTickets(filteredItems, stopsFilter))
-	}, [priority, stopsFilter])
+		setIndexOfShownTickets(0)
+		setPortionOfItems(filteredTickets.slice(0, 10))
+		window.scrollTo({ top: 0, behavior: 'smooth' })
+	}, [filteredTickets])
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' })
 	}, [priority, stopsFilter])
 
 	useEffect(() => {
-		setFilteredItems(sortTickets(items, priority))
-	}, [priority, items])
+		setPortionOfItems(sortTickets(items, priority))
+	}, [priority])
 
 	useEffect(() => {
-		setFilteredItems(filterTickets(items, stopsFilter))
+		setPortionOfItems(filterTickets(items, stopsFilter))
 	}, [stopsFilter])
 
 	useEffect(() => {
-		if (!isLoading && !hasErrored && !filteredItems.length) {
+		if (!isLoading && !hasErrored && !portionOfItems.length) {
 			setEmptyList(true)
 		} else setEmptyList(false)
-	}, [filteredItems.length, hasErrored, isLoading])
+	}, [portionOfItems.length, hasErrored, isLoading])
 
 	return (
 		<>
 			<ErrorMessage />
 			<Loader />
-			<List items={filteredItems} />
+			<List items={portionOfItems} />
 			<NoElems isTrue={emptyList} />
 		</>
 	)

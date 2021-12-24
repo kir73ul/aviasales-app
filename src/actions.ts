@@ -100,7 +100,7 @@ export function itemsFetchData() {
 			.then((response) => response.json())
 			.then((res) => {
 				dispatch(itemsFetchDataSuccess(res.tickets))
-				dispatch(getPortionOfTickets(res.tickets.slice(0, 10)))
+				dispatch(getPortionOfTickets(res.tickets))
 			})
 			.catch(() => dispatch(itemsHasErrored(true)))
 	}

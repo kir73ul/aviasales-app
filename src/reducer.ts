@@ -98,10 +98,10 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 		case actionTypes.GET_PORTION_OF_TICKETS:
 			return {
 				...state,
-				portionOfItems: [
+				portionOfItems: action.value /* [
 					...state.portionOfItems.slice(state.portionOfItems.length - 10),
 					...action.value,
-				],
+				], */,
 			}
 
 		default:
