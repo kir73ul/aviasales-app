@@ -1,8 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classes from './tickets.module.scss';
+import classes from "./tickets.module.scss";
+import { ticketCreator } from './../tickets-list/helpers/ticketCreator';
 
-export default function Ticket(props) {
+export const Ticket = (props: ReturnType<typeof ticketCreator>) => {
   const {
     price,
     carrierLogo,
@@ -24,7 +23,7 @@ export default function Ticket(props) {
   } = props;
 
   return (
-    <li className={classes['card-ticket']}>
+    <li className={classes["card-ticket"]}>
       <span className={classes.price}>{price} RUB</span>
       <img className={classes.airline} src={carrierLogo} alt={carrier} />
       <span className={classes.subtitle}>
@@ -36,7 +35,7 @@ export default function Ticket(props) {
         {departTime} - {arrivalTime}
       </span>
       <span className={classes.parametr}>{ftdDuration}</span>
-      <span className={classes.parametr}>{stops.join(', ')}</span>
+      <span className={classes.parametr}>{stops.join(", ")}</span>
       <span className={classes.subtitle}>
         {originBack} - {destinationBack}
       </span>
@@ -46,27 +45,7 @@ export default function Ticket(props) {
         {departTimeBack} - {arrivalTimeBack}
       </span>
       <span className={classes.parametr}>{ftdDurationBack}</span>
-      <span className={classes.parametr}>{stopsBack.join(', ')}</span>
+      <span className={classes.parametr}>{stopsBack.join(", ")}</span>
     </li>
   );
 }
-
-Ticket.propTypes = {
-  price: PropTypes.number.isRequired,
-  carrierLogo: PropTypes.string.isRequired,
-  carrier: PropTypes.string.isRequired,
-  origin: PropTypes.string.isRequired,
-  destination: PropTypes.string.isRequired,
-  transfers: PropTypes.string.isRequired,
-  departTime: PropTypes.string.isRequired,
-  arrivalTime: PropTypes.string.isRequired,
-  ftdDuration: PropTypes.string.isRequired,
-  stops: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  originBack: PropTypes.string.isRequired,
-  destinationBack: PropTypes.string.isRequired,
-  transfersBack: PropTypes.string.isRequired,
-  departTimeBack: PropTypes.string.isRequired,
-  arrivalTimeBack: PropTypes.string.isRequired,
-  ftdDurationBack: PropTypes.string.isRequired,
-  stopsBack: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-};

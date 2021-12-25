@@ -1,4 +1,4 @@
-export default function transfersHandler(stops) {
+export const transfersHandler = (stops: number) => {
   switch (stops) {
     case 1:
       return `1 пересадка`;

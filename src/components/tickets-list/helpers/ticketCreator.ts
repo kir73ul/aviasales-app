@@ -1,9 +1,11 @@
-import { formatDate, formatDuration } from './formatDate';
-import transfersHandler from './transfers-handler';
+import { TicketsType } from "../../../Types/Types";
+import { formatDate, formatDuration } from "./formatDate";
+import {transfersHandler} from "./transfers-handler";
+import { url } from './../../../Constants/Constants';
 
 const MSEC_IN_MIN = 60000;
 
-function ticketCreator(item) {
+export const ticketCreator = (item: TicketsType) => {
   const { price, carrier, segments } = item;
 
   const { origin, destination, date, stops, duration } = segments[0];
@@ -25,8 +27,7 @@ function ticketCreator(item) {
   const ftdDurationBack = formatDuration(durationBack);
   const transfers = transfersHandler(stops.length);
   const transfersBack = transfersHandler(stopsBack.length);
-
-  const carrierLogo = `https://pics.avs.io/99/36/${carrier}.png`;
+  const carrierLogo = url.carrierLogo.replace('carrier',  carrier)
 
   return {
     price,
@@ -48,5 +49,3 @@ function ticketCreator(item) {
     stopsBack,
   };
 }
-
-export default ticketCreator;

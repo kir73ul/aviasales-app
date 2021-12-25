@@ -1,3 +1,1 @@
-import TicketsMenu from './tickets-menu';
-
-export default TicketsMenu;
+export {TicketsMenu} from "./tickets-menu";
