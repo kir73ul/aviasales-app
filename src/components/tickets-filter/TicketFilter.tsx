@@ -4,7 +4,7 @@ import { filterMethods } from './helpers/filterByPrice'
 import { ParametersOfFilter } from '../../Types/Types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
-import { getPortionOfTickets, itemsFetchDataSuccess } from '../../actions'
+import { getSortedTickets, itemsFetchDataSuccess } from '../../actions'
 import { genTreeProps } from './helpers/findAllCarriers'
 
 export const TicketsFilter = () => {
@@ -12,7 +12,7 @@ export const TicketsFilter = () => {
 	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter) => {
 		const filteredTickets = filterMethods[value](allTickets)
-		dispatch(getPortionOfTickets(filteredTickets))
+		dispatch(getSortedTickets(filteredTickets))
 	}
 	const treeProps = genTreeProps(allTickets)
 	return (

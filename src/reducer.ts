@@ -68,7 +68,7 @@ const initialTicketsState: initialTicketsStateType = {
 	hasErrored: false,
 	isLoading: true,
 	items: [],
-	portionOfItems: [],
+	filteredTickets: [],
 }
 
 const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType) => {
@@ -95,13 +95,10 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 				hasErrored: false,
 			}
 
-		case actionTypes.GET_PORTION_OF_TICKETS:
+		case actionTypes.GET_FILTERED_TICKETS:
 			return {
 				...state,
-				portionOfItems: action.value /* [
-					...state.portionOfItems.slice(state.portionOfItems.length - 10),
-					...action.value,
-				], */,
+				filteredTickets: action.value,
 			}
 
 		default:

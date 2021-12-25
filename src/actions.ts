@@ -75,12 +75,12 @@ export const itemsFetchDataSuccess = (value: TicketsType[]) => ({
 })
 
 interface GetPortionOfTicketsType {
-	type: typeof actionTypes.GET_PORTION_OF_TICKETS
+	type: typeof actionTypes.GET_FILTERED_TICKETS
 	value: TicketsType[]
 }
 
-export const getPortionOfTickets = (value: TicketsType[]) => ({
-	type: actionTypes.GET_PORTION_OF_TICKETS,
+export const getSortedTickets = (value: TicketsType[]) => ({
+	type: actionTypes.GET_FILTERED_TICKETS,
 	value,
 })
 
@@ -100,7 +100,7 @@ export function itemsFetchData() {
 			.then((response) => response.json())
 			.then((res) => {
 				dispatch(itemsFetchDataSuccess(res.tickets))
-				dispatch(getPortionOfTickets(res.tickets))
+				dispatch(getSortedTickets(res.tickets))
 			})
 			.catch(() => dispatch(itemsHasErrored(true)))
 	}

@@ -6,7 +6,7 @@ interface treePropsType {
 	id?: string
 	children?: treePropsType[]
 	value: string
-	title: string
+	title?: string
 	switcherIcon?: any
 	disabled?: boolean
 }
@@ -19,6 +19,8 @@ export const findAllCarriers = (tickets: TicketsType[]) => {
 
 export const genTreeProps = (allTickets: TicketsType[]) => {
 	const carriers = findAllCarriers(allTickets)
+	console.log(carriers)
+
 	const treeProps: treePropsType[] = [
 		{ value: ParametersOfFilter.lowerPrice, title: 'Увеличению цены' },
 		{ value: ParametersOfFilter.biggerPrice, title: 'Уменьшению цены' },
@@ -30,7 +32,7 @@ export const genTreeProps = (allTickets: TicketsType[]) => {
 		treeProps[3]?.children?.push({
 			id: value,
 			value: value,
-			title: value,
+			title: '',
 			switcherIcon: <img className={styles.iconImg} src={iconUrl} alt=''></img>,
 		})
 	})

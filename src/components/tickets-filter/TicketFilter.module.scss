@@ -11,7 +11,12 @@
 	margin-top: 20px;
 }
 .iconImg {
-	width: 30px;
-	height: 15px;
+	width: 60px;
+	height: 30px;
 	margin: 5px;
+	&:hover {
+		width: 65px;
+		height: 32.5px;
+		z-index: 1000;
+	}
 }

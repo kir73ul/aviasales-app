@@ -9,8 +9,6 @@ interface ListType {
 }
 
 export const List: React.FC<ListType> = ({ items }) => {
-	console.log(items)
-
 	const elems = items.map((item: TicketsType) => {
 		const props = ticketCreator(item)
 		const id = idBase.create()
