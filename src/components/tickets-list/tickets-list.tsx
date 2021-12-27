@@ -33,7 +33,6 @@ export const TicketsList = () => {
 			])
 		}
 	}
-
 	useEffect(() => {
 		document.addEventListener('scroll', scrollHandler)
 		return () => {
@@ -42,21 +41,20 @@ export const TicketsList = () => {
 	})
 
 	useEffect(() => {
+		window.scrollTo({ top: 0, behavior: 'smooth' })
 		setIndexOfShownTickets(0)
-		setPortionOfItems(filteredTickets.slice(0, 10))
-		window.scrollTo({ top: 0, behavior: 'smooth' })
-	}, [filteredTickets])
+		setTimeout(() => setPortionOfItems(filteredTickets.slice(0, 10)), 0)
+	}, [priority, stopsFilter, filteredTickets])
 
 	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: 'smooth' })
-	}, [priority, stopsFilter])
+		dispatch(getSortedTickets(sortTickets(filteredTickets, priority)))
+	}, [priority, filteredTickets])
 
 	useEffect(() => {
-		dispatch(getSortedTickets(sortTickets(items, priority)))
-	}, [priority])
+		console.log('stopsFilter', stopsFilter)
+		console.log('filteredTickets', filteredTickets)
 
-	useEffect(() => {
-		dispatch(getSortedTickets(filterTickets(items, stopsFilter)))
+		dispatch(getSortedTickets(filterTickets(filteredTickets, stopsFilter)))
 	}, [stopsFilter])
 
 	useEffect(() => {
