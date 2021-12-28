@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSortedTickets } from '../../actions'
 import { AppStateType } from '../../combineStore'
 import { ParametersOfFilter } from '../../Types/Types'
-import { filterTicketsBySelect } from './helpers/filterByPrice'
+import { filterTicketsBySelect } from './helpers/filterTicketsBySelect'
 import styles from './TicketFilter.module.scss'
 
 export const DateFilter = () => {

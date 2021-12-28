@@ -1,5 +1,5 @@
 import { AppDispatch } from './combineStore'
-import { NumbersOfTransfers, SortOfTickets, TicketsType } from './Types/Types'
+import { NumbersOfTransfers, ParametersOfFilter, SortOfTickets, TicketsType } from './Types/Types'
 import { actionTypes } from './Types/Action types'
 import { url } from './Constants/Constants'
 
@@ -82,6 +82,27 @@ interface GetPortionOfTicketsType {
 export const getSortedTickets = (value: TicketsType[]) => ({
 	type: actionTypes.GET_FILTERED_TICKETS,
 	value,
+})
+export type SelectReducerType = SetPickingDateType | SetSortingItemType
+
+interface SetPickingDateType {
+	type: typeof actionTypes.SET_PICKING_DATE
+	date: string | null
+}
+
+export const setPickingDate = (date: string | null) => ({
+	type: actionTypes.SET_PICKING_DATE,
+	date,
+})
+
+interface SetSortingItemType {
+	type: typeof actionTypes.SET_SORTING_ITEMS
+	selectItems: ParametersOfFilter | string | null
+}
+
+export const SetSortingItem = (selectItems: ParametersOfFilter | string | null) => ({
+	type: actionTypes.SET_SORTING_ITEMS,
+	selectItems,
 })
 
 export function itemsFetchData() {

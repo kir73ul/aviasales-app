@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSortedTickets } from '../../actions'
 
 export const TicketsList = () => {
-	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
 	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.filteredTickets)
 	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
 	const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
@@ -39,11 +38,11 @@ export const TicketsList = () => {
 			document.removeEventListener('scroll', scrollHandler)
 		}
 	})
-
+	
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' })
 		setIndexOfShownTickets(0)
-		setTimeout(() => setPortionOfItems(filteredTickets.slice(0, 10)), 0)
+		setTimeout(() => setPortionOfItems(filteredTickets.slice(0, 10)), 100)
 	}, [priority, stopsFilter, filteredTickets])
 
 	useEffect(() => {

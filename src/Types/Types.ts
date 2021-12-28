@@ -39,3 +39,7 @@ export interface initialTicketsStateType {
 	items: TicketsType[]
 	filteredTickets: TicketsType[]
 }
+export interface InitialSelectedStateType {
+	pickingDate: string | null
+	sortingItem: ParametersOfFilter | string | null
+}

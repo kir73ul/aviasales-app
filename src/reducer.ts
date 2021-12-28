@@ -1,11 +1,17 @@
 import { combineReducers } from 'redux'
-import { PriorityReducerType, TicketsReducerType, TransfersReducerType } from './actions'
+import {
+	PriorityReducerType,
+	SelectReducerType,
+	TicketsReducerType,
+	TransfersReducerType,
+} from './actions'
 import { actionTypes } from './Types/Action types'
 import {
 	FiltersStateType,
 	SortOfTickets,
 	NumbersOfTransfers,
 	initialTicketsStateType,
+	InitialSelectedStateType,
 } from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
@@ -105,11 +111,35 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 			return state
 	}
 }
+const initialSelectState: InitialSelectedStateType = {
+	pickingDate: null,
+	sortingItem: null,
+}
+
+const SelectReducer = (state = initialSelectState, action: SelectReducerType) => {
+	switch (action.type) {
+		case actionTypes.SET_PICKING_DATE:
+			return {
+				...state,
+				pickingDate: action.date,
+			}
+
+		case actionTypes.SET_SORTING_ITEMS:
+			return {
+				...state,
+				sortingItem: action.selectItems,
+			}
+
+		default:
+			return state
+	}
+}
 
 const rootReducer = combineReducers({
 	priorityReducer,
 	transfersReducer,
 	ticketsReducer,
+	SelectReducer,
 })
 
 export default rootReducer
