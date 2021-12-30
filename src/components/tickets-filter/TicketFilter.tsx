@@ -11,8 +11,7 @@ import { filterTickets } from '../tickets-list/helpers/sorters'
 export const TicketsFilter = () => {
 	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.filteredTickets)
 	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
-	const pickingDate = useSelector((state: AppStateType) => state.SelectReducer.pickingDate)
-	const priority = useSelector((state: AppStateType) => state.priorityReducer)
+	const pickingDate = useSelector((state: AppStateType) => state.selectReducer.pickingDate)
 	const stops = useSelector((state: AppStateType) => state.transfersReducer)
 
 	const dispatch = useDispatch()
@@ -22,6 +21,7 @@ export const TicketsFilter = () => {
 		dispatch(SetSortingItem(value))
 	}
 	const handlerClear = () => {
+		dispatch(SetSortingItem(null))
 		const filteredTickets = pickingDate
 			? filterTicketsBySelect(ParametersOfFilter.pickDate, items, pickingDate)
 			: items

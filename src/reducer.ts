@@ -116,7 +116,7 @@ const initialSelectState: InitialSelectedStateType = {
 	sortingItem: null,
 }
 
-const SelectReducer = (state = initialSelectState, action: SelectReducerType) => {
+const selectReducer = (state = initialSelectState, action: SelectReducerType) => {
 	switch (action.type) {
 		case actionTypes.SET_PICKING_DATE:
 			return {
@@ -139,7 +139,7 @@ const rootReducer = combineReducers({
 	priorityReducer,
 	transfersReducer,
 	ticketsReducer,
-	SelectReducer,
+	selectReducer,
 })
 
 export default rootReducer

@@ -108,7 +108,6 @@ export const SetSortingItem = (selectItems: ParametersOfFilter | string | null) 
 export function itemsFetchData() {
 	return (dispatch: AppDispatch) => {
 		dispatch(itemsIsLoading(true))
-
 		fetch(url.searchID)
 			.then((response) => response.json())
 			.then(({ searchId }) => fetch(`${url.tickets}${searchId}`))

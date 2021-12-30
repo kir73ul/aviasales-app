@@ -2,7 +2,7 @@ import classes from './tickets-menu.module.scss'
 import { AppStateType } from '../../combineStore'
 import { useDispatch, useSelector } from 'react-redux'
 import { togglePriority } from '../../actions'
-import { SortOfTickets } from '../../Types/Types'
+import { ParametersOfFilter, SortOfTickets } from '../../Types/Types'
 import { translateSortOfTickets } from './../../Constants/Constants'
 
 const items = [
@@ -12,12 +12,16 @@ const items = [
 
 export const TicketsMenu = () => {
 	const priority = useSelector((state: AppStateType) => state.priorityReducer)
+	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
 	const dispatch = useDispatch()
+	const isSortingValid =
+		sortingItem === ParametersOfFilter.biggerPrice || sortingItem === ParametersOfFilter.date
 
 	const buttons = items.map(({ key, value }) => {
-		const buttonStyle = priority === key ? classes.itemSelected : classes.item
+		const buttonStyle = priority === key && !isSortingValid ? classes.itemSelected : classes.item
 		return (
 			<button
+				disabled={isSortingValid}
 				type='button'
 				key={key}
 				className={buttonStyle}

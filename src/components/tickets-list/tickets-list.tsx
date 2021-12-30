@@ -7,11 +7,16 @@ import { Loader } from './loader'
 import { NoElems } from './no-elems'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSortedTickets } from '../../actions'
+import { filterTicketsBySelect } from '../tickets-filter/helpers/filterTicketsBySelect'
+import { ParametersOfFilter } from '../../Types/Types'
 
 export const TicketsList = () => {
 	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.filteredTickets)
+	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
 	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
 	const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
+	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
+	const pickingDate = useSelector((state: AppStateType) => state.selectReducer.pickingDate)
 	const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
 	const priority = useSelector((state: AppStateType) => state.priorityReducer)
 	const [emptyList, setEmptyList] = useState(false)
@@ -38,7 +43,7 @@ export const TicketsList = () => {
 			document.removeEventListener('scroll', scrollHandler)
 		}
 	})
-	
+
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' })
 		setIndexOfShownTickets(0)
@@ -50,16 +55,25 @@ export const TicketsList = () => {
 	}, [priority, filteredTickets])
 
 	useEffect(() => {
-		console.log('stopsFilter', stopsFilter)
-		console.log('filteredTickets', filteredTickets)
-
+		/* 		const filteredBySelect = sortingItem
+			? dispatch(getSortedTickets(filterTicketsBySelect(sortingItem, items)))
+			: items
+		const filteredByPickDate = pickingDate
+			? dispatch(
+					getSortedTickets(
+						filterTicketsBySelect(ParametersOfFilter.pickDate, filteredBySelect, pickingDate) 
+					)
+			  )
+			: filteredBySelect */
 		dispatch(getSortedTickets(filterTickets(filteredTickets, stopsFilter)))
 	}, [stopsFilter])
 
 	useEffect(() => {
-		if (!isLoading && !hasErrored && !portionOfItems.length) {
-			setEmptyList(true)
-		} else setEmptyList(false)
+		setTimeout(() => {
+			if (!isLoading && !hasErrored && !portionOfItems.length) {
+				setEmptyList(true)
+			} else setEmptyList(false)
+		}, 200)
 	}, [portionOfItems.length, hasErrored, isLoading])
 
 	return (
