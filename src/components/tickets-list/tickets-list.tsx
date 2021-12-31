@@ -55,18 +55,12 @@ export const TicketsList = () => {
 	}, [priority, filteredTickets])
 
 	useEffect(() => {
-		/* 		const filteredBySelect = sortingItem
-			? dispatch(getSortedTickets(filterTicketsBySelect(sortingItem, items)))
-			: items
+		const filteredBySelect = sortingItem ? filterTicketsBySelect(sortingItem, items) : items
 		const filteredByPickDate = pickingDate
-			? dispatch(
-					getSortedTickets(
-						filterTicketsBySelect(ParametersOfFilter.pickDate, filteredBySelect, pickingDate) 
-					)
-			  )
-			: filteredBySelect */
-		dispatch(getSortedTickets(filterTickets(filteredTickets, stopsFilter)))
-	}, [stopsFilter])
+			? filterTicketsBySelect(ParametersOfFilter.pickDate, filteredBySelect, pickingDate)
+			: filteredBySelect
+		dispatch(getSortedTickets(filterTickets(filteredByPickDate, stopsFilter)))
+	}, [stopsFilter, sortingItem, pickingDate])
 
 	useEffect(() => {
 		setTimeout(() => {

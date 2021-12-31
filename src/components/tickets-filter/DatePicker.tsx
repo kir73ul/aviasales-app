@@ -14,18 +14,18 @@ export const DateFilter = () => {
 	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
 
 	const setPickedDate = (date: string) => {
-		const ticketOnPickDate = filterTicketsBySelect(ParametersOfFilter.pickDate, items, date)
+		/* 		const ticketOnPickDate = filterTicketsBySelect(ParametersOfFilter.pickDate, items, date)
 		const ticketsFilteredBySelect = sortingItem
 			? filterTicketsBySelect(sortingItem, ticketOnPickDate)
 			: ticketOnPickDate
-		dispatch(getSortedTickets(filterTickets(ticketsFilteredBySelect, stops)))
+		dispatch(getSortedTickets(filterTickets(ticketsFilteredBySelect, stops))) */
 		dispatch(setPickingDate(date))
 	}
 
 	const handleClear = () => {
 		dispatch(setPickingDate(null))
-		const filteredTickets = sortingItem ? filterTicketsBySelect(sortingItem, items) : items
-		dispatch(getSortedTickets(filterTickets(filteredTickets, stops)))
+		/* 		const filteredTickets = sortingItem ? filterTicketsBySelect(sortingItem, items) : items
+		dispatch(getSortedTickets(filterTickets(filteredTickets, stops))) */
 	}
 	return (
 		<Space className={styles.wrapDatePick}>

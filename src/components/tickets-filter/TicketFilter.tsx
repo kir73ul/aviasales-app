@@ -16,16 +16,16 @@ export const TicketsFilter = () => {
 
 	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter | string) => {
-		const tickets = filterTicketsBySelect(value, filteredTickets)
-		dispatch(getSortedTickets(tickets))
+		/* 		const tickets = filterTicketsBySelect(value, filteredTickets)
+		dispatch(getSortedTickets(tickets)) */
 		dispatch(SetSortingItem(value))
 	}
 	const handlerClear = () => {
 		dispatch(SetSortingItem(null))
-		const filteredTickets = pickingDate
+		/* 		const filteredTickets = pickingDate
 			? filterTicketsBySelect(ParametersOfFilter.pickDate, items, pickingDate)
 			: items
-		dispatch(getSortedTickets(filterTickets(filteredTickets, stops)))
+		dispatch(getSortedTickets(filterTickets(filteredTickets, stops))) */
 	}
 	const treeProps = genTreeProps(filteredTickets)
 	return (

@@ -83,22 +83,18 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 			return {
 				...state,
 				hasErrored: action.value,
-				isLoading: false,
 			}
 
 		case actionTypes.ITEMS_IS_LOADING:
 			return {
 				...state,
 				isLoading: action.value,
-				hasErrored: false,
 			}
 
 		case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
 			return {
 				...state,
 				items: action.value,
-				isLoading: false,
-				hasErrored: false,
 			}
 
 		case actionTypes.GET_FILTERED_TICKETS:
