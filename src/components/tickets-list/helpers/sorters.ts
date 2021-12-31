@@ -3,7 +3,6 @@ import { FiltersStateType } from './../../../Types/Types'
 
 export const sortTickets = (tickets: TicketsType[], priority: SortOfTickets) => {
   const totalDuration = (segments: TicketsType['segments']) => segments.reduce((acc, { duration }) => acc + duration, 0)
-
   switch (priority) {
     case SortOfTickets.cheapest:
       return tickets.sort((prev, next) => prev.price - next.price)

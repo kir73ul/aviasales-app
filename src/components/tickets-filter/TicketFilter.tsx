@@ -1,33 +1,21 @@
 import { TreeSelect } from 'antd'
 import styles from './TicketFilter.module.scss'
-import { filterTicketsBySelect } from './helpers/filterTicketsBySelect'
 import { ParametersOfFilter } from '../../Types/Types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
-import { getSortedTickets, SetSortingItem } from '../../actions'
+import { SetSortingItem } from '../../actions'
 import { genTreeProps } from './helpers/findAllCarriers'
-import { filterTickets } from '../tickets-list/helpers/sorters'
 
 export const TicketsFilter = () => {
-	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.filteredTickets)
-	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
-	const pickingDate = useSelector((state: AppStateType) => state.selectReducer.pickingDate)
-	const stops = useSelector((state: AppStateType) => state.transfersReducer)
-
+	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.items)
 	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter | string) => {
-		/* 		const tickets = filterTicketsBySelect(value, filteredTickets)
-		dispatch(getSortedTickets(tickets)) */
 		dispatch(SetSortingItem(value))
 	}
 	const handlerClear = () => {
 		dispatch(SetSortingItem(null))
-		/* 		const filteredTickets = pickingDate
-			? filterTicketsBySelect(ParametersOfFilter.pickDate, items, pickingDate)
-			: items
-		dispatch(getSortedTickets(filterTickets(filteredTickets, stops))) */
 	}
-	const treeProps = genTreeProps(filteredTickets)
+	const treeProps = genTreeProps(allTickets)
 	return (
 		<div className={styles.wrap}>
 			<TreeSelect

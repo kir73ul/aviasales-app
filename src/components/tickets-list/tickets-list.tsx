@@ -6,7 +6,7 @@ import { ErrorMessage } from './error-message'
 import { Loader } from './loader'
 import { NoElems } from './no-elems'
 import { useDispatch, useSelector } from 'react-redux'
-import { getSortedTickets } from '../../actions'
+import { getSortedTickets, itemsFetchData } from '../../actions'
 import { filterTicketsBySelect } from '../tickets-filter/helpers/filterTicketsBySelect'
 import { ParametersOfFilter } from '../../Types/Types'
 
@@ -21,19 +21,18 @@ export const TicketsList = () => {
 	const priority = useSelector((state: AppStateType) => state.priorityReducer)
 	const [emptyList, setEmptyList] = useState(false)
 	const [portionOfItems, setPortionOfItems] = useState(filteredTickets.slice(0, 10))
-	const [lastIndexOfItems, setIndexOfShownTickets] = useState(0)
 	const dispatch = useDispatch()
 
 	const scrollHandler = (event: any) => {
 		if (
 			event.target.documentElement.scrollHeight -
 				(event.target.documentElement.scrollTop + window.innerHeight) <
-			100
+				100 &&
+			filteredTickets.length > portionOfItems.length
 		) {
-			setIndexOfShownTickets(lastIndexOfItems + 10)
 			setPortionOfItems([
 				...portionOfItems,
-				...filteredTickets.slice(lastIndexOfItems, lastIndexOfItems + 10),
+				...filteredTickets.slice(portionOfItems.length, portionOfItems.length + 10),
 			])
 		}
 	}
@@ -46,21 +45,23 @@ export const TicketsList = () => {
 
 	useEffect(() => {
 		window.scrollTo({ top: 0, behavior: 'smooth' })
-		setIndexOfShownTickets(0)
-		setTimeout(() => setPortionOfItems(filteredTickets.slice(0, 10)), 100)
-	}, [priority, stopsFilter, filteredTickets])
+		setPortionOfItems(filteredTickets.slice(0, 10))
+	}, [filteredTickets])
 
 	useEffect(() => {
-		dispatch(getSortedTickets(sortTickets(filteredTickets, priority)))
-	}, [priority, filteredTickets])
+		dispatch(itemsFetchData())
+	}, [])
 
 	useEffect(() => {
-		const filteredBySelect = sortingItem ? filterTicketsBySelect(sortingItem, items) : items
+		const filteredByPriority = sortTickets(items, priority)
+		const filteredBySelect = sortingItem
+			? filterTicketsBySelect(sortingItem, filteredByPriority)
+			: filteredByPriority
 		const filteredByPickDate = pickingDate
 			? filterTicketsBySelect(ParametersOfFilter.pickDate, filteredBySelect, pickingDate)
 			: filteredBySelect
 		dispatch(getSortedTickets(filterTickets(filteredByPickDate, stopsFilter)))
-	}, [stopsFilter, sortingItem, pickingDate])
+	}, [priority, stopsFilter, sortingItem, pickingDate, items])
 
 	useEffect(() => {
 		setTimeout(() => {

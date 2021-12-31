@@ -121,7 +121,6 @@ export function itemsFetchData() {
 			.then((response) => {
 				dispatch(itemsIsLoading(false))
 				dispatch(itemsFetchDataSuccess(response.tickets))
-				dispatch(getSortedTickets(response.tickets))
 			})
 			.catch(() => {
 				dispatch(itemsHasErrored(true))
