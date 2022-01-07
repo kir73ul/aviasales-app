@@ -12,9 +12,19 @@ export enum NumbersOfTransfers {
 export enum ParametersOfFilter {
 	lowerPrice = 'lowerPrice',
 	biggerPrice = 'biggerPrice',
-	date = 'date',
+	departureDate = 'departureDate',
+	arriveDate = 'arriveDate',
 	airCompany = 'airCompany',
 	pickDate = 'pickDate',
+}
+export enum Carriers {
+	SU = 'SU',
+	S7 = 'S7',
+	EY = 'EY',
+	MH = 'MH',
+	EK = 'EK',
+	FV = 'FV',
+	TG = 'TG',
 }
 export type TransfersKey = keyof typeof NumbersOfTransfers
 
@@ -36,10 +46,10 @@ export interface TicketsType {
 export interface initialTicketsStateType {
 	hasErrored: boolean
 	isLoading: boolean
-	items: TicketsType[]
+	tickets: TicketsType[]
 	filteredTickets: TicketsType[]
 }
 export interface InitialSelectedStateType {
 	pickingDate: string | null
-	sortingItem: ParametersOfFilter | string | null
+	sortingItem: ParametersOfFilter | Carriers | null
 }

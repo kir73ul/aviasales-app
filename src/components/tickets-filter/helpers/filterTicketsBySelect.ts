@@ -1,11 +1,8 @@
-import { ParametersOfFilter, TicketsType } from '../../../Types/Types'
-import { dateFormatter } from './dateFormatter'
-import { findAllCarriers } from './findAllCarriers'
-
-const day = 86400000
+import { Carriers, ParametersOfFilter, TicketsType } from '../../../Types/Types'
+import { sortByPickedDate } from './dateSorting'
 
 export const filterTicketsBySelect = (
-	selectValue: ParametersOfFilter | string,
+	selectValue: ParametersOfFilter | Carriers | null,
 	tickets: TicketsType[],
 	date?: string
 ) => {
@@ -14,18 +11,17 @@ export const filterTicketsBySelect = (
 			return tickets.sort((prev, next) => prev.price - next.price)
 		case ParametersOfFilter.biggerPrice:
 			return tickets.sort((prev, next) => next.price - prev.price)
-		case ParametersOfFilter.date:
+		case ParametersOfFilter.departureDate:
 			return tickets.sort(
-				(prev, next) => dateFormatter(prev.segments[0].date) - dateFormatter(next.segments[0].date)
+				(prev, next) => Date.parse(prev.segments[0].date) - Date.parse(next.segments[0].date)
+			)
+		case ParametersOfFilter.arriveDate:
+			return tickets.sort(
+				(prev, next) => Date.parse(prev.segments[1].date) - Date.parse(next.segments[1].date)
 			)
 		case ParametersOfFilter.pickDate:
-			return tickets.filter((ticket) =>
-				date
-					? Math.floor(dateFormatter(ticket.segments[0].date) / day) ===
-					  Math.floor(dateFormatter(date) / day)
-					: ticket
-			)
-		case selectValue:
+			return sortByPickedDate(tickets, date)
+		case selectValue as Carriers:
 			return tickets.filter((ticket) => ticket.carrier === selectValue)
 		default:
 			return tickets

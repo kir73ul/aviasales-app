@@ -73,7 +73,7 @@ const transfersReducer = (state = initialFiltersState, action: TransfersReducerT
 const initialTicketsState: initialTicketsStateType = {
 	hasErrored: false,
 	isLoading: true,
-	items: [],
+	tickets: [],
 	filteredTickets: [],
 }
 
@@ -94,7 +94,7 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 		case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
 			return {
 				...state,
-				items: action.value,
+				tickets: action.value,
 			}
 
 		case actionTypes.GET_FILTERED_TICKETS:
@@ -123,7 +123,7 @@ const selectReducer = (state = initialSelectState, action: SelectReducerType) =>
 		case actionTypes.SET_SORTING_ITEMS:
 			return {
 				...state,
-				sortingItem: action.selectItems,
+				sortingItem: action.sortingItems,
 			}
 
 		default:

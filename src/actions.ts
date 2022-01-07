@@ -1,5 +1,11 @@
 import { AppDispatch } from './combineStore'
-import { NumbersOfTransfers, ParametersOfFilter, SortOfTickets, TicketsType } from './Types/Types'
+import {
+	Carriers,
+	NumbersOfTransfers,
+	ParametersOfFilter,
+	SortOfTickets,
+	TicketsType,
+} from './Types/Types'
 import { actionTypes } from './Types/Action types'
 import { url } from './Constants/Constants'
 
@@ -97,12 +103,12 @@ export const setPickingDate = (date: string | null) => ({
 
 interface SetSortingItemType {
 	type: typeof actionTypes.SET_SORTING_ITEMS
-	selectItems: ParametersOfFilter | string | null
+	sortingItems: ParametersOfFilter | Carriers | null
 }
 
-export const SetSortingItem = (selectItems: ParametersOfFilter | string | null) => ({
+export const SetSortingItem = (sortingItems: ParametersOfFilter | Carriers | null) => ({
 	type: actionTypes.SET_SORTING_ITEMS,
-	selectItems,
+	sortingItems,
 })
 
 export function itemsFetchData() {

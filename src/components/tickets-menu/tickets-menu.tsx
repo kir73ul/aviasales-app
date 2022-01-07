@@ -15,7 +15,7 @@ export const TicketsMenu = () => {
 	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
 	const dispatch = useDispatch()
 	const isSortingValid =
-		sortingItem === ParametersOfFilter.biggerPrice || sortingItem === ParametersOfFilter.date
+		sortingItem === ParametersOfFilter.biggerPrice || sortingItem === ParametersOfFilter.departureDate
 
 	const buttons = items.map(({ key, value }) => {
 		const buttonStyle = priority === key && !isSortingValid ? classes.itemSelected : classes.item
