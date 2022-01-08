@@ -4,8 +4,9 @@ import { sortByPickedDate } from './dateSorting'
 export const filterTicketsBySelect = (
 	selectValue: ParametersOfFilter | Carriers | null,
 	tickets: TicketsType[],
-	date?: string
+	date?: string | null
 ) => {
+	if (!selectValue) return tickets
 	switch (selectValue) {
 		case ParametersOfFilter.lowerPrice:
 			return tickets.sort((prev, next) => prev.price - next.price)
@@ -20,7 +21,7 @@ export const filterTicketsBySelect = (
 				(prev, next) => Date.parse(prev.segments[1].date) - Date.parse(next.segments[1].date)
 			)
 		case ParametersOfFilter.pickDate:
-			return sortByPickedDate(tickets, date)
+			return date ? sortByPickedDate(tickets, date) : tickets
 		case selectValue as Carriers:
 			return tickets.filter((ticket) => ticket.carrier === selectValue)
 		default:

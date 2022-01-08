@@ -48,7 +48,7 @@ export type TicketsReducerType =
 	| ItemsHasErroredType
 	| ItemsIsLoadingType
 	| ItemsFetchDataSuccessType
-	| GetPortionOfTicketsType
+	| GetSortedTicketsType
 
 interface ItemsHasErroredType {
 	type: typeof actionTypes.ITEMS_HAS_ERRORED
@@ -80,7 +80,7 @@ export const itemsFetchDataSuccess = (value: TicketsType[]) => ({
 	value,
 })
 
-interface GetPortionOfTicketsType {
+interface GetSortedTicketsType {
 	type: typeof actionTypes.GET_FILTERED_TICKETS
 	value: TicketsType[]
 }

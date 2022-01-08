@@ -1,5 +1,4 @@
-import { useEffect, useState, UIEvent, SyntheticEvent, useCallback } from 'react'
-import { sortTickets, filterTickets } from './helpers/sorters'
+import { useEffect, useState } from 'react'
 import { AppStateType } from '../../combineStore'
 import { List } from './list'
 import { ErrorMessage } from './error-message'
@@ -7,73 +6,66 @@ import { Loader } from './loader'
 import { NoElems } from './no-elems'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSortedTickets, itemsFetchData } from '../../actions'
-import { filterTicketsBySelect } from '../tickets-filter/helpers/filterTicketsBySelect'
-import { ParametersOfFilter } from '../../Types/Types'
+import { selectFilteredTickets } from '../../selectors'
 
 export const TicketsList = () => {
-	const filteredTickets = useSelector((state: AppStateType) => state.ticketsReducer.filteredTickets)
-	const tickets = useSelector((state: AppStateType) => state.ticketsReducer.tickets)
+	const filteredTickets = useSelector((state: AppStateType) => selectFilteredTickets(state))
 	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
 	const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
-	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
-	const pickingDate = useSelector((state: AppStateType) => state.selectReducer.pickingDate)
-	const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
-	const priority = useSelector((state: AppStateType) => state.priorityReducer)
 	const [emptyList, setEmptyList] = useState(false)
-	const [portionOfItems, setPortionOfItems] = useState(filteredTickets.slice(0, 10))
+	const [portionOfItems, setPortionOfItems] = useState(() => filteredTickets.slice(0, 10))
 	const dispatch = useDispatch()
-
+	console.log('filteredTickets', filteredTickets)
 	const scrollHandler = () => {
-		if (
-			document.documentElement.scrollHeight - (window.pageYOffset + window.innerHeight) < 100 &&
-			filteredTickets.length > portionOfItems.length
-		) {
-			console.log('it must work')
+		console.log('filteredTickets in handler', filteredTickets)
 
-			setPortionOfItems((prevPortion) => [
-				...prevPortion,
-				...filteredTickets.slice(portionOfItems.length, portionOfItems.length + 10),
-			])
+		if (
+			document.documentElement.scrollHeight -
+				(window.innerHeight + document.documentElement.scrollTop) <
+			100
+		) {
+			console.log('Certainly must work')
+			console.log('filteredTickets in IF', filteredTickets)
+
+			setPortionOfItems((prevPortion) => {
+				/* 				console.log('prevPortion', prevPortion)
+				console.log('filteredTickets', filteredTickets) */
+				const newPortion = [
+					...prevPortion,
+					...filteredTickets.slice(prevPortion.length, prevPortion.length + 10),
+				]
+				/* 				console.log('newPortion', newPortion)
+				 */ return newPortion
+			})
 		}
 	}
-
-	useEffect(
-		() => {
-			document.addEventListener('scroll', scrollHandler)
-			console.log('useEffect')
-
-			return () => {
-				document.removeEventListener('scroll', scrollHandler)
-			}
-		} /* , [] */
-	)
-
 	useEffect(() => {
-		window.scrollTo({ top: 0, behavior: 'smooth' })
-		setPortionOfItems(filteredTickets.slice(0, 10))
+		console.log('yoo');
+		
+		getSortedTickets(filteredTickets)
 	}, [filteredTickets])
 
 	useEffect(() => {
 		dispatch(itemsFetchData())
+		document.addEventListener('scroll', scrollHandler)
+		console.log('useEffect')
+		return () => {
+			document.removeEventListener('scroll', scrollHandler)
+		}
 	}, [])
 
 	useEffect(() => {
-		const filteredByPriority = sortTickets(tickets, priority)
-		const filteredBySelect = sortingItem
-			? filterTicketsBySelect(sortingItem, filteredByPriority)
-			: filteredByPriority
-		const filteredByPickDate = pickingDate
-			? filterTicketsBySelect(ParametersOfFilter.pickDate, filteredBySelect, pickingDate)
-			: filteredBySelect
-		dispatch(getSortedTickets(filterTickets(filteredByPickDate, stopsFilter)))
-	}, [priority, stopsFilter, sortingItem, pickingDate, tickets])
+		console.log('WTF!!!!')
+		window.scrollTo({ top: 0, behavior: 'smooth' })
+		getSortedTickets(filteredTickets)
+
+		setPortionOfItems(() => filteredTickets.slice(0, 10))
+	}, [filteredTickets])
 
 	useEffect(() => {
-		setTimeout(() => {
-			if (!isLoading && !hasErrored && !portionOfItems.length) {
-				setEmptyList(true)
-			} else setEmptyList(false)
-		}, 0)
+		if (!isLoading && !hasErrored && !portionOfItems.length) {
+			setEmptyList(true)
+		} else setEmptyList(false)
 	}, [portionOfItems.length, hasErrored, isLoading])
 
 	return (
