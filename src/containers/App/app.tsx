@@ -1,31 +1,31 @@
-import classes from './app.module.scss'
 import logo from './Logo.png'
 import { TransfersFilters } from '../../components/transfers-filters'
 import { TicketsMenu } from '../../components/tickets-menu'
 import { TicketsList } from '../../components/tickets-list'
 import { TicketsFilter } from './../../components/tickets-filter/TicketFilter'
 import { DateFilter } from './../../components/tickets-filter/DatePicker'
+import { AppWrapper, FilterWrap, Header, LinkedImage, MainContent } from './styled'
 
 export const App = () => {
 	return (
-		<div className={classes.app}>
-			<div className={classes.cover} />
-			<div className={classes['logo-wrapper']}>
+		<AppWrapper>
+			<Header />
+			<LinkedImage>
 				<a href='/'>
 					<img src={logo} alt='logo' />
 				</a>
-			</div>
-			<div className={classes['main-wrapper']}>
-				<div className={classes['filters-wrap']}>
+			</LinkedImage>
+			<MainContent>
+				<FilterWrap>
 					<TransfersFilters />
 					<TicketsFilter />
 					<DateFilter />
-				</div>
-				<div className={classes['sub-wrapper']}>
+				</FilterWrap>
+				<div>
 					<TicketsMenu />
 					<TicketsList />
 				</div>
-			</div>
-		</div>
+			</MainContent>
+		</AppWrapper>
 	)
 }

@@ -1,9 +1,9 @@
-import styles from './tickets-list.module.scss'
+import { Notification } from './styled'
 
 interface NoElemsTypes {
 	isTrue: boolean
 }
 
 export const NoElems = ({ isTrue }: NoElemsTypes) => {
-	return isTrue ? <div className={styles.error}>Sorry! No flights</div> : null
+	return isTrue ? <Notification>Sorry! No flights</Notification> : null
 }

@@ -51,6 +51,7 @@
     ]
   },
   "devDependencies": {
+    "@types/styled-components": "^5.1.19",
     "babel-eslint": "^10.1.0",
     "editorconfig": "^0.15.3",
     "eslint": "^7.11.0",
