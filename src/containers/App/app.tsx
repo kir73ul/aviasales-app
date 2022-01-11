@@ -5,27 +5,28 @@ import { TicketsMenu } from '../../components/tickets-menu'
 import { TicketsList } from '../../components/tickets-list'
 import { TicketsFilter } from './../../components/tickets-filter/TicketFilter'
 import { DateFilter } from './../../components/tickets-filter/DatePicker'
+import { AppWrapper, FilterWrap, Header, LinkedImage, MainContent } from './styled'
 
 export const App = () => {
 	return (
-		<div className={classes.app}>
-			<div className={classes.cover} />
-			<div className={classes['logo-wrapper']}>
+		<AppWrapper /* className={classes.app} */>
+			<Header /* className={classes.cover} */ />
+			<LinkedImage /* className={classes['logo-wrapper']} */>
 				<a href='/'>
 					<img src={logo} alt='logo' />
 				</a>
-			</div>
-			<div className={classes['main-wrapper']}>
-				<div className={classes['filters-wrap']}>
+			</LinkedImage>
+			<MainContent /* className={classes['main-wrapper']} */>
+				<FilterWrap className={classes['filters-wrap']}>
 					<TransfersFilters />
 					<TicketsFilter />
 					<DateFilter />
-				</div>
+				</FilterWrap>
 				<div className={classes['sub-wrapper']}>
 					<TicketsMenu />
 					<TicketsList />
 				</div>
-			</div>
-		</div>
+			</MainContent>
+		</AppWrapper>
 	)
 }

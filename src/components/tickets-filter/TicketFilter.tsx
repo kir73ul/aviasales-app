@@ -22,6 +22,7 @@ export const TicketsFilter = () => {
 				onClear={() => handlerClear()}
 				onChange={(value: ParametersOfFilter | Carriers) => handleChange(value)}
 				style={{ width: 206.4 }}
+				dropdownStyle={{ overflow: 'auto' }}
 				placeholder='Фильтровать билеты по'
 				treeData={treeForSelection}
 				treeIcon={true}
