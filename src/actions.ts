@@ -1,5 +1,11 @@
 import { AppDispatch } from './combineStore'
-import { NumbersOfTransfers, SortOfTickets, TicketsType } from './Types/Types'
+import {
+	Carriers,
+	NumbersOfTransfers,
+	ParametersOfFilter,
+	SortOfTickets,
+	TicketsType,
+} from './Types/Types'
 import { actionTypes } from './Types/Action types'
 import { url } from './Constants/Constants'
 
@@ -42,7 +48,7 @@ export type TicketsReducerType =
 	| ItemsHasErroredType
 	| ItemsIsLoadingType
 	| ItemsFetchDataSuccessType
-	| GetPortionOfTicketsType
+	| GetSortedTicketsType
 
 interface ItemsHasErroredType {
 	type: typeof actionTypes.ITEMS_HAS_ERRORED
@@ -74,20 +80,40 @@ export const itemsFetchDataSuccess = (value: TicketsType[]) => ({
 	value,
 })
 
-interface GetPortionOfTicketsType {
-	type: typeof actionTypes.GET_PORTION_OF_TICKETS
+interface GetSortedTicketsType {
+	type: typeof actionTypes.GET_FILTERED_TICKETS
 	value: TicketsType[]
 }
 
-export const getPortionOfTickets = (value: TicketsType[]) => ({
-	type: actionTypes.GET_PORTION_OF_TICKETS,
+export const getSortedTickets = (value: TicketsType[]) => ({
+	type: actionTypes.GET_FILTERED_TICKETS,
 	value,
+})
+export type SelectReducerType = SetPickingDateType | SetSortingItemType
+
+interface SetPickingDateType {
+	type: typeof actionTypes.SET_PICKING_DATE
+	date: string | null
+}
+
+export const setPickingDate = (date: string | null) => ({
+	type: actionTypes.SET_PICKING_DATE,
+	date,
+})
+
+interface SetSortingItemType {
+	type: typeof actionTypes.SET_SORTING_ITEMS
+	sortingItems: ParametersOfFilter | Carriers | null
+}
+
+export const SetSortingItem = (sortingItems: ParametersOfFilter | Carriers | null) => ({
+	type: actionTypes.SET_SORTING_ITEMS,
+	sortingItems,
 })
 
 export function itemsFetchData() {
 	return (dispatch: AppDispatch) => {
 		dispatch(itemsIsLoading(true))
-
 		fetch(url.searchID)
 			.then((response) => response.json())
 			.then(({ searchId }) => fetch(`${url.tickets}${searchId}`))
@@ -98,10 +124,13 @@ export function itemsFetchData() {
 				return response
 			})
 			.then((response) => response.json())
-			.then((res) => {
-				dispatch(itemsFetchDataSuccess(res.tickets))
-				dispatch(getPortionOfTickets(res.tickets))
+			.then((response) => {
+				dispatch(itemsIsLoading(false))
+				dispatch(itemsFetchDataSuccess(response.tickets))
 			})
-			.catch(() => dispatch(itemsHasErrored(true)))
+			.catch(() => {
+				dispatch(itemsHasErrored(true))
+				dispatch(itemsIsLoading(false))
+			})
 	}
 }

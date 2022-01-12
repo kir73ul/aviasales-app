@@ -1,11 +1,17 @@
 import { combineReducers } from 'redux'
-import { PriorityReducerType, TicketsReducerType, TransfersReducerType } from './actions'
+import {
+	PriorityReducerType,
+	SelectReducerType,
+	TicketsReducerType,
+	TransfersReducerType,
+} from './actions'
 import { actionTypes } from './Types/Action types'
 import {
 	FiltersStateType,
 	SortOfTickets,
 	NumbersOfTransfers,
 	initialTicketsStateType,
+	InitialSelectedStateType,
 } from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
@@ -67,8 +73,8 @@ const transfersReducer = (state = initialFiltersState, action: TransfersReducerT
 const initialTicketsState: initialTicketsStateType = {
 	hasErrored: false,
 	isLoading: true,
-	items: [],
-	portionOfItems: [],
+	tickets: [],
+	filteredTickets: [],
 }
 
 const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType) => {
@@ -77,31 +83,47 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 			return {
 				...state,
 				hasErrored: action.value,
-				isLoading: false,
 			}
 
 		case actionTypes.ITEMS_IS_LOADING:
 			return {
 				...state,
 				isLoading: action.value,
-				hasErrored: false,
 			}
 
 		case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
 			return {
 				...state,
-				items: action.value,
-				isLoading: false,
-				hasErrored: false,
+				tickets: action.value,
 			}
 
-		case actionTypes.GET_PORTION_OF_TICKETS:
+		case actionTypes.GET_FILTERED_TICKETS:
 			return {
 				...state,
-				portionOfItems: action.value /* [
-					...state.portionOfItems.slice(state.portionOfItems.length - 10),
-					...action.value,
-				], */,
+				filteredTickets: action.value,
+			}
+
+		default:
+			return state
+	}
+}
+const initialSelectState: InitialSelectedStateType = {
+	pickingDate: null,
+	sortingItem: null,
+}
+
+const selectReducer = (state = initialSelectState, action: SelectReducerType) => {
+	switch (action.type) {
+		case actionTypes.SET_PICKING_DATE:
+			return {
+				...state,
+				pickingDate: action.date,
+			}
+
+		case actionTypes.SET_SORTING_ITEMS:
+			return {
+				...state,
+				sortingItem: action.sortingItems,
 			}
 
 		default:
@@ -113,6 +135,7 @@ const rootReducer = combineReducers({
 	priorityReducer,
 	transfersReducer,
 	ticketsReducer,
+	selectReducer,
 })
 
 export default rootReducer

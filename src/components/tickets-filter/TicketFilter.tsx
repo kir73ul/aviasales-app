@@ -1,28 +1,33 @@
 import { TreeSelect } from 'antd'
 import styles from './TicketFilter.module.scss'
-import { filterMethods } from './helpers/filterByPrice'
-import { ParametersOfFilter } from '../../Types/Types'
+import { Carriers, ParametersOfFilter } from '../../Types/Types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
-import { getPortionOfTickets, itemsFetchDataSuccess } from '../../actions'
-import { genTreeProps } from './helpers/findAllCarriers'
+import { SetSortingItem } from '../../actions'
+import { generateTreeForSelection } from './helpers/generateTreeForSelection'
 
 export const TicketsFilter = () => {
-	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.items)
+	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.tickets)
 	const dispatch = useDispatch()
-	const handleChange = (value: ParametersOfFilter) => {
-		const filteredTickets = filterMethods[value](allTickets)
-		dispatch(getPortionOfTickets(filteredTickets))
+	const handleChange = (value: ParametersOfFilter | Carriers) => {
+		dispatch(SetSortingItem(value))
 	}
-	const treeProps = genTreeProps(allTickets)
+	const handlerClear = () => {
+		dispatch(SetSortingItem(null))
+	}
+	const treeForSelection = generateTreeForSelection(allTickets)
 	return (
 		<div className={styles.wrap}>
 			<TreeSelect
-				onChange={(value: ParametersOfFilter) => handleChange(value)}
+				onClear={() => handlerClear()}
+				onChange={(value: ParametersOfFilter | Carriers) => handleChange(value)}
 				style={{ width: 206.4 }}
+				dropdownStyle={{ overflow: 'auto' }}
 				placeholder='Фильтровать билеты по'
-				treeData={treeProps}
+				treeData={treeForSelection}
 				treeIcon={true}
+				allowClear={true}
+				treeDefaultExpandAll
 			></TreeSelect>
 		</div>
 	)

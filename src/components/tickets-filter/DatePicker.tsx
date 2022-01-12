@@ -1,32 +1,25 @@
 import { Space, DatePicker } from 'antd'
-import { useDispatch, useSelector } from 'react-redux'
-import { getPortionOfTickets, itemsFetchDataSuccess } from '../../actions'
-import { AppStateType } from '../../combineStore'
-import { ParametersOfFilter } from '../../Types/Types'
-import { filterMethods } from './helpers/filterByPrice'
+import { useDispatch } from 'react-redux'
+import { setPickingDate } from '../../actions'
 import styles from './TicketFilter.module.scss'
-import { itemsFetchData } from './../../actions'
 
 export const DateFilter = () => {
 	const dispatch = useDispatch()
-	const items = useSelector((state: AppStateType) => state.ticketsReducer.items)
-	const onChange = (date: string) => {
-		const ticketOnPickDate = filterMethods[ParametersOfFilter.pickDate](items, date)
-		console.log(date, ticketOnPickDate)
-
-		return dispatch(getPortionOfTickets(ticketOnPickDate))
+	const setPickedDate = (date: string) => {
+		dispatch(setPickingDate(date))
+	}
+	const handleClear = () => {
+		dispatch(setPickingDate(null))
 	}
 	return (
 		<Space className={styles.wrapDatePick}>
 			<DatePicker
-				onChange={(_, date) => {
-					onChange(date)
+				onChange={(moment, date) => {
+					moment ? setPickedDate(date) : handleClear()
 				}}
-				/* 				onPanelChange={() => dispatch(itemsFetchData())} */
 				placeholder='Выбрать дату вылета'
-				style={{
-					width: '206.4px',
-				}}
+				style={{ width: '206.4px' }}
+				popupStyle={{ marginLeft: '-75px' }}
 			/>
 		</Space>
 	)
