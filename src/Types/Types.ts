@@ -46,10 +46,15 @@ export interface TicketsType {
 export interface initialTicketsStateType {
 	hasErrored: boolean
 	isLoading: boolean
+<<<<<<< HEAD
 	tickets: TicketsType[]
 	filteredTickets: TicketsType[]
 }
 export interface InitialSelectedStateType {
 	pickingDate: string | null
 	sortingItem: ParametersOfFilter | Carriers | null
+=======
+	items: TicketsType[]
+	portionOfItems: TicketsType[]
+>>>>>>> 4765ca1df7fd38bb3540baf530403659cf0ea3ee
 }
