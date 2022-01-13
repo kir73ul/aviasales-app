@@ -24,7 +24,7 @@ export const generateTreeForSelection = (allTickets: TicketsType[]) => {
 		treeForSelection[4]?.children?.push({
 			id: carrier,
 			value: carrier,
-			title: <img className={styles.iconImg} src={iconUrl} alt='' />,
+			title: <img className={styles.iconImg}  src={iconUrl} alt='' />,
 		})
 	}
 	return treeForSelection

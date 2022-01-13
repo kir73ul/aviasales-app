@@ -1,4 +1,3 @@
-import classes from './tickets-menu.module.scss'
 import { AppStateType } from '../../combineStore'
 import { useDispatch, useSelector } from 'react-redux'
 import { togglePriority } from '../../actions'
@@ -22,14 +21,13 @@ export const TicketsMenu = () => {
 
 	const buttons = items.map(({ key, value }) => {
 		const isButtonActive = priority === key && !isSortingValid
-		const buttonStyle = priority === key && !isSortingValid ? classes.itemSelected : classes.item
 		return (
 			<PriorityButton
 				disabled={isSortingValid}
 				type='button'
 				key={key}
-				className={buttonStyle}
 				onClick={() => dispatch(togglePriority(key))}
+				isButtonActive={isButtonActive}
 			>
 				{value}
 			</PriorityButton>

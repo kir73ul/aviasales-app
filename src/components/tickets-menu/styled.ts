@@ -1,6 +1,12 @@
 import styled from 'styled-components'
 
-export const PriorityButton = styled.button`
+interface Props {
+	isButtonActive: boolean
+}
+
+export const PriorityButton = styled.button<Props>`
+    color: ${(props) => (props.isButtonActive ? 'white' : 'inherit')};
+    background: ${(props) => (props.isButtonActive ? ' #2196f3' : 'inherit')}; 
     cursor: pointer;
     flex: 1 0 50%;
     margin: 0;

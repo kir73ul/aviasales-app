@@ -5,6 +5,7 @@ import classes from './transfers-filters.module.scss'
 import { toggleAllCheckboxes, toggleCheckbox } from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
+import { Title, Wrapper, List, Label, Input } from './styled'
 
 export const TransfersFilters = () => {
 	const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
@@ -27,23 +28,21 @@ export const TransfersFilters = () => {
 	const list = checkboxes.map(({ key, value }) => {
 		return (
 			<li key={key}>
-				<input
+				<Input
 					type='checkbox'
 					id={value}
-					checked={stopsFilter[key]}
 					onChange={(evt: React.ChangeEvent<HTMLInputElement>) => toggle(evt, key)}
+					checked={stopsFilter[key]}
 				/>
-				<label htmlFor={value} className={classes['custom-checkbox']}>
-					{value}
-				</label>
+				<Label htmlFor={value} checked={stopsFilter[key]}>{value}</Label>
 			</li>
 		)
 	})
 
 	return (
-		<div className={classes.wrapper}>
-			<span className={classes.title}>Количество пересадок</span>
-			<ul className={classes.list}>{list}</ul>
-		</div>
+		<Wrapper /* className={classes.wrapper} */>
+			<Title /* className={classes.title} */>Количество пересадок</Title>
+			<List /* className={classes.list} */>{list}</List>
+		</Wrapper>
 	)
 }
