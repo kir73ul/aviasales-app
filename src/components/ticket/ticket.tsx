@@ -1,5 +1,5 @@
-import classes from './tickets.module.scss'
 import { ticketCreator } from './../tickets-list/helpers/ticketCreator'
+import { AirlineImg, CardOfTicket, Date, Parameter, Price, Subtitle } from './styled'
 
 export const Ticket = (props: ReturnType<typeof ticketCreator>) => {
 	const {
@@ -23,29 +23,29 @@ export const Ticket = (props: ReturnType<typeof ticketCreator>) => {
 	} = props
 
 	return (
-		<li className={classes['card-ticket']}>
-			<span className={classes.price}>{price} RUB</span>
-			<img className={classes.airline} src={carrierLogo} alt={carrier} />
-			<span className={classes.subtitle}>
+		<CardOfTicket>
+			<Price>{price} RUB</Price>
+			<AirlineImg src={carrierLogo} alt={carrier} />
+			<Subtitle>
 				{origin} - {destination}
-			</span>
-			<span className={classes.subtitle}>в пути</span>
-			<span className={classes.subtitle}>{transfers}</span>
-			<span className={classes.date}>
+			</Subtitle>
+			<Subtitle>в пути</Subtitle>
+			<Subtitle>{transfers}</Subtitle>
+			<Date>
 				{departTime} - {arrivalTime}
-			</span>
-			<span className={classes.parameter}>{ftdDuration}</span>
-			<span className={classes.parameter}>{stops.join(', ')}</span>
-			<span className={classes.subtitle}>
+			</Date>
+			<Parameter>{ftdDuration}</Parameter>
+			<Parameter>{stops.join(', ')}</Parameter>
+			<Subtitle>
 				{originBack} - {destinationBack}
-			</span>
-			<span className={classes.subtitle}>в пути</span>
-			<span className={classes.subtitle}>{transfersBack}</span>
-			<span className={classes.date}>
+			</Subtitle>
+			<Subtitle>в пути</Subtitle>
+			<Subtitle>{transfersBack}</Subtitle>
+			<Date>
 				{departTimeBack} - {arrivalTimeBack}
-			</span>
-			<span className={classes.parameter}>{ftdDurationBack}</span>
-			<span className={classes.parameter}>{stopsBack.join(', ')}</span>
-		</li>
+			</Date>
+			<Parameter>{ftdDurationBack}</Parameter>
+			<Parameter>{stopsBack.join(', ')}</Parameter>
+		</CardOfTicket>
 	)
 }

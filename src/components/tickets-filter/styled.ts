@@ -7,8 +7,8 @@ interface WrapProps {
 	marginTop?: string
 }
 export const Wrapper = styled.div<WrapProps>`
-	position: ${(props) => props.position || 'sticky'} 
-	top: ${(props) => props.top || '245px'} 
-	width: ${(props) => props.width || '206.4px'}
+	position: ${(props) => props.position || 'sticky'};
+	top: ${(props) => props.top || '245px'};
+	width: ${(props) => props.width || '206.4px'};
 	margin-top: ${(props) => props.marginTop || '20px'};
 `

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
-import classes from './transfers-filters.module.scss'
 import { toggleAllCheckboxes, toggleCheckbox } from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
@@ -34,15 +33,17 @@ export const TransfersFilters = () => {
 					onChange={(evt: React.ChangeEvent<HTMLInputElement>) => toggle(evt, key)}
 					checked={stopsFilter[key]}
 				/>
-				<Label htmlFor={value} checked={stopsFilter[key]}>{value}</Label>
+				<Label htmlFor={value} checked={stopsFilter[key]}>
+					{value}
+				</Label>
 			</li>
 		)
 	})
 
 	return (
-		<Wrapper /* className={classes.wrapper} */>
-			<Title /* className={classes.title} */>Количество пересадок</Title>
-			<List /* className={classes.list} */>{list}</List>
+		<Wrapper>
+			<Title>Количество пересадок</Title>
+			<List>{list}</List>
 		</Wrapper>
 	)
 }

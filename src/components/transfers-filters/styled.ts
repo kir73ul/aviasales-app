@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import image from './check.png'
 
 export const Wrapper = styled.div`
 	position: sticky;
@@ -58,8 +59,8 @@ export const Label = styled.label<LabelProps>`
 	}
 	&::before {
 		content: ' ';
-		border-color: ${(props) => (props.checked ? '#0b76ef' : 'none')};
-		background: ${(props) => (props.checked ? `url('./check.png') no-repeat center` : 'none')};
+		border-color: ${(props) => (props.checked ? '#0b76ef' : '')};
+		background: ${(props) => (props.checked ? `center no-repeat url(${image}) ` : '')};
 		display: inline-block;
 		width: 16px;
 		height: 16px;
@@ -70,12 +71,7 @@ export const Label = styled.label<LabelProps>`
 		vertical-align: bottom;
 	}
 `
-interface InputProps {
-	checked: boolean
-}
-export const Input = styled.input<InputProps>`
-	border-color: ${(props) => (props.checked ? '#0b76ef' : 'none')};
-	background: ${(props) => (props.checked ? `url('./check.png') no-repeat center` : 'none')};
+export const Input = styled.input`
 	position: absolute;
 	z-index: -1;
 	opacity: 0;

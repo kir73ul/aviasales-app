@@ -2,7 +2,6 @@ import { Space, DatePicker } from 'antd'
 import { useDispatch } from 'react-redux'
 import { setPickingDate } from '../../actions'
 import { Wrapper } from './styled'
-import styles from './TicketFilter.module.scss'
 
 export const DateFilter = () => {
 	const dispatch = useDispatch()
@@ -14,7 +13,7 @@ export const DateFilter = () => {
 	}
 	return (
 		<Wrapper top='295px'>
-			<Space /* className={styles.wrapDatePick} */>
+			<Space>
 				<DatePicker
 					onChange={(moment, date) => {
 						moment ? setPickedDate(date) : handleClear()

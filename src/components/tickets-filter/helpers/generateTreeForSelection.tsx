@@ -1,6 +1,5 @@
 import { Carriers, ParametersOfFilter, TicketsType } from '../../../Types/Types'
 import { url } from '../../../Constants/Constants'
-import styles from './../TicketFilter.module.scss'
 import { ReactNode } from 'react'
 
 interface TreeForSelectionType {
@@ -24,7 +23,7 @@ export const generateTreeForSelection = (allTickets: TicketsType[]) => {
 		treeForSelection[4]?.children?.push({
 			id: carrier,
 			value: carrier,
-			title: <img className={styles.iconImg}  src={iconUrl} alt='' />,
+			title: <img src={iconUrl} alt='' width={'80px'} height={'35px'} />,
 		})
 	}
 	return treeForSelection

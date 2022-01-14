@@ -1,5 +1,4 @@
 import { TreeSelect } from 'antd'
-import styles from './TicketFilter.module.scss'
 import { Carriers, ParametersOfFilter } from '../../Types/Types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
