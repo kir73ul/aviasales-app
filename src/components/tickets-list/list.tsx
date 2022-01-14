@@ -3,6 +3,7 @@ import { idBase } from './helpers/idBase'
 import { Ticket } from '../ticket'
 import styles from './tickets-list.module.scss'
 import { TicketsType } from '../../Types/Types'
+import { ListOfItems } from './styled'
 
 interface ListType {
 	items: TicketsType[]
@@ -15,5 +16,5 @@ export const List: React.FC<ListType> = ({ items }) => {
 		return <Ticket key={id} {...props} />
 	})
 
-	return <ul className={styles.container}>{elems}</ul>
+	return <ListOfItems>{elems}</ListOfItems>
 }

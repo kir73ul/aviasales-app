@@ -1,10 +1,10 @@
 import { TreeSelect } from 'antd'
-import styles from './TicketFilter.module.scss'
 import { Carriers, ParametersOfFilter } from '../../Types/Types'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
 import { SetSortingItem } from '../../actions'
 import { generateTreeForSelection } from './helpers/generateTreeForSelection'
+import { Wrapper } from './styled'
 
 export const TicketsFilter = () => {
 	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.tickets)
@@ -17,7 +17,7 @@ export const TicketsFilter = () => {
 	}
 	const treeForSelection = generateTreeForSelection(allTickets)
 	return (
-		<div className={styles.wrap}>
+		<Wrapper>
 			<TreeSelect
 				onClear={() => handlerClear()}
 				onChange={(value: ParametersOfFilter | Carriers) => handleChange(value)}
@@ -29,6 +29,6 @@ export const TicketsFilter = () => {
 				allowClear={true}
 				treeDefaultExpandAll
 			></TreeSelect>
-		</div>
+		</Wrapper>
 	)
 }

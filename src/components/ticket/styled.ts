@@ -1,4 +1,6 @@
-.card-ticket {
+import styled from 'styled-components'
+
+export const CardOfTicket = styled.li`
 	background: #ffffff;
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 	border-radius: 5px;
@@ -12,9 +14,8 @@
 		padding: 12px;
 		margin-top: 12px;
 	}
-}
-
-.price {
+`
+export const Price = styled.span`
 	color: #2196f3;
 	font-size: 24px;
 	align-self: center;
@@ -22,14 +23,12 @@
 	@media (max-width: 476px) {
 		font-size: 20px;
 	}
-}
-
-.airline {
+`
+export const AirlineImg = styled.img`
 	grid-column: 3;
 	align-self: center;
-}
-
-.subtitle {
+`
+export const Subtitle = styled.span`
 	margin-top: 10px;
 	font-weight: 600;
 	font-size: 12px;
@@ -39,9 +38,8 @@
 	@media (max-width: 476px) {
 		font-size: 10px;
 	}
-}
-
-.parameter {
+`
+export const Parameter = styled.span`
 	font-weight: 600;
 	font-size: 14px;
 	color: #4a4a4a;
@@ -49,14 +47,13 @@
 	@media (max-width: 476px) {
 		font-size: 12px;
 	}
-}
-
-.date {
+`
+export const Date = styled.span`
 	font-weight: 600;
-	font-size: 12px;
+	font-size: 14px;
 	color: #4a4a4a;
 
 	@media (max-width: 476px) {
-		font-size: 9px;
+		font-size: 12px;
 	}
-}
+`

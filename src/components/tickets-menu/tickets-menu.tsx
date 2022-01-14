@@ -1,9 +1,9 @@
-import classes from './tickets-menu.module.scss'
 import { AppStateType } from '../../combineStore'
 import { useDispatch, useSelector } from 'react-redux'
 import { togglePriority } from '../../actions'
 import { ParametersOfFilter, SortOfTickets } from '../../Types/Types'
 import { translateSortOfTickets } from './../../Constants/Constants'
+import { Menu, PriorityButton } from './styled'
 
 const items = [
 	{ key: SortOfTickets.cheapest, value: translateSortOfTickets.cheapest },
@@ -15,21 +15,23 @@ export const TicketsMenu = () => {
 	const sortingItem = useSelector((state: AppStateType) => state.selectReducer.sortingItem)
 	const dispatch = useDispatch()
 	const isSortingValid =
-		sortingItem === ParametersOfFilter.biggerPrice || sortingItem === ParametersOfFilter.departureDate
+		sortingItem === ParametersOfFilter.biggerPrice ||
+		sortingItem === ParametersOfFilter.departureDate ||
+		sortingItem === ParametersOfFilter.arriveDate
 
 	const buttons = items.map(({ key, value }) => {
-		const buttonStyle = priority === key && !isSortingValid ? classes.itemSelected : classes.item
+		const isButtonActive = priority === key && !isSortingValid
 		return (
-			<button
+			<PriorityButton
 				disabled={isSortingValid}
 				type='button'
 				key={key}
-				className={buttonStyle}
 				onClick={() => dispatch(togglePriority(key))}
+				isButtonActive={isButtonActive}
 			>
 				{value}
-			</button>
+			</PriorityButton>
 		)
 	})
-	return <div className={classes.menu}>{buttons} </div>
+	return <Menu>{buttons} </Menu>
 }

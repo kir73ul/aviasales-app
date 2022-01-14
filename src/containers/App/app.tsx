@@ -1,4 +1,3 @@
-import classes from './app.module.scss'
 import logo from './Logo.png'
 import { TransfersFilters } from '../../components/transfers-filters'
 import { TicketsMenu } from '../../components/tickets-menu'
@@ -9,20 +8,20 @@ import { AppWrapper, FilterWrap, Header, LinkedImage, MainContent } from './styl
 
 export const App = () => {
 	return (
-		<AppWrapper /* className={classes.app} */>
-			<Header /* className={classes.cover} */ />
-			<LinkedImage /* className={classes['logo-wrapper']} */>
+		<AppWrapper>
+			<Header />
+			<LinkedImage>
 				<a href='/'>
 					<img src={logo} alt='logo' />
 				</a>
 			</LinkedImage>
-			<MainContent /* className={classes['main-wrapper']} */>
-				<FilterWrap className={classes['filters-wrap']}>
+			<MainContent>
+				<FilterWrap>
 					<TransfersFilters />
 					<TicketsFilter />
 					<DateFilter />
 				</FilterWrap>
-				<div className={classes['sub-wrapper']}>
+				<div>
 					<TicketsMenu />
 					<TicketsList />
 				</div>
