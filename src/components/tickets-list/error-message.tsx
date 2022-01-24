@@ -5,7 +5,9 @@ import { Notification } from './styled'
 export const ErrorMessage = () => {
 	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
 
-	return hasErrored ? (
-		<Notification> Sorry! There was an error loading the tickets </Notification>
-	) : null
+	return (
+		<>
+			{hasErrored && <Notification> Sorry! There was an error loading the tickets </Notification>}
+		</>
+	)
 }

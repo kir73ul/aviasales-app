@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import image from './check.png'
+import { tabletWidth } from './../../Constants/StyleConstants';
 
 export const Wrapper = styled.div`
 	position: sticky;
@@ -13,7 +14,7 @@ export const Wrapper = styled.div`
 	height: fit-content;
 	margin-right: 20px;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		top: 12px;
 		margin-right: 0;
 		margin-bottom: 12px;
@@ -49,7 +50,7 @@ export const Label = styled.label<LabelProps>`
 	display: inline-flex;
 	align-items: center;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		padding: 2px 20px;
 	}
 
@@ -59,8 +60,8 @@ export const Label = styled.label<LabelProps>`
 	}
 	&::before {
 		content: ' ';
-		border-color: ${(props) => (props.checked ? '#0b76ef' : '')};
-		background: ${(props) => (props.checked ? `center no-repeat url(${image}) ` : '')};
+		border-color: ${({ checked }) => checked && '#0b76ef'};
+		background: ${({ checked }) => checked && `center no-repeat url(${image}) `};
 		display: inline-block;
 		width: 16px;
 		height: 16px;

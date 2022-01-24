@@ -11,104 +11,97 @@ import { url } from './Constants/Constants'
 
 export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType
 
-interface ToggleCheckboxType {
-	type: typeof actionTypes.TOGGLE_CHECKBOX
+interface ToggleCheckboxPayloadType {
 	key: NumbersOfTransfers
-	value: boolean
+	isChecked: boolean
 }
 
-export const toggleCheckbox = (key: NumbersOfTransfers, value: boolean) => ({
+interface ToggleCheckboxType {
+	type: typeof actionTypes.TOGGLE_CHECKBOX
+	payload: ToggleCheckboxPayloadType
+}
+
+export const toggleCheckbox = (payload: ToggleCheckboxPayloadType) => ({
 	type: actionTypes.TOGGLE_CHECKBOX,
-	key,
-	value,
+	payload,
 })
-export const toggleAllCheckboxes = (value: boolean) => ({
+export const toggleAllCheckboxes = (payload: boolean) => ({
 	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
-	value,
+	payload,
 })
 
 interface ToggleAllCheckboxesType {
 	type: typeof actionTypes.TOGGLE_ALL_CHECKBOXES
-	value: boolean
+	payload: boolean
 }
 
 export type PriorityReducerType = togglePriorityType
 
 export interface togglePriorityType {
 	type: typeof actionTypes.TOGGLE_PRIORITY
-	value: SortOfTickets
+	payload: SortOfTickets
 }
 
-export const togglePriority = (value: SortOfTickets) => ({
+export const togglePriority = (payload: SortOfTickets) => ({
 	type: actionTypes.TOGGLE_PRIORITY,
-	value,
+	payload,
 })
 
 export type TicketsReducerType =
 	| ItemsHasErroredType
 	| ItemsIsLoadingType
 	| ItemsFetchDataSuccessType
-	| GetSortedTicketsType
 
 interface ItemsHasErroredType {
 	type: typeof actionTypes.ITEMS_HAS_ERRORED
-	value: boolean
+	payload: boolean
 }
 
-export const itemsHasErrored = (value: boolean) => ({
+export const itemsHasErrored = (payload: boolean) => ({
 	type: actionTypes.ITEMS_HAS_ERRORED,
-	value,
+	payload,
 })
 
 interface ItemsIsLoadingType {
 	type: typeof actionTypes.ITEMS_IS_LOADING
-	value: boolean
+	payload: boolean
 }
 
-export const itemsIsLoading = (value: boolean) => ({
+export const itemsIsLoading = (payload: boolean) => ({
 	type: actionTypes.ITEMS_IS_LOADING,
-	value,
+	payload,
 })
 
 interface ItemsFetchDataSuccessType {
 	type: typeof actionTypes.ITEMS_FETCH_DATA_SUCCESS
-	value: TicketsType[]
+	payload: TicketsType[]
 }
 
-export const itemsFetchDataSuccess = (value: TicketsType[]) => ({
+export const itemsFetchDataSuccess = (payload: TicketsType[]) => ({
 	type: actionTypes.ITEMS_FETCH_DATA_SUCCESS,
-	value,
+	payload,
 })
 
-interface GetSortedTicketsType {
-	type: typeof actionTypes.GET_FILTERED_TICKETS
-	value: TicketsType[]
-}
-
-export const getSortedTickets = (value: TicketsType[]) => ({
-	type: actionTypes.GET_FILTERED_TICKETS,
-	value,
-})
 export type SelectReducerType = SetPickingDateType | SetSortingItemType
 
 interface SetPickingDateType {
 	type: typeof actionTypes.SET_PICKING_DATE
-	date: string | null
+	payload: string | null
 }
 
-export const setPickingDate = (date: string | null) => ({
+export const setPickingDate = (payload: string | null) => ({
 	type: actionTypes.SET_PICKING_DATE,
-	date,
+	payload,
 })
 
 interface SetSortingItemType {
 	type: typeof actionTypes.SET_SORTING_ITEMS
-	sortingItems: ParametersOfFilter | Carriers | null
+	payload: ParametersOfFilter | Carriers | null
 }
 
-export const SetSortingItem = (sortingItems: ParametersOfFilter | Carriers | null) => ({
+export const SetSortingItem = (payload: ParametersOfFilter | Carriers | null) => ({
 	type: actionTypes.SET_SORTING_ITEMS,
-	sortingItems,
+	payload,
 })
 
 export function itemsFetchData() {
@@ -125,8 +118,8 @@ export function itemsFetchData() {
 			})
 			.then((response) => response.json())
 			.then((response) => {
-				dispatch(itemsIsLoading(false))
 				dispatch(itemsFetchDataSuccess(response.tickets))
+				dispatch(itemsIsLoading(false))
 			})
 			.catch(() => {
 				dispatch(itemsHasErrored(true))

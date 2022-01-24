@@ -9,12 +9,12 @@ import { AppWrapper, FilterWrap, Header, LinkedImage, MainContent } from './styl
 export const App = () => {
 	return (
 		<AppWrapper>
-			<Header />
 			<LinkedImage>
 				<a href='/'>
 					<img src={logo} alt='logo' />
 				</a>
 			</LinkedImage>
+			<Header />
 			<MainContent>
 				<FilterWrap>
 					<TransfersFilters />

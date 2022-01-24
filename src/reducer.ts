@@ -10,16 +10,16 @@ import {
 	FiltersStateType,
 	SortOfTickets,
 	NumbersOfTransfers,
-	initialTicketsStateType,
-	InitialSelectedStateType,
+	TicketsStateType,
+	SelectedStateType,
 } from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
-	const { type, value } = action
+	const { type, payload } = action
 
 	switch (type) {
 		case actionTypes.TOGGLE_PRIORITY:
-			return value
+			return payload
 
 		default:
 			return state
@@ -60,21 +60,20 @@ const setAllKeys = (state: FiltersStateType, value: boolean) => {
 const transfersReducer = (state = initialFiltersState, action: TransfersReducerType) => {
 	switch (action.type) {
 		case actionTypes.TOGGLE_CHECKBOX:
-			return setKey(state, action.key, action.value)
+			return setKey(state, action.payload.key, action.payload.isChecked)
 
 		case actionTypes.TOGGLE_ALL_CHECKBOXES:
-			return setAllKeys(state, action.value)
+			return setAllKeys(state, action.payload)
 
 		default:
 			return state
 	}
 }
 
-const initialTicketsState: initialTicketsStateType = {
+const initialTicketsState: TicketsStateType = {
 	hasErrored: false,
 	isLoading: true,
 	tickets: [],
-	filteredTickets: [],
 }
 
 const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType) => {
@@ -82,32 +81,26 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 		case actionTypes.ITEMS_HAS_ERRORED:
 			return {
 				...state,
-				hasErrored: action.value,
+				hasErrored: action.payload,
 			}
 
 		case actionTypes.ITEMS_IS_LOADING:
 			return {
 				...state,
-				isLoading: action.value,
+				isLoading: action.payload,
 			}
 
 		case actionTypes.ITEMS_FETCH_DATA_SUCCESS:
 			return {
 				...state,
-				tickets: action.value,
-			}
-
-		case actionTypes.GET_FILTERED_TICKETS:
-			return {
-				...state,
-				filteredTickets: action.value,
+				tickets: action.payload,
 			}
 
 		default:
 			return state
 	}
 }
-const initialSelectState: InitialSelectedStateType = {
+const initialSelectState: SelectedStateType = {
 	pickingDate: null,
 	sortingItem: null,
 }
@@ -117,13 +110,13 @@ const selectReducer = (state = initialSelectState, action: SelectReducerType) =>
 		case actionTypes.SET_PICKING_DATE:
 			return {
 				...state,
-				pickingDate: action.date,
+				pickingDate: action.payload,
 			}
 
 		case actionTypes.SET_SORTING_ITEMS:
 			return {
 				...state,
-				sortingItem: action.sortingItems,
+				sortingItem: action.payload,
 			}
 
 		default:

@@ -2,11 +2,9 @@ import { TicketsType } from '../../../Types/Types'
 
 const millisecondsInDay = 86400000
 
-export const sortByPickedDate = (tickets: TicketsType[], date?: string) => {
-	return tickets.filter((ticket) =>
-		date
-			? Math.floor(Date.parse(ticket.segments[0].date) / millisecondsInDay) ===
-			  Math.floor(Date.parse(date) / millisecondsInDay)
-			: ticket
-	)
+const getDay = (date: string) => Math.floor(Date.parse(date) / millisecondsInDay)
+
+export const sortByPickedDate = (tickets: TicketsType[], date: string | null | undefined) => {
+	if (!date) return tickets
+	return tickets.filter(({ segments }) => getDay(segments[0].date) === getDay(date))
 }

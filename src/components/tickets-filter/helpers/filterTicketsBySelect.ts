@@ -1,6 +1,13 @@
 import { Carriers, ParametersOfFilter, TicketsType } from '../../../Types/Types'
 import { sortByPickedDate } from './dateSorting'
 
+const sortByDate = (tickets: TicketsType[], segmentIndex: number) => {
+	return tickets.sort(
+		(prev, next) =>
+			Date.parse(prev.segments[segmentIndex].date) - Date.parse(next.segments[segmentIndex].date)
+	)
+}
+
 export const filterTicketsBySelect = (
 	selectValue: ParametersOfFilter | Carriers | null,
 	tickets: TicketsType[],
@@ -13,15 +20,11 @@ export const filterTicketsBySelect = (
 		case ParametersOfFilter.biggerPrice:
 			return tickets.sort((prev, next) => next.price - prev.price)
 		case ParametersOfFilter.departureDate:
-			return tickets.sort(
-				(prev, next) => Date.parse(prev.segments[0].date) - Date.parse(next.segments[0].date)
-			)
+			return sortByDate(tickets, 0)
 		case ParametersOfFilter.arriveDate:
-			return tickets.sort(
-				(prev, next) => Date.parse(prev.segments[1].date) - Date.parse(next.segments[1].date)
-			)
+			return sortByDate(tickets, 1)
 		case ParametersOfFilter.pickDate:
-			return date ? sortByPickedDate(tickets, date) : tickets
+			return sortByPickedDate(tickets, date)
 		case selectValue as Carriers:
 			return tickets.filter((ticket) => ticket.carrier === selectValue)
 		default:

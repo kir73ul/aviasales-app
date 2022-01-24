@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { tabletWidth } from './../../Constants/StyleConstants';
 
 export const CardOfTicket = styled.li`
 	background: #ffffff;
@@ -10,7 +11,7 @@ export const CardOfTicket = styled.li`
 	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: 2fr repeat(4, 1fr);
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		padding: 12px;
 		margin-top: 12px;
 	}
@@ -20,7 +21,7 @@ export const Price = styled.span`
 	font-size: 24px;
 	align-self: center;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		font-size: 20px;
 	}
 `
@@ -35,7 +36,7 @@ export const Subtitle = styled.span`
 	text-transform: uppercase;
 	color: #a0b0b9;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		font-size: 10px;
 	}
 `
@@ -44,7 +45,7 @@ export const Parameter = styled.span`
 	font-size: 14px;
 	color: #4a4a4a;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		font-size: 12px;
 	}
 `
@@ -53,7 +54,7 @@ export const Date = styled.span`
 	font-size: 14px;
 	color: #4a4a4a;
 
-	@media (max-width: 476px) {
+	@media (max-width: ${tabletWidth}) {
 		font-size: 12px;
 	}
 `

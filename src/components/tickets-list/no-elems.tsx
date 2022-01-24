@@ -1,9 +1,13 @@
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../combineStore'
+import { selectFilteredTickets } from '../../selectors'
 import { Notification } from './styled'
 
-interface NoElemsTypes {
-	isTrue: boolean
-}
+export const NoElems = () => {
+	const hasErrored = useSelector((state: AppStateType) => state.ticketsReducer.hasErrored)
+	const filteredTickets = useSelector(selectFilteredTickets)
+	const isLoading = useSelector((state: AppStateType) => state.ticketsReducer.isLoading)
+	const isEmptyList = !isLoading && !hasErrored && !filteredTickets.length
 
-export const NoElems = ({ isTrue }: NoElemsTypes) => {
-	return isTrue ? <Notification>Sorry! No flights</Notification> : null
+	return <>{isEmptyList && <Notification>Sorry! No flights</Notification>}</>
 }

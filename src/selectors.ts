@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import { getSortedTickets } from './actions'
 import { AppStateType } from './combineStore'
 import { filterTicketsBySelect } from './components/tickets-filter/helpers/filterTicketsBySelect'
 import { filterTickets, sortTickets } from './components/tickets-list/helpers/sorters'

@@ -43,13 +43,13 @@ export interface TicketsType {
 	carrier: string
 	segments: [SegmentType, SegmentType]
 }
-export interface initialTicketsStateType {
+export interface TicketsStateType {
 	hasErrored: boolean
 	isLoading: boolean
 	tickets: TicketsType[]
-	filteredTickets: TicketsType[]
 }
-export interface InitialSelectedStateType {
+export interface SelectedStateType {
 	pickingDate: string | null
 	sortingItem: ParametersOfFilter | Carriers | null
 }
+export type CarrierIconsType = Record<Carriers, string>

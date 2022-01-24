@@ -1,13 +1,11 @@
 import { TreeSelect } from 'antd'
 import { Carriers, ParametersOfFilter } from '../../Types/Types'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../combineStore'
+import { useDispatch } from 'react-redux'
 import { SetSortingItem } from '../../actions'
-import { generateTreeForSelection } from './helpers/generateTreeForSelection'
+import { treeForSelection } from './helpers/treeForSelection'
 import { Wrapper } from './styled'
 
 export const TicketsFilter = () => {
-	const allTickets = useSelector((state: AppStateType) => state.ticketsReducer.tickets)
 	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter | Carriers) => {
 		dispatch(SetSortingItem(value))
@@ -15,20 +13,18 @@ export const TicketsFilter = () => {
 	const handlerClear = () => {
 		dispatch(SetSortingItem(null))
 	}
-	const treeForSelection = generateTreeForSelection(allTickets)
 	return (
-		<Wrapper>
+		<Wrapper zIndex={2}>
 			<TreeSelect
-				onClear={() => handlerClear()}
-				onChange={(value: ParametersOfFilter | Carriers) => handleChange(value)}
-				style={{ width: 206.4 }}
-				dropdownStyle={{ overflow: 'auto' }}
+				onClear={handlerClear}
+				onChange={handleChange}
+				getPopupContainer={(triggerNode) => triggerNode.parentNode}
 				placeholder='Фильтровать билеты по'
 				treeData={treeForSelection}
 				treeIcon={true}
 				allowClear={true}
 				treeDefaultExpandAll
-			></TreeSelect>
+			/>
 		</Wrapper>
 	)
 }

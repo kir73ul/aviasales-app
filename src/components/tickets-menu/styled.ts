@@ -1,12 +1,13 @@
 import styled from 'styled-components'
+import { tabletWidth } from './../../Constants/StyleConstants';
 
-interface Props {
-	isButtonActive: boolean
+interface ButtonProps {
+	isActive: boolean
 }
 
-export const PriorityButton = styled.button<Props>`
-    color: ${(props) => (props.isButtonActive ? 'white' : 'inherit')};
-    background: ${(props) => (props.isButtonActive ? ' #2196f3' : 'inherit')}; 
+export const PriorityButton = styled.button<ButtonProps>`
+    color: ${({ isActive }) => (isActive ? 'white' : 'inherit')};
+    background: ${({ isActive }) => (isActive ? ' #2196f3' : 'inherit')}; 
     cursor: pointer;
     flex: 1 0 50%;
     margin: 0;
@@ -17,7 +18,7 @@ export const PriorityButton = styled.button<Props>`
     text-transform: uppercase;
     padding: 12px;
 
-    @media (max-width: 476px) {
+    @media (max-width: ${tabletWidth}) {
         font-size: 10px;
         padding: 8px;
     }
@@ -42,8 +43,8 @@ export const Menu = styled.div`
 	box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 	min-width: 420px;
 
-	@media (max-width: 476px) {
-		top: 206px;
+	@media (max-width: ${tabletWidth}) {
+		top: 320px;
 		min-width: unset;
 	}
 `

@@ -1,20 +1,20 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppStateType } from '../../combineStore'
 import { toggleAllCheckboxes, toggleCheckbox } from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
 import { Title, Wrapper, List, Label, Input } from './styled'
+import { selectStops } from '../../selectors'
 
 export const TransfersFilters = () => {
-	const stopsFilter = useSelector((state: AppStateType) => state.transfersReducer)
+	const stopsFilter = useSelector(selectStops)
 	const dispatch = useDispatch()
 
 	const toggle = (evt: React.ChangeEvent<HTMLInputElement>, key: NumbersOfTransfers) => {
 		const { checked } = evt.target
 
 		if (key === NumbersOfTransfers.all) dispatch(toggleAllCheckboxes(checked))
-		else dispatch(toggleCheckbox(key, checked))
+		else dispatch(toggleCheckbox({ key, isChecked: checked }))
 	}
 	const checkboxes = [
 		{ key: NumbersOfTransfers.all, value: translateNumberOfStops.all },
