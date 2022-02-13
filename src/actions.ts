@@ -9,112 +9,70 @@ import {
 import { actionTypes } from './Types/Action types'
 import { url } from './Constants/Constants'
 
-export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType | RollUpMenuType
+type PropertyType<T> = T extends { [key: string]: infer U } ? U : never
+
+export type TransfersReducerType = ReturnType<PropertyType<typeof TransfersReducerActions>>
 
 interface ToggleCheckboxPayloadType {
 	key: NumbersOfTransfers
 	isChecked: boolean
 }
 
-/* interface ToggleCheckboxType {
-	type: typeof actionTypes.TOGGLE_CHECKBOX
-	payload: ToggleCheckboxPayloadType
-} */
-type ToggleCheckboxType = ReturnType<typeof toggleCheckbox>
-export const toggleCheckbox = (payload: ToggleCheckboxPayloadType) => ({
-	type: actionTypes.TOGGLE_CHECKBOX,
-	payload,
-})
-type ToggleAllCheckboxesType = ReturnType<typeof toggleAllCheckboxes>
-/* interface ToggleAllCheckboxesType {
-	type: typeof actionTypes.TOGGLE_ALL_CHECKBOXES
-	payload: boolean
-} */
-export const toggleAllCheckboxes = (payload: boolean) => ({
-	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
-	payload,
-})
-type RollUpMenuType = ReturnType<typeof rollUpMenu>
-/* interface RollUpMenuType {
-	type: typeof actionTypes.ROLL_UP_MENU
-	payload: boolean
-} */
-export const rollUpMenu = () => ({
-	type: actionTypes.ROLL_UP_MENU,
-})
-
-export type PriorityReducerType = togglePriorityType
-
-export interface togglePriorityType {
-	type: typeof actionTypes.TOGGLE_PRIORITY
-	payload: SortOfTickets
+export const TransfersReducerActions = {
+	toggleCheckbox: (payload: ToggleCheckboxPayloadType) => ({
+		type: actionTypes.TOGGLE_CHECKBOX,
+		payload,
+	}),
+	toggleAllCheckboxes: (payload: boolean) => ({
+		type: actionTypes.TOGGLE_ALL_CHECKBOXES,
+		payload,
+	}),
+	rollUpMenu: () => ({
+		type: actionTypes.ROLL_UP_MENU,
+	}),
 }
 
-export const togglePriority = (payload: SortOfTickets) => ({
-	type: actionTypes.TOGGLE_PRIORITY,
-	payload,
-})
+export type PriorityReducerType = ReturnType<PropertyType<typeof PriorityReducerActions>>
 
-export type TicketsReducerType =
-	| ItemsHasErroredType
-	| ItemsIsLoadingType
-	| ItemsFetchDataSuccessType
-
-interface ItemsHasErroredType {
-	type: typeof actionTypes.ITEMS_HAS_ERRORED
-	payload: boolean
+export const PriorityReducerActions = {
+	togglePriority: (payload: SortOfTickets) => ({
+		type: actionTypes.TOGGLE_PRIORITY,
+		payload,
+	}),
 }
 
-export const itemsHasErrored = (payload: boolean) => ({
-	type: actionTypes.ITEMS_HAS_ERRORED,
-	payload,
-})
+export type TicketsReducerType = ReturnType<PropertyType<typeof TicketReducerActions>>
 
-interface ItemsIsLoadingType {
-	type: typeof actionTypes.ITEMS_IS_LOADING
-	payload: boolean
+export const TicketReducerActions = {
+	itemsHasErrored: (payload: boolean) => ({
+		type: actionTypes.ITEMS_HAS_ERRORED,
+		payload,
+	}),
+	itemsIsLoading: (payload: boolean) => ({
+		type: actionTypes.ITEMS_IS_LOADING,
+		payload,
+	}),
+	itemsFetchDataSuccess: (payload: TicketsType[]) => ({
+		type: actionTypes.ITEMS_FETCH_DATA_SUCCESS,
+		payload,
+	}),
 }
 
-export const itemsIsLoading = (payload: boolean) => ({
-	type: actionTypes.ITEMS_IS_LOADING,
-	payload,
-})
-
-interface ItemsFetchDataSuccessType {
-	type: typeof actionTypes.ITEMS_FETCH_DATA_SUCCESS
-	payload: TicketsType[]
+export type SelectReducerType = ReturnType<PropertyType<typeof SelectReducerActions>>
+export const SelectReducerActions = {
+	setPickingDate: (payload: string | null) => ({
+		type: actionTypes.SET_PICKING_DATE,
+		payload,
+	}),
+	SetSortingItem: (payload: ParametersOfFilter | Carriers | null) => ({
+		type: actionTypes.SET_SORTING_ITEMS,
+		payload,
+	}),
 }
-
-export const itemsFetchDataSuccess = (payload: TicketsType[]) => ({
-	type: actionTypes.ITEMS_FETCH_DATA_SUCCESS,
-	payload,
-})
-
-export type SelectReducerType = SetPickingDateType | SetSortingItemType
-
-interface SetPickingDateType {
-	type: typeof actionTypes.SET_PICKING_DATE
-	payload: string | null
-}
-
-export const setPickingDate = (payload: string | null) => ({
-	type: actionTypes.SET_PICKING_DATE,
-	payload,
-})
-
-interface SetSortingItemType {
-	type: typeof actionTypes.SET_SORTING_ITEMS
-	payload: ParametersOfFilter | Carriers | null
-}
-
-export const SetSortingItem = (payload: ParametersOfFilter | Carriers | null) => ({
-	type: actionTypes.SET_SORTING_ITEMS,
-	payload,
-})
 
 export function itemsFetchData() {
 	return (dispatch: AppDispatch) => {
-		dispatch(itemsIsLoading(true))
+		dispatch(TicketReducerActions.itemsIsLoading(true))
 		fetch(url.searchID)
 			.then((response) => response.json())
 			.then(({ searchId }) => fetch(`${url.tickets}${searchId}`))
@@ -126,12 +84,12 @@ export function itemsFetchData() {
 			})
 			.then((response) => response.json())
 			.then((response) => {
-				dispatch(itemsFetchDataSuccess(response.tickets))
-				dispatch(itemsIsLoading(false))
+				dispatch(TicketReducerActions.itemsFetchDataSuccess(response.tickets))
+				dispatch(TicketReducerActions.itemsIsLoading(false))
 			})
 			.catch(() => {
-				dispatch(itemsHasErrored(true))
-				dispatch(itemsIsLoading(false))
+				dispatch(TicketReducerActions.itemsHasErrored(true))
+				dispatch(TicketReducerActions.itemsIsLoading(false))
 			})
 	}
 }

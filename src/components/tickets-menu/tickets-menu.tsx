@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { togglePriority } from '../../actions'
+import { PriorityReducerActions } from '../../actions'
 import { ParametersOfFilter, SortOfTickets } from '../../Types/Types'
 import { translateSortOfTickets } from './../../Constants/Constants'
 import { Menu, PriorityButton } from './styled'
@@ -28,7 +28,7 @@ export const TicketsMenu = () => {
 				disabled={isPriorityValid}
 				type='button'
 				key={key}
-				onClick={() => dispatch(togglePriority(key))}
+				onClick={() => dispatch(PriorityReducerActions.togglePriority(key))}
 				isActive={isActive}
 			>
 				{value}

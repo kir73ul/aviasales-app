@@ -1,6 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { rollUpMenu, toggleAllCheckboxes, toggleCheckbox } from './../../actions'
+import {
+	/* rollUpMenu, toggleAllCheckboxes, toggleCheckbox */ TransfersReducerActions,
+} from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
 import { Title, Wrapper, List, Label, Input } from './styled'
@@ -15,8 +17,9 @@ export const TransfersFilters = () => {
 	const toggle = (evt: React.ChangeEvent<HTMLInputElement>, key: NumbersOfTransfers) => {
 		const { checked } = evt.target
 
-		if (key === NumbersOfTransfers.all) dispatch(toggleAllCheckboxes(checked))
-		else dispatch(toggleCheckbox({ key, isChecked: checked }))
+		if (key === NumbersOfTransfers.all)
+			dispatch(TransfersReducerActions.toggleAllCheckboxes(checked))
+		else dispatch(TransfersReducerActions.toggleCheckbox({ key, isChecked: checked }))
 	}
 	const checkboxes = [
 		{ key: NumbersOfTransfers.all, value: translateNumberOfStops.all },
@@ -44,7 +47,11 @@ export const TransfersFilters = () => {
 
 	return (
 		<Wrapper>
-			<Menu defaultOpenKeys={['sub1']} mode='inline' onOpenChange={() => dispatch(rollUpMenu())}>
+			<Menu
+				defaultOpenKeys={['sub1']}
+				mode='inline'
+				onOpenChange={() => dispatch(TransfersReducerActions.rollUpMenu())}
+			>
 				<SubMenu key='sub1' title={<Title>Количество пересадок</Title>}>
 					<List>{list}</List>
 				</SubMenu>
