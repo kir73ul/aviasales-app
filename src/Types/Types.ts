@@ -26,10 +26,13 @@ export enum Carriers {
 	FV = 'FV',
 	TG = 'TG',
 }
-export type TransfersKey = keyof typeof NumbersOfTransfers
 
-export type FiltersStateType = {
+export type StopsType = {
 	[key in NumbersOfTransfers]: boolean
+}
+export type FiltersStateType = {
+	transfers: StopsType
+	isMenuRolledUp: boolean
 }
 export interface SegmentType {
 	origin: string

@@ -9,7 +9,7 @@ import {
 import { actionTypes } from './Types/Action types'
 import { url } from './Constants/Constants'
 
-export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType
+export type TransfersReducerType = ToggleCheckboxType | ToggleAllCheckboxesType | RollUpMenuType
 
 interface ToggleCheckboxPayloadType {
 	key: NumbersOfTransfers
@@ -25,15 +25,22 @@ export const toggleCheckbox = (payload: ToggleCheckboxPayloadType) => ({
 	type: actionTypes.TOGGLE_CHECKBOX,
 	payload,
 })
-export const toggleAllCheckboxes = (payload: boolean) => ({
-	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
-	payload,
-})
 
 interface ToggleAllCheckboxesType {
 	type: typeof actionTypes.TOGGLE_ALL_CHECKBOXES
 	payload: boolean
 }
+export const toggleAllCheckboxes = (payload: boolean) => ({
+	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
+	payload,
+})
+interface RollUpMenuType {
+	type: typeof actionTypes.ROLL_UP_MENU
+	payload: boolean
+}
+export const rollUpMenu = () => ({
+	type: actionTypes.ROLL_UP_MENU,
+})
 
 export type PriorityReducerType = togglePriorityType
 

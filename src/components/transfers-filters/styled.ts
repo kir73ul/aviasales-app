@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import image from './check.png'
-import { tabletWidth } from './../../Constants/StyleConstants';
+import { tabletWidth } from './../../Constants/StyleConstants'
 
 export const Wrapper = styled.div`
 	position: sticky;
@@ -19,9 +19,32 @@ export const Wrapper = styled.div`
 		margin-right: 0;
 		margin-bottom: 12px;
 	}
+
+	.ant-menu-submenu,
+	.ant-menu-sub {
+		transition: 0.6s;
+	}
+
+	.ant-menu-submenu-title > li,
+	.-title-content {
+		height: 30px;
+		line-height: 20px;
+	}
+
+	.ant-menu-inline,
+	.ant-menu-submenu-title {
+		height: fit-content;
+		line-height: 20px;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-top: 3px;
+		box-sixing: border-box;
+	}
+	.ant-menu > ul {
+		padding-bottom: 10px;
+	}
 `
 export const Title = styled.span`
-	padding: 20px 20px 10px 20px;
 	font-weight: 600;
 	font-size: 12px;
 	line-height: 12px;

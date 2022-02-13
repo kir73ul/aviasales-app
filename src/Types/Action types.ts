@@ -7,6 +7,7 @@ const ITEMS_FETCH_DATA_SUCCESS = 'ITEMS_FETCH_DATA_SUCCESS' as const
 const SET_PICKING_DATE = 'SET_PICKING_DATE' as const
 const SET_SORTING_ITEMS = 'SET_SORTING_ITEMS' as const
 const SET_TICKET_PORTION = 'SET_TICKET_PORTION' as const
+const ROLL_UP_MENU = 'ROLL_UP_MENU' as const
 
 export const actionTypes = {
 	TOGGLE_CHECKBOX,
@@ -18,4 +19,5 @@ export const actionTypes = {
 	SET_PICKING_DATE,
 	SET_SORTING_ITEMS,
 	SET_TICKET_PORTION,
+	ROLL_UP_MENU,
 }

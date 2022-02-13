@@ -5,8 +5,12 @@ import { TicketsList } from '../../components/tickets-list'
 import { TicketsFilter } from './../../components/tickets-filter/TicketFilter'
 import { DateFilter } from './../../components/tickets-filter/DatePicker'
 import { AppWrapper, FilterWrap, Header, LinkedImage, MainContent } from './styled'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../combineStore'
 
 export const App = () => {
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
+
 	return (
 		<AppWrapper>
 			<LinkedImage>
@@ -14,7 +18,7 @@ export const App = () => {
 					<img src={logo} alt='logo' />
 				</a>
 			</LinkedImage>
-			<Header />
+			<Header isMenuRolledUp={isMenuRolledUp} />
 			<MainContent>
 				<FilterWrap>
 					<TransfersFilters />

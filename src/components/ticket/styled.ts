@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { tabletWidth } from './../../Constants/StyleConstants';
+import { middleWidth, tabletWidth } from './../../Constants/StyleConstants'
 
 export const CardOfTicket = styled.li`
 	background: #ffffff;
@@ -14,6 +14,11 @@ export const CardOfTicket = styled.li`
 	@media (max-width: ${tabletWidth}) {
 		padding: 12px;
 		margin-top: 12px;
+		width: 100%;
+	}
+
+	@media (max-width: ${middleWidth}) and (min-width: ${tabletWidth}) {
+		width: calc(230px + (100vw - 476px));
 	}
 `
 export const Price = styled.span`

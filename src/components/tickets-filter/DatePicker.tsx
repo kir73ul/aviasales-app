@@ -1,29 +1,28 @@
-import { Space, DatePicker } from 'antd'
+import { DatePicker } from 'antd'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setPickingDate } from '../../actions'
+import { AppStateType } from '../../combineStore'
 import { Wrapper } from './styled'
 
 export const DateFilter = () => {
 	const [isHidden, setIsHidden] = useState(true)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
 	const dispatch = useDispatch()
 	const handleChange = (moment: moment.Moment | null, date: string) => {
-		moment ? dispatch(setPickingDate(date)) : dispatch(setPickingDate(null))
+		dispatch(setPickingDate(moment ? date : null))
 	}
 	return (
-		<Wrapper top='279.67px'>
-			<Space>
-				<DatePicker
-					onOpenChange={() => setIsHidden(true)}
-					onBlur={() => setIsHidden(true)}
-					onClick={() => setIsHidden((prev) => !prev)}
-					onChange={handleChange}
-					//@ts-expect-error
-					getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode}
-					placeholder='Выбрать дату вылета'
-					popupStyle={{ display: `${isHidden ? 'none' : 'block'}` }}
-				/>
-			</Space>
+		<Wrapper top={isMenuRolledUp ? '120px' : '280px'} isHidden={isHidden}>
+			<DatePicker
+				//@ts-expect-error
+				getPopupContainer={(triggerNode: HTMLElement) => triggerNode.parentNode}
+				onOpenChange={() => setIsHidden(true)}
+				onBlur={() => setIsHidden(true)}
+				onClick={() => setIsHidden((prev) => !prev)}
+				onChange={handleChange}
+				placeholder='Выбрать дату вылета'
+			/>
 		</Wrapper>
 	)
 }

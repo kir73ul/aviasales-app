@@ -1,13 +1,15 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleAllCheckboxes, toggleCheckbox } from './../../actions'
+import { rollUpMenu, toggleAllCheckboxes, toggleCheckbox } from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
 import { Title, Wrapper, List, Label, Input } from './styled'
 import { selectStops } from '../../selectors'
+import { Menu } from 'antd'
+import SubMenu from 'antd/lib/menu/SubMenu'
 
 export const TransfersFilters = () => {
-	const stopsFilter = useSelector(selectStops)
+	const transfers = useSelector(selectStops)
 	const dispatch = useDispatch()
 
 	const toggle = (evt: React.ChangeEvent<HTMLInputElement>, key: NumbersOfTransfers) => {
@@ -31,9 +33,9 @@ export const TransfersFilters = () => {
 					type='checkbox'
 					id={value}
 					onChange={(evt: React.ChangeEvent<HTMLInputElement>) => toggle(evt, key)}
-					checked={stopsFilter[key]}
+					checked={transfers.transfers[key]}
 				/>
-				<Label htmlFor={value} checked={stopsFilter[key]}>
+				<Label htmlFor={value} checked={transfers.transfers[key]}>
 					{value}
 				</Label>
 			</li>
@@ -42,8 +44,11 @@ export const TransfersFilters = () => {
 
 	return (
 		<Wrapper>
-			<Title>Количество пересадок</Title>
-			<List>{list}</List>
+			<Menu defaultOpenKeys={['sub1']} mode='inline' onOpenChange={() => dispatch(rollUpMenu())}>
+				<SubMenu key='sub1' title={<Title>Количество пересадок</Title>}>
+					<List>{list}</List>
+				</SubMenu>
+			</Menu>
 		</Wrapper>
 	)
 }

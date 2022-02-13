@@ -12,7 +12,7 @@ export const selectTickets = (state: AppStateType) => state.ticketsReducer.ticke
 
 export const selectFilteredTickets = createSelector(
 	[selectSortingItem, selectPickingDate, selectPriority, selectStops, selectTickets],
-	(sortingItem, pickingDate, priority, stopsFilter, tickets) => {
+	(sortingItem, pickingDate, priority, transfers, tickets) => {
 		const filteredByPriority = sortTickets(tickets, priority)
 		const filteredBySelect = filterTicketsBySelect(sortingItem, filteredByPriority)
 		const filteredByPickDate = filterTicketsBySelect(
@@ -20,6 +20,6 @@ export const selectFilteredTickets = createSelector(
 			filteredBySelect,
 			pickingDate
 		)
-		return filterTickets(filteredByPickDate, stopsFilter)
+		return filterTickets(filteredByPickDate, transfers.transfers)
 	}
 )

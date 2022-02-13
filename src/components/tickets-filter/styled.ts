@@ -1,5 +1,5 @@
 import styled, { CSSProperties } from 'styled-components'
-import { minScreenWidth, tabletWidth } from './../../Constants/StyleConstants'
+import { minScreenHeight, minScreenWidth, tabletWidth } from './../../Constants/StyleConstants'
 
 interface WrapProps {
 	position?: CSSProperties['position']
@@ -7,12 +7,14 @@ interface WrapProps {
 	width?: CSSProperties['width']
 	marginTop?: CSSProperties['marginTop']
 	zIndex?: CSSProperties['zIndex']
+	isHidden?: boolean
 }
 export const Wrapper = styled.div<WrapProps>`
-	position: ${(props) => props.position || 'sticky'};
-	top: ${(props) => props.top || '235.67px'};
-	margin: ${(props) => props.marginTop || '12px'} 20px 0 0;
-	z-index: ${(props) => props.zIndex || 1};
+	position: ${({ position }) => position ?? 'sticky'};
+	top: ${({ top }) => top ?? '236px'};
+	margin: ${({ marginTop }) => marginTop ?? '12px'} 20px 0 0;
+	z-index: ${({ zIndex }) => zIndex ?? 1};
+	transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 
 	@media (max-width: ${tabletWidth}) {
 		top: 0;
@@ -30,10 +32,14 @@ export const Wrapper = styled.div<WrapProps>`
 	.ant-picker-dropdown,
 	.ant-picker-panel-container,
 	.ant-picker-panel {
-		display: flex;
+		position: 'sticky';
+		width: 'min-content';
+		display: ${({ isHidden }) => (isHidden ? 'none' : 'block')};
 
 		@media (max-width: ${tabletWidth}) {
+			min-heighth: ${minScreenHeight};
 			min-width: ${minScreenWidth};
+			width: 100%;
 		}
 	}
 `

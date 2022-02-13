@@ -1,10 +1,12 @@
 import styled from 'styled-components'
-import { tabletWidth } from './../../Constants/StyleConstants';
+import { middleWidth, tabletWidth } from './../../Constants/StyleConstants'
 
 interface ButtonProps {
 	isActive: boolean
 }
-
+interface MenuProps {
+	isMenuRolledUp: boolean
+}
 export const PriorityButton = styled.button<ButtonProps>`
     color: ${({ isActive }) => (isActive ? 'white' : 'inherit')};
     background: ${({ isActive }) => (isActive ? ' #2196f3' : 'inherit')}; 
@@ -32,7 +34,7 @@ export const PriorityButton = styled.button<ButtonProps>`
     }
     }
 `
-export const Menu = styled.div`
+export const Menu = styled.div<MenuProps>`
 	position: sticky;
 	z-index: 10;
 	top: 20px;
@@ -44,7 +46,11 @@ export const Menu = styled.div`
 	min-width: 420px;
 
 	@media (max-width: ${tabletWidth}) {
-		top: 320px;
+		top: ${({ isMenuRolledUp }) => (isMenuRolledUp ? '172px' : '320px')};
 		min-width: unset;
+        transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+	}
+	@media (max-width: ${middleWidth}) and (min-width: ${tabletWidth}) {
+		min-width: calc(230px + (100vw - 476px));
 	}
 `

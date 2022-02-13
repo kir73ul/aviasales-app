@@ -27,11 +27,14 @@ const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducer
 }
 
 const initialFiltersState: FiltersStateType = {
-	[NumbersOfTransfers.all]: true,
-	[NumbersOfTransfers.zero]: true,
-	[NumbersOfTransfers.one]: true,
-	[NumbersOfTransfers.two]: true,
-	[NumbersOfTransfers.three]: true,
+	transfers: {
+		[NumbersOfTransfers.all]: true,
+		[NumbersOfTransfers.zero]: true,
+		[NumbersOfTransfers.one]: true,
+		[NumbersOfTransfers.two]: true,
+		[NumbersOfTransfers.three]: true,
+	},
+	isMenuRolledUp: false,
 }
 
 const checks = [
@@ -42,17 +45,17 @@ const checks = [
 ]
 
 const setKey = (state: FiltersStateType, key: NumbersOfTransfers, value: boolean) => {
-	const newState = { ...state, [key]: value }
-	const keyCounter = checks.reduce((acc, item) => (newState[item] ? acc + 1 : acc), 0)
-	keyCounter === 4 ? (newState.all = true) : (newState.all = false)
+	const newState = { ...state, transfers: { ...state.transfers, [key]: value } }
+	const keyCounter = checks.reduce((acc, item) => (newState.transfers[item] ? acc + 1 : acc), 0)
+	keyCounter === 4 ? (newState.transfers.all = true) : (newState.transfers.all = false)
 	return newState
 }
 
 const setAllKeys = (state: FiltersStateType, value: boolean) => {
-	const { ...newState } = state
-	newState.all = value
+	const newState = { ...state }
+	newState.transfers.all = value
 	checks.forEach((key) => {
-		newState[key] = value
+		newState.transfers[key] = value
 	})
 	return newState
 }
@@ -65,6 +68,11 @@ const transfersReducer = (state = initialFiltersState, action: TransfersReducerT
 		case actionTypes.TOGGLE_ALL_CHECKBOXES:
 			return setAllKeys(state, action.payload)
 
+		case actionTypes.ROLL_UP_MENU:
+			return {
+				...state,
+				isMenuRolledUp: !state.isMenuRolledUp,
+			}
 		default:
 			return state
 	}

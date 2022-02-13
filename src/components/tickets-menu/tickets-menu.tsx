@@ -4,6 +4,7 @@ import { ParametersOfFilter, SortOfTickets } from '../../Types/Types'
 import { translateSortOfTickets } from './../../Constants/Constants'
 import { Menu, PriorityButton } from './styled'
 import { selectPriority, selectSortingItem } from '../../selectors'
+import { AppStateType } from '../../combineStore'
 
 const items = [
 	{ key: SortOfTickets.cheapest, value: translateSortOfTickets.cheapest },
@@ -13,6 +14,7 @@ const items = [
 export const TicketsMenu = () => {
 	const priority = useSelector(selectPriority)
 	const sortingItem = useSelector(selectSortingItem)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
 	const dispatch = useDispatch()
 	const isPriorityValid =
 		sortingItem === ParametersOfFilter.biggerPrice ||
@@ -33,5 +35,5 @@ export const TicketsMenu = () => {
 			</PriorityButton>
 		)
 	})
-	return <Menu>{buttons} </Menu>
+	return <Menu isMenuRolledUp={isMenuRolledUp}>{buttons} </Menu>
 }

@@ -15,10 +15,10 @@ export const TicketsList = () => {
 	const dispatch = useDispatch()
 
 	const scrollHandler = () => {
-		const isOnBottom =
+		const pxFromBottom =
 			document.documentElement.scrollHeight -
 			(window.innerHeight + document.documentElement.scrollTop)
-		if (isOnBottom < 100 && isOnBottom > 1) {
+		if (pxFromBottom < 100 && pxFromBottom > 1) {
 			setCountOfTickets((prevState) => prevState + numOfTicketsInPortion)
 		}
 	}
@@ -34,7 +34,7 @@ export const TicketsList = () => {
 
 	useEffect(() => {
 		document.documentElement.scrollTop = 0
-		setCountOfTickets(10)
+		setCountOfTickets(numOfTicketsInPortion)
 	}, [filteredTickets])
 
 	return (

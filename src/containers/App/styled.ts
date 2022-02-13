@@ -2,6 +2,10 @@ import styled from 'styled-components'
 import { minScreenWidth } from '../../Constants/StyleConstants'
 import { tabletWidth } from './../../Constants/StyleConstants'
 
+interface HeaderProps {
+	isMenuRolledUp: boolean
+}
+
 export const AppWrapper = styled.div`
 	background: #f3f7fa;
 	min-height: 100vh;
@@ -18,7 +22,7 @@ export const LinkedImage = styled.div`
 		z-index: 5;
 	}
 `
-export const Header = styled.div`
+export const Header = styled.div<HeaderProps>`
 	background-color: #f3f7fa;
 	position: fixed;
 	top: 0;
@@ -27,7 +31,7 @@ export const Header = styled.div`
 	height: 60px;
 
 	@media (max-width: ${tabletWidth}) {
-		height: 320px;
+		height: ${({ isMenuRolledUp }) => (isMenuRolledUp ? '173px' : '320px')};
 	}
 `
 export const MainContent = styled.div`
@@ -44,7 +48,7 @@ export const MainContent = styled.div`
 `
 export const FilterWrap = styled.div`
 	position: sticky;
-	margin-bottom: 20px;
+	margin-bottom: 12px;
 
 	@media (max-width: ${tabletWidth}) {
 		top: 20px;
