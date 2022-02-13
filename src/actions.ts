@@ -16,28 +16,29 @@ interface ToggleCheckboxPayloadType {
 	isChecked: boolean
 }
 
-interface ToggleCheckboxType {
+/* interface ToggleCheckboxType {
 	type: typeof actionTypes.TOGGLE_CHECKBOX
 	payload: ToggleCheckboxPayloadType
-}
-
+} */
+type ToggleCheckboxType = ReturnType<typeof toggleCheckbox>
 export const toggleCheckbox = (payload: ToggleCheckboxPayloadType) => ({
 	type: actionTypes.TOGGLE_CHECKBOX,
 	payload,
 })
-
-interface ToggleAllCheckboxesType {
+type ToggleAllCheckboxesType = ReturnType<typeof toggleAllCheckboxes>
+/* interface ToggleAllCheckboxesType {
 	type: typeof actionTypes.TOGGLE_ALL_CHECKBOXES
 	payload: boolean
-}
+} */
 export const toggleAllCheckboxes = (payload: boolean) => ({
 	type: actionTypes.TOGGLE_ALL_CHECKBOXES,
 	payload,
 })
-interface RollUpMenuType {
+type RollUpMenuType = ReturnType<typeof rollUpMenu>
+/* interface RollUpMenuType {
 	type: typeof actionTypes.ROLL_UP_MENU
 	payload: boolean
-}
+} */
 export const rollUpMenu = () => ({
 	type: actionTypes.ROLL_UP_MENU,
 })
