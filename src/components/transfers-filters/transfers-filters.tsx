@@ -1,8 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {
-	/* rollUpMenu, toggleAllCheckboxes, toggleCheckbox */ TransfersReducerActions,
-} from './../../actions'
+import { SelectReducerActions, TransfersReducerActions } from './../../actions'
 import { NumbersOfTransfers } from '../../Types/Types'
 import { translateNumberOfStops } from './../../Constants/Constants'
 import { Title, Wrapper, List, Label, Input } from './styled'
@@ -16,10 +14,11 @@ export const TransfersFilters = () => {
 
 	const toggle = (evt: React.ChangeEvent<HTMLInputElement>, key: NumbersOfTransfers) => {
 		const { checked } = evt.target
-
-		if (key === NumbersOfTransfers.all)
-			dispatch(TransfersReducerActions.toggleAllCheckboxes(checked))
-		else dispatch(TransfersReducerActions.toggleCheckbox({ key, isChecked: checked }))
+		dispatch(
+			key === NumbersOfTransfers.all
+				? TransfersReducerActions.toggleAllCheckboxes(checked)
+				: TransfersReducerActions.toggleCheckbox({ key, isChecked: checked })
+		)
 	}
 	const checkboxes = [
 		{ key: NumbersOfTransfers.all, value: translateNumberOfStops.all },
@@ -36,9 +35,9 @@ export const TransfersFilters = () => {
 					type='checkbox'
 					id={value}
 					onChange={(evt: React.ChangeEvent<HTMLInputElement>) => toggle(evt, key)}
-					checked={transfers.transfers[key]}
+					checked={transfers[key]}
 				/>
-				<Label htmlFor={value} checked={transfers.transfers[key]}>
+				<Label htmlFor={value} checked={transfers[key]}>
 					{value}
 				</Label>
 			</li>
@@ -50,7 +49,7 @@ export const TransfersFilters = () => {
 			<Menu
 				defaultOpenKeys={['sub1']}
 				mode='inline'
-				onOpenChange={() => dispatch(TransfersReducerActions.rollUpMenu())}
+				onOpenChange={() => dispatch(SelectReducerActions.rollUpMenu())}
 			>
 				<SubMenu key='sub1' title={<Title>Количество пересадок</Title>}>
 					<List>{list}</List>

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 import { AppStateType } from '../../combineStore'
 
 export const App = () => {
-	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.selectReducer.isMenuRolledUp)
 
 	return (
 		<AppWrapper>

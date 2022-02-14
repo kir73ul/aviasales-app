@@ -7,7 +7,7 @@ import { Wrapper } from './styled'
 import { AppStateType } from '../../combineStore'
 
 export const TicketsFilter = () => {
-	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.selectReducer.isMenuRolledUp)
 	const dispatch = useDispatch()
 	const handleChange = (value: ParametersOfFilter | Carriers) => {
 		dispatch(SelectReducerActions.SetSortingItem(value))

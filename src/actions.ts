@@ -27,9 +27,6 @@ export const TransfersReducerActions = {
 		type: actionTypes.TOGGLE_ALL_CHECKBOXES,
 		payload,
 	}),
-	rollUpMenu: () => ({
-		type: actionTypes.ROLL_UP_MENU,
-	}),
 }
 
 export type PriorityReducerType = ReturnType<PropertyType<typeof PriorityReducerActions>>
@@ -67,6 +64,9 @@ export const SelectReducerActions = {
 	SetSortingItem: (payload: ParametersOfFilter | Carriers | null) => ({
 		type: actionTypes.SET_SORTING_ITEMS,
 		payload,
+	}),
+	rollUpMenu: () => ({
+		type: actionTypes.ROLL_UP_MENU,
 	}),
 }
 

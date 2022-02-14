@@ -7,11 +7,13 @@ import {
 } from './actions'
 import { actionTypes } from './Types/Action types'
 import {
-	FiltersStateType,
 	SortOfTickets,
 	NumbersOfTransfers,
 	TicketsStateType,
-	SelectedStateType,
+/* 	SelectedStateType,
+ */	StopsType,
+ ParametersOfFilter,
+ Carriers,
 } from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
@@ -26,15 +28,12 @@ const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducer
 	}
 }
 
-const initialFiltersState: FiltersStateType = {
-	transfers: {
-		[NumbersOfTransfers.all]: true,
-		[NumbersOfTransfers.zero]: true,
-		[NumbersOfTransfers.one]: true,
-		[NumbersOfTransfers.two]: true,
-		[NumbersOfTransfers.three]: true,
-	},
-	isMenuRolledUp: false,
+const initialFiltersState: StopsType = {
+	[NumbersOfTransfers.all]: true,
+	[NumbersOfTransfers.zero]: true,
+	[NumbersOfTransfers.one]: true,
+	[NumbersOfTransfers.two]: true,
+	[NumbersOfTransfers.three]: true,
 }
 
 const checks = [
@@ -44,18 +43,18 @@ const checks = [
 	NumbersOfTransfers.three,
 ]
 
-const setKey = (state: FiltersStateType, key: NumbersOfTransfers, value: boolean) => {
-	const newState = { ...state, transfers: { ...state.transfers, [key]: value } }
-	const keyCounter = checks.reduce((acc, item) => (newState.transfers[item] ? acc + 1 : acc), 0)
-	keyCounter === 4 ? (newState.transfers.all = true) : (newState.transfers.all = false)
+const setKey = (state: StopsType, key: NumbersOfTransfers, value: boolean) => {
+	const newState = { ...state, [key]: value }
+	const keyCounter = checks.reduce((acc, item) => (newState[item] ? acc + 1 : acc), 0)
+	keyCounter === 4 ? (newState.all = true) : (newState.all = false)
 	return newState
 }
 
-const setAllKeys = (state: FiltersStateType, value: boolean) => {
+const setAllKeys = (state: StopsType, value: boolean) => {
 	const newState = { ...state }
-	newState.transfers.all = value
+	newState.all = value
 	checks.forEach((key) => {
-		newState.transfers[key] = value
+		newState[key] = value
 	})
 	return newState
 }
@@ -68,11 +67,6 @@ const transfersReducer = (state = initialFiltersState, action: TransfersReducerT
 		case actionTypes.TOGGLE_ALL_CHECKBOXES:
 			return setAllKeys(state, action.payload)
 
-		case actionTypes.ROLL_UP_MENU:
-			return {
-				...state,
-				isMenuRolledUp: !state.isMenuRolledUp,
-			}
 		default:
 			return state
 	}
@@ -108,12 +102,14 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 			return state
 	}
 }
-const initialSelectState: SelectedStateType = {
-	pickingDate: null,
-	sortingItem: null,
+const initialSelectState = {
+	pickingDate: null as string | null,
+	sortingItem: null as ParametersOfFilter | Carriers | null,
+	isMenuRolledUp: false,
 }
+type SelectedStateType = typeof initialSelectState
 
-const selectReducer = (state = initialSelectState, action: SelectReducerType) => {
+const selectReducer = (state: SelectedStateType = initialSelectState, action: SelectReducerType) => {
 	switch (action.type) {
 		case actionTypes.SET_PICKING_DATE:
 			return {
@@ -125,6 +121,11 @@ const selectReducer = (state = initialSelectState, action: SelectReducerType) =>
 			return {
 				...state,
 				sortingItem: action.payload,
+			}
+		case actionTypes.ROLL_UP_MENU:
+			return {
+				...state,
+				isMenuRolledUp: !state.isMenuRolledUp,
 			}
 
 		default:

@@ -14,7 +14,7 @@ const items = [
 export const TicketsMenu = () => {
 	const priority = useSelector(selectPriority)
 	const sortingItem = useSelector(selectSortingItem)
-	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.selectReducer.isMenuRolledUp)
 	const dispatch = useDispatch()
 	const isPriorityValid =
 		sortingItem === ParametersOfFilter.biggerPrice ||

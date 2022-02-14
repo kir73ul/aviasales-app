@@ -30,10 +30,7 @@ export enum Carriers {
 export type StopsType = {
 	[key in NumbersOfTransfers]: boolean
 }
-export type FiltersStateType = {
-	transfers: StopsType
-	isMenuRolledUp: boolean
-}
+
 export interface SegmentType {
 	origin: string
 	destination: string
@@ -51,8 +48,5 @@ export interface TicketsStateType {
 	isLoading: boolean
 	tickets: TicketsType[]
 }
-export interface SelectedStateType {
-	pickingDate: string | null
-	sortingItem: ParametersOfFilter | Carriers | null
-}
+
 export type CarrierIconsType = Record<Carriers, string>

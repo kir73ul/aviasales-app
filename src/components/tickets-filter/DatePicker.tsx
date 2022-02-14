@@ -7,7 +7,7 @@ import { Wrapper } from './styled'
 
 export const DateFilter = () => {
 	const [isHidden, setIsHidden] = useState(true)
-	const isMenuRolledUp = useSelector((state: AppStateType) => state.transfersReducer.isMenuRolledUp)
+	const isMenuRolledUp = useSelector((state: AppStateType) => state.selectReducer.isMenuRolledUp)
 	const dispatch = useDispatch()
 	const handleChange = (moment: moment.Moment | null, date: string) => {
 		dispatch(SelectReducerActions.setPickingDate(moment ? date : null))
