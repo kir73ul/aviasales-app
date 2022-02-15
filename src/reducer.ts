@@ -10,10 +10,11 @@ import {
 	SortOfTickets,
 	NumbersOfTransfers,
 	TicketsStateType,
-/* 	SelectedStateType,
- */	StopsType,
- ParametersOfFilter,
- Carriers,
+	/* 	SelectedStateType,
+	 */ StopsType,
+	ParametersOfFilter,
+	Carriers,
+	SelectStateType,
 } from './Types/Types'
 
 const priorityReducer = (state = SortOfTickets.cheapest, action: PriorityReducerType) => {
@@ -102,14 +103,13 @@ const ticketsReducer = (state = initialTicketsState, action: TicketsReducerType)
 			return state
 	}
 }
-const initialSelectState = {
-	pickingDate: null as string | null,
-	sortingItem: null as ParametersOfFilter | Carriers | null,
+const initialSelectState: SelectStateType = {
+	pickingDate: null,
+	sortingItem: null,
 	isMenuRolledUp: false,
 }
-type SelectedStateType = typeof initialSelectState
 
-const selectReducer = (state: SelectedStateType = initialSelectState, action: SelectReducerType) => {
+const selectReducer = (state = initialSelectState, action: SelectReducerType) => {
 	switch (action.type) {
 		case actionTypes.SET_PICKING_DATE:
 			return {

@@ -48,5 +48,9 @@ export interface TicketsStateType {
 	isLoading: boolean
 	tickets: TicketsType[]
 }
-
+export interface SelectStateType  {
+	pickingDate: string | null
+	sortingItem:  ParametersOfFilter | Carriers | null
+	isMenuRolledUp: boolean
+}
 export type CarrierIconsType = Record<Carriers, string>
